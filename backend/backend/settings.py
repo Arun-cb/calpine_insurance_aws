@@ -167,12 +167,15 @@ DATABASES = {
         'USER': 'admin',
         'PASSWORD': 'ProductadminSQL',
         'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
-            'TrustServerCertificate': 'yes',
+            'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }
 
+# 'OPTIONS': {
+#             'driver': 'ODBC Driver 18 for SQL Server',
+#             'TrustServerCertificate': 'yes',
+#         },
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
