@@ -168,6 +168,7 @@ DATABASES = {
         'PASSWORD': 'ProductadminSQL',
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
+            'TrustServerCertificate': 'yes',
         },
     }
 }
