@@ -5361,6 +5361,21 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
+      "menu_id": 36,
+      "menu_name": "Profile",
+      "parent_menu_id": 0,
+      "url": "/",
+      "page_number": 0,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
       "menu_id": 14,
       "menu_name": "Publish Scorecard",
       "parent_menu_id": -1,
@@ -5693,7 +5708,7 @@
     "fields": {
       "menu_id": 34,
       "menu_name": "Plant",
-      "parent_menu_id": 7,
+      "parent_menu_id": 36,
       "url": "profile/plant",
       "page_number": 19,
       "created_by": 1,
@@ -5813,7 +5828,7 @@
     "fields": {
       "menu_id": 33,
       "menu_name": "Counterparty",
-      "parent_menu_id": 7,
+      "parent_menu_id": 36,
       "url": "profile/counterparty",
       "page_number": 27,
       "created_by": 1,
