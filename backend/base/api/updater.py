@@ -1,5 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from base.api.views import check_kpi_actulas_pending, check_monthly_actuals_remainder, session_active_check
+# from base.api.views import check_kpi_actulas_pending, check_monthly_actuals_remainder, session_active_check
 import os
 import smtplib
 from email import encoders
@@ -11,7 +11,7 @@ from rest_framework import generics, status, filters
 from rest_framework.decorators import api_view
 from base.models import *
 
-from base.api.automation.export_file import automationKpiActuals
+# from base.api.automation.export_file import automationKpiActuals
 
 def jobs_scheduler(id):
     print("jobs_scheduler")
@@ -21,15 +21,15 @@ def jobs_scheduler(id):
 @api_view(["GET"])
 def instant_jobs_scheduler(request):
     print("jobs_scheduler")
-    check_kpi_actulas_pending()
-    check_monthly_actuals_remainder()
-    automationKpiActuals()
+    # check_kpi_actulas_pending()
+    # check_monthly_actuals_remainder()
+    # automationKpiActuals()
     return Response("Scheduler has been completed", status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
 def testinstance(request):
-    automationKpiActuals()
+    # automationKpiActuals()
     return Response("Scheduler has been completed", status=status.HTTP_200_OK)
 
 def checking():
