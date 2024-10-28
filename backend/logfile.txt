@@ -1,0 +1,4 @@
+2024-08-22 14:34:20.024280 - UserID: 1 - Exception raised: list index out of range
+2024-08-22 14:34:20.027941 - UserID: 1 - Scheduler completed successfully
+2024-08-22 15:50:31.627738 - UserID: 1 - Exception raised: list index out of range
+2024-08-22 15:50:31.631734 - UserID: 1 - Scheduler completed successfully
