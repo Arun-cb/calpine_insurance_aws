@@ -5661,36 +5661,6 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 18,
-      "menu_name": "KPI Report",
-      "parent_menu_id": 16,
-      "url": "kpi_report",
-      "page_number": 15,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 19,
-      "menu_name": "KPI Dashboard",
-      "parent_menu_id": 16,
-      "url": "kpidashboard",
-      "page_number": 16,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
       "menu_id": 25,
       "menu_name": "Configuration",
       "parent_menu_id": 23,
@@ -5738,14 +5708,14 @@
     "fields": {
       "menu_id": 26,
       "menu_name": "Initiative Report",
-      "parent_menu_id": 16,
-      "url": "initiative_report",
+      "parent_menu_id": 37,
+      "url": "report/initiative_report",
       "page_number": 20,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
+      "delete_flag": 0
     }
   },
   {
@@ -6145,40 +6115,6 @@
     "pk": 17,
     "fields": {
       "menu_id_id": 17,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 18,
-    "fields": {
-      "menu_id_id": 18,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 19,
-    "fields": {
-      "menu_id_id": 19,
       "group_id_id": 1,
       "add": "Y",
       "edit": "Y",
@@ -73521,6 +73457,21 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 1,
+    "fields": {
+      "config_type": "Application Title",
+      "config_code": "Insurance Compliance Tracker",
+      "config_value": "Insurance Compliance Tracker",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
     }
   }
 ]

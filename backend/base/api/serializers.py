@@ -319,4 +319,9 @@ class FileStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileStore
         fields = ['id', 'name', 'file', 'content_type', 'Counterparty_id', 'created_by', 'last_updated_by']
+
+class initiative_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = initiative
+        fields= '__all__'
    

@@ -301,7 +301,7 @@ class compliance_details(models.Model):
     compliance_criteria = models.CharField(max_length=50, null=False, blank=False)
     compliance_value = models.CharField(max_length=255, null=False, blank=False)
     value_type = models.CharField(max_length=255, null=False, blank=False, default='nill')
-    option_type = models.CharField(max_length=255, null=True, blank=False, default='nill')
+    option_type = models.CharField(max_length=255, null=True, blank=True, default='nill')
     effective_from = models.DateTimeField(auto_now=True)
     created_by = models.IntegerField(null=False, blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -538,3 +538,23 @@ class FileStore(models.Model):
 
     class Meta:
         db_table = "tb_sc_filestore"
+
+
+class initiative(models.Model):
+    counterparty_id = models.ForeignKey(
+        counterparty_details, null=False, blank=False, db_column='counterparty_id', on_delete=models.CASCADE)
+    compliance_id = models.ForeignKey(
+        compliance_details, null=False, blank=False, db_column='compliance_id', on_delete=models.CASCADE)
+    action_item = models.CharField(max_length=500, null=False, blank=False)
+    target_date = models.DateTimeField(null=False, blank=False)
+    ownership = models.CharField(max_length=100, null=False, blank=False)
+    status = models.CharField(max_length=20, null=False, blank=False)
+    comments = models.CharField(max_length=500, null=True, blank=True)
+    created_by = models.IntegerField(null=False, blank=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_updated_by = models.IntegerField(null=False, blank=False)
+    last_updated_date = models.DateTimeField(auto_now=True)
+    delete_flag = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "tb_sc_initiative"

@@ -272,4 +272,8 @@ urlpatterns = [
     path("Fileget/<int:id>/", views.Fileget),
     path("FileNameget/<int:id>/", views.get_file_names),
     
+    # Compliance Initiative
+    path("get_sc_initiative/<int:id>/<int:compid>/", views.get_sc_initiative),
+    path("ins_sc_initiative", views.ins_sc_initiative),
+    path("get_sc_initiative_details", views.get_sc_initiative_details),
 ]

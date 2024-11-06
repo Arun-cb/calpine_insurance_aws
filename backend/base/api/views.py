@@ -21,6 +21,7 @@ from . import updater
 from django.db import transaction
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.db.models import F
 
 
 @api_view(["GET"])
@@ -1849,12 +1850,9 @@ def ins_config_codes(request):
         if request.data.get("is_active") == None
         else request.data.get("is_active"),
     }
-    print("data", data)
     serializer = config_codes_serializer(data=data)
     
     all_serializer_fields = list(serializer.fields.keys())
-
-    print("all_serializer_fields",all_serializer_fields)
 
     # Fields to exclude
     fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date']
@@ -1869,7 +1867,6 @@ def ins_config_codes(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
     else:
         error_data = serializer.errors
-        print("error_data", error_data, len(error_data))
         e_code = []
         e_msg = []
         e_field = []
@@ -1881,10 +1878,6 @@ def ins_config_codes(request):
                 e_code.append(error_code)
                 e_msg.append(error_data)
                 e_field.append(field)
-
-        print("e_code", e_code, "length", len(e_code))
-        print("e_msg", e_msg, "length", len(e_msg))
-        print("e_field", e_field, "length", len(e_field))
 
         # index_to_replace = e_field.index('non_field_errors')
 
@@ -2190,6 +2183,20 @@ def get_range_compliance_details(request, start, end, search=False):
         serializer = compliance_details_serializer(details, many=True)
         details_csv_export = compliance_details.objects.filter(delete_flag=False)
         serializer_csv_export = compliance_details_serializer(details_csv_export, many=True)
+        
+        compliance_data = serializer.data
+        print("Serializer Data :",serializer.data)
+        
+        if len(serializer.data) > 0:
+            for data in serializer.data:
+                if(data['value_type']=='Options'):
+                    # Compliance Code to Value
+                    compliance_code = compliance_codes.objects.filter(id=int(data['compliance_value']), delete_flag=False).first()
+                    if compliance_code:
+                        data['compliance_values'] = compliance_code.compliance_value
+                else:
+                    data['compliance_values'] = data['compliance_value']
+                
         return Response(
             {
                 "data": serializer.data,
@@ -2198,7 +2205,57 @@ def get_range_compliance_details(request, start, end, search=False):
             }, status=status.HTTP_200_OK
         )
     except Exception as e:
+        print("ERROR :",e)
         return Response(e, status=status.HTTP_400_BAD_REQUEST)
+    
+# @api_view(["GET"])
+# # @permission_classes([IsAuthenticated])
+# def get_range_compliance_codes(request, start, end, search=False):
+#     try:
+#         if not search:
+#             compliance_len = compliance_codes.objects.filter(delete_flag=False).count()
+#             compliance = compliance_codes.objects.filter( delete_flag=False)[start:end]
+#         else:
+#             compliance_len = compliance_codes.objects.filter(Q(compliance_type__icontains = search) | Q(compliance_code__icontains = search) | Q(compliance_value__icontains = search), delete_flag=False).count()
+#             compliance = compliance_codes.objects.filter(Q(compliance_type__icontains = search) | Q(compliance_code__icontains = search) | Q(compliance_value__icontains = search), delete_flag=False)[start:end]
+#         compliance_csv_export = compliance_codes.objects.filter(delete_flag=False)
+#         serializer = compliance_codes_serializer(compliance, many=True)
+#         compliance_data = serializer.data
+        
+#         # Serializer for CSV data (all records)
+#         compliance_csv_export = compliance_codes.objects.filter(delete_flag=False)
+#         serializer_csv_export = compliance_codes_serializer(compliance_csv_export, many=True)
+#         csv_data = serializer_csv_export.data
+
+#         # Mapping to keep track of compliance_code "0" values for header lookup
+#         compliance_code_map = {item["compliance_code"]: item["compliance_value"] for item in csv_data}
+#         print("compliance_code_map :",compliance_code_map)
+
+#         # Add compliance_header to each item in compliance_data
+#         for item in compliance_data:
+#             compliance_code = item.get("compliance_code")
+#             print("compliance_code:", compliance_code)
+            
+#             if compliance_code == "0":
+#                 item["compliance_header"] = "--Header--"
+#             else:
+#                 # Retrieve the compliance value using the compliance_code
+#                 head_value = compliance_codes.objects.filter(id=compliance_code, delete_flag=False).first()
+#                 if head_value:
+#                     item["compliance_header"] = head_value.compliance_value
+
+#         return Response(
+#             {
+#                 "data": compliance_data,
+#                 "data_length": compliance_len,
+#                 "csv_data": csv_data,
+#             },
+#             status=status.HTTP_200_OK
+#         )
+
+#     except Exception as e:
+#         print("ERROR :",e)
+#         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 # insert compliance details
 @api_view(["POST"])
@@ -2221,165 +2278,90 @@ def ins_compliance_details(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
-# insert multiple compliance details
+
+# Compliance Rules Insert single and multi record 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 @transaction.atomic
 def ins_compliance_details_bulk(request):
     insertData = request.data
+    print("Insert data :",insertData, len(insertData))
+    successful_inserts = []
+    errors = []
     try:
-        for i in range(len(insertData)):
+
+        # Process each item in the input data list
+        for item in insertData:
             data = {
-                "compliance_group_name": insertData[i]["compliance_group_name"],
-                "compliance_name": insertData[i]["compliance_name"],
-                "compliance_criteria": insertData[i]["compliance_criteria"],
-                "compliance_value": insertData[i]["compliance_value"],
-                "value_type": insertData[i]["value_type"],
-                "option_type": insertData[i].get('option_type') if insertData[i].get('option_type') else 'nill',
-                "created_by": insertData[i]["created_by"],
-                "last_updated_by": insertData[i]["last_updated_by"]
+                "compliance_group_name": item.get("compliance_group_name"),
+                "compliance_name": item.get("compliance_name"),
+                "compliance_criteria": item.get("compliance_criteria"),
+                "compliance_value": item.get("compliance_value"),
+                "value_type": item.get("value_type"),
+                "option_type": item.get("option_type", "nill"),
+                "created_by": item.get("created_by"),
+                "last_updated_by": item.get("last_updated_by"),
             }
 
             serializer = compliance_details_serializer(data=data)
             
             all_serializer_fields = list(serializer.fields.keys())
-
-            print("all_serializer_fields",all_serializer_fields)
-
-            # Fields to exclude
-            fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date', 'effective_from']
-
-            # Remove the excluded fields from the list of field names
+            # Check if the serializer data is valid
+            fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date', 'option_type']
             required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
 
-            # print("required_serializer_fields",required_serializer_fields)
-
+            # Check if the serializer data is valid
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                successful_inserts.append(serializer.data)
             else:
                 error_data = serializer.errors
-                print("error_data", error_data, len(error_data))
-                e_code = []
-                e_msg = []
-                e_field = []
-                # Iterate over each field's errors
+                print("SER ERRORS :",error_data)
+                e_code, e_msg, e_field = [], [], []
+
+                # Collect error details for each field
                 for field, error_list in error_data.items():
-                    for error_data in error_list:
-                        # Access the error code
-                        error_code = error_data.code
+                    for error_detail in error_list:
+                        error_code = error_detail.code
                         e_code.append(error_code)
-                        e_msg.append(error_data)
+                        e_msg.append(error_detail)
                         e_field.append(field)
 
-                print("e_code", e_code, "length", len(e_code))
-                print("e_msg", e_msg, "length", len(e_msg))
-                print("e_field", e_field, "length", len(e_field))
-
-                # index_to_replace = e_field.index('non_field_errors')
-
-                # Replace 'non_field_errors' with 'config_codes'
-                # e_field[index_to_replace] = 'config_code'
-                
-                # Remove the excluded fields from the list of field names
-                non_e_field = [for_field for for_field in required_serializer_fields if for_field not in e_field]
-
-                # print("non_e_field",non_e_field)
-
-                data_warning = warnings.objects.filter(
-                    error_code__in=e_code, error_from="Server"
-                )
+                # Fetch custom error messages based on error codes
+                non_e_field = [field for field in required_serializer_fields if field not in e_field]
+                data_warning = warnings.objects.filter(error_code__in=e_code, error_from="Server")
                 serializer_warning = warnings_serializer(data_warning, many=True)
-                # print("serializer_warning length", serializer_warning.data)
-
-                # ! test validation on Backend level
-
+                
                 field_arr = []
-                for iter in range(len(e_code)):
-                    for j in serializer_warning.data:
-                        # print("out : ", e_code[iter], j["error_code"])
-                        if e_code[iter] == j["error_code"]:
-                            field_arr.append(
-                                (j["error_msg"]).replace("%1", e_field[iter].replace("_", " "))
-                            )
-                            # print("true")
-                            # print("j:", j["error_msg"])
-                        else:
-                            print("false")
-                            print("i:", e_code[iter])
+                for idx, code in enumerate(e_code):
+                    for warning in serializer_warning.data:
+                        if code == warning["error_code"]:
+                            field_arr.append(warning["error_msg"].replace("%1", e_field[idx].replace("_", " ")))
 
-                # print("field_arr", field_arr)
-
-                data = []
-                for i in range(len(e_code)):
-                    # print(f"Error code for field '{field}': {error_code}")
-                    data.append({e_field[i]: [field_arr[i]]})
-                # print("data", data)
-
-                for i in range(len(non_e_field)):
-                    data.append({non_e_field[i]: ''})
-                # print("data", data)
+                data = [{e_field[i]: [field_arr[i]]} for i in range(len(e_code))]
+                data += [{field: ''} for field in non_e_field]
 
                 def order_data(data):
-                    # Define the desired field order
                     field_order = {
                         'compliance_group_name': 0,
                         'compliance_name': 1,
                         'compliance_criteria': 2,
                         'value_type': 3,
-                        'compliance_value': 4,
+                        'compliance_value': 4
                     }
+                    return sorted(data, key=lambda item: field_order.get(list(item.keys())[0], float('inf')))
 
-                    # Sort the data based on the field order
-                    sorted_data = sorted(data, key=lambda item: field_order.get(list(item.keys())[0], float('inf')))
-
-                    return sorted_data
-            
-                # Order the data
                 ordered_data = order_data(data)
+                errors.append({"record": item, "errors": ordered_data})
 
-                # Print the ordered data
-                print("ordered_data",ordered_data)
-                return Response(ordered_data, status=status.HTTP_404_NOT_FOUND)
-                
+        if errors:
+            return Response(ordered_data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(successful_inserts, status=status.HTTP_200_OK)
+
     except Exception as e:
         transaction.set_rollback(True)
-        print("ERROR :",e)
-        return Response(e, status=status.HTTP_400_BAD_REQUEST)
-            
-    #         if serializer.is_valid():
-    #             serializer.save()
-    #         else:
-    #             raise ValueError(f"Validation failed for item {i}: {serializer.errors}")
-
-    #     return Response({"message": "Data inserted successfully"}, status=status.HTTP_200_OK)
-
-    # except Exception as e:
-    #     transaction.set_rollback(True)
-    #     return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
-
-# def ins_compliance_details_bulk(request):
-#     insertData = request.data
-#     for i in range(len(insertData)):
-#         data = {
-#             "compliance_group_name": insertData[i]["compliance_group_name"],
-#             "compliance_name": insertData[i]["compliance_name"],
-#             "compliance_criteria": insertData[i]["compliance_criteria"],
-#             "compliance_value": insertData[i]["compliance_value"],
-#             "created_by": insertData[i]["created_by"],
-#             "last_updated_by": insertData[i]["last_updated_by"]
-#         }
-    
-#         serializer = compliance_details_serializer(data=data)
-    
-#         if serializer.is_valid():
-#             serializer.save()
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-
+        print("ERROR :", e)
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # update compliance details
@@ -2486,7 +2468,6 @@ def upd_compliance_details(request, id):
         return Response(ordered_data, status=status.HTTP_404_NOT_FOUND)
 
 
-
 # Delete compliance details
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
@@ -2532,12 +2513,30 @@ def get_range_counterparty_details(request, start, end, search=False):
                     data['party_code'] = party.name  # Extract only the 'name' field
                 else:
                     data['party_code'] = None  # or any default value
+                    
                 if len(data['actuals']) > 0:
                     for detail in data['actuals']:
-                        # compliance_data = compliance_details.objects.filter(id=detail['compliance_id'], delete_flag=False)
-                        # compliance_data_serializer = compliance_details_serializer(compliance_data, many=True)
-                        # detail.update(compliance_data_serializer.data)
-                        detail.update(compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_group_name','compliance_name','compliance_value','compliance_criteria','effective_from','option_type','value_type')[0])
+                        compliance_data = compliance_details.objects.filter(
+                            id=detail['compliance_id'], delete_flag=False
+                        ).values(
+                            'compliance_group_name',
+                            'compliance_name',
+                            'compliance_value',
+                            'compliance_criteria',
+                            'effective_from',
+                            'option_type',
+                            'value_type'
+                        ).first()
+                        
+                        if compliance_data:
+                            if(compliance_data['value_type']=='Options'):
+                                compliance_code = compliance_codes.objects.filter(id=int(compliance_data['compliance_value']), delete_flag=False).first()
+                                if compliance_code:
+                                        compliance_data['compliance_values'] = compliance_code.compliance_value
+                            else:
+                                compliance_data['compliance_values'] = compliance_data['compliance_value']
+                            detail.update(compliance_data)
+                            
         details_csv_export = counterparty_details.objects.filter(delete_flag=False)           
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
         if len(serializer_csv_export.data) > 0:
@@ -2737,6 +2736,15 @@ def get_compliance_details(request, id=0):
     else:
         org = compliance_details.objects.filter(id=id)
     serializer = compliance_details_serializer(org, many='N')
+    if len(serializer.data) > 0:
+        for data in serializer.data:
+            if(data['value_type']=='Options'):
+                # Compliance Code to Value
+                compliance_code = compliance_codes.objects.filter(id=int(data['compliance_value']), delete_flag=False).first()
+                if compliance_code:
+                    data['compliance_values'] = compliance_code.compliance_value
+            else:
+                data['compliance_values'] = data['compliance_value']
     return Response(serializer.data)
     
 # View all CounterParty Details
@@ -2799,7 +2807,7 @@ def get_compliance_actuals(request, id=0):
 
 # GET Range
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_range_compliance_codes(request, start, end, search=False):
     try:
         if not search:
@@ -2810,16 +2818,53 @@ def get_range_compliance_codes(request, start, end, search=False):
             compliance = compliance_codes.objects.filter(Q(compliance_type__icontains = search) | Q(compliance_code__icontains = search) | Q(compliance_value__icontains = search), delete_flag=False)[start:end]
         compliance_csv_export = compliance_codes.objects.filter(delete_flag=False)
         serializer = compliance_codes_serializer(compliance, many=True)
+        compliance_data = serializer.data
+        
+        # Serializer for CSV data (all records)
+        compliance_csv_export = compliance_codes.objects.filter(delete_flag=False)
         serializer_csv_export = compliance_codes_serializer(compliance_csv_export, many=True)
+        csv_data = serializer_csv_export.data
+
+        # Mapping to keep track of compliance_code "0" values for header lookup
+        compliance_code_map = {item["compliance_code"]: item["compliance_value"] for item in csv_data}
+        print("compliance_code_map :",compliance_code_map)
+
+        # Add compliance_header to each item in compliance_data
+        for item in compliance_data:
+            compliance_code = item.get("compliance_code")
+            print("compliance_code:", compliance_code)
+            
+            if compliance_code == "0":
+                item["compliance_header"] = "--Header--"
+            else:
+                # Retrieve the compliance value using the compliance_code
+                head_value = compliance_codes.objects.filter(id=compliance_code, delete_flag=False).first()
+                if head_value:
+                    item["compliance_header"] = head_value.compliance_value
+
         return Response(
             {
-                "data": serializer.data,
+                "data": compliance_data,
                 "data_length": compliance_len,
-                "csv_data": serializer_csv_export.data,
-            }
+                "csv_data": csv_data,
+            },
+            status=status.HTTP_200_OK
         )
+
     except Exception as e:
-        return Response(e,status=status.HTTP_400_BAD_REQUEST)
+        print("ERROR :",e)
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+    #     serializer_csv_export = compliance_codes_serializer(compliance_csv_export, many=True)
+    #     return Response(
+    #         {
+    #             "data": serializer.data,
+    #             "data_length": compliance_len,
+    #             "csv_data": serializer_csv_export.data,
+    #         }
+    #     )
+    # except Exception as e:
+    #     return Response(e,status=status.HTTP_400_BAD_REQUEST)
 
 # Get By ID
 @api_view(["GET"])
@@ -2835,229 +2880,191 @@ def get_compliance_codes(request, id=0):
 # ADD
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
+@transaction.atomic
 def ins_compliance_codes(request):
-    data = {
-        "compliance_type": request.data.get("compliance_type"),
-        "compliance_code": request.data.get("compliance_code"),
-        "compliance_value": request.data.get("compliance_value"),
-        "created_by": request.data.get("created_by"),
-        "last_updated_by": request.data.get("last_updated_by"),
-        "is_active": False
-        if request.data.get("is_active") == None
-        else request.data.get("is_active"),
-        "is_header": False
-        if request.data.get("is_header") == None
-        else request.data.get("is_header"),
-    }
-    serializer = compliance_codes_serializer(data=data)    
+    # Check if request.data is a dictionary
+    if isinstance(request.data, dict):
+        # Convert to a list with a single dictionary element
+        insertData = [request.data]
+    else:
+        # If it's already a list, keep it as is
+        insertData = request.data
+    # insertData = request.data
+    print("Reuest Data :",insertData,"Type :",type(insertData))
+    all_errors = []
+    successful_inserts = []
     
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-            
-    # all_serializer_fields = list(serializer.fields.keys())
+    try:
+        for record in insertData:
+            data = {
+                "compliance_type": record.get("compliance_type"),
+                "compliance_code": record.get("compliance_code"),
+                "compliance_value": record.get("compliance_value"),
+                "created_by": record.get("created_by"),
+                "last_updated_by": record.get("last_updated_by"),
+                "is_active": False if record.get("is_active") is None else record.get("is_active"),
+                "is_header": False if record.get("is_header") is None else record.get("is_header"),
+            }
 
-    # print("all_serializer_fields",all_serializer_fields)
+            serializer = compliance_codes_serializer(data=data)
 
-    # # Fields to exclude
-    # fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date']
+            all_serializer_fields = list(serializer.fields.keys())
+            fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date']
+            required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
 
-    # # Remove the excluded fields from the list of field names
-    # required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
+            if serializer.is_valid():
+                serializer.save()
+                successful_inserts.append(serializer.data)
+            else:
+                error_data = serializer.errors
+                e_code, e_msg, e_field = [], [], []
+                
+                for field, error_list in error_data.items():
+                    for error_item in error_list:
+                        error_code = error_item.code
+                        e_code.append(error_code)
+                        e_msg.append(error_item)
+                        e_field.append(field)
 
-    # # print("required_serializer_fields",required_serializer_fields)
+                non_e_field = [field for field in required_serializer_fields if field not in e_field]
+                data_warning = warnings.objects.filter(error_code__in=e_code, error_from="Server")
+                serializer_warning = warnings_serializer(data_warning, many=True)
 
-    # if serializer.is_valid():
-    #     serializer.save()
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-    # else:
-    #     error_data = serializer.errors
-    #     print("error_data", error_data, len(error_data))
-    #     e_code = []
-    #     e_msg = []
-    #     e_field = []
-    #     # Iterate over each field's errors
-    #     for field, error_list in error_data.items():
-    #         for error_data in error_list:
-    #             # Access the error code
-    #             error_code = error_data.code
-    #             e_code.append(error_code)
-    #             e_msg.append(error_data)
-    #             e_field.append(field)
+                field_arr = []
+                for idx, code in enumerate(e_code):
+                    for warning in serializer_warning.data:
+                        if code == warning["error_code"]:
+                            field_arr.append(warning["error_msg"].replace("%1", e_field[idx].replace("_", " ")))
 
-    #     print("e_code", e_code, "length", len(e_code))
-    #     print("e_msg", e_msg, "length", len(e_msg))
-    #     print("e_field", e_field, "length", len(e_field))
+                data = [{e_field[i]: [field_arr[i]]} for i in range(len(e_code))]
+                data += [{field: ''} for field in non_e_field]
 
-    #     # index_to_replace = e_field.index('non_field_errors')
+                def order_data(data):
+                    field_order = {
+                        # 'compliance_type': 0,
+                        'compliance_code': 0,
+                        'compliance_value': 1,
+                    }
+                    return sorted(data, key=lambda item: field_order.get(list(item.keys())[0], float('inf')))
 
-    #     # Replace 'non_field_errors' with 'config_codes'
-    #     # e_field[index_to_replace] = 'config_code'
-        
-    #     # Remove the excluded fields from the list of field names
-    #     non_e_field = [for_field for for_field in required_serializer_fields if for_field not in e_field]
+                ordered_data = order_data(data)
+                all_errors.append({"record": record, "errors": ordered_data})
 
-    #     # print("non_e_field",non_e_field)
+        if all_errors:
+            return Response(ordered_data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(successful_inserts, status=status.HTTP_200_OK)
 
-    #     data_warning = warnings.objects.filter(
-    #         error_code__in=e_code, error_from="Server"
-    #     )
-    #     serializer_warning = warnings_serializer(data_warning, many=True)
-    #     # print("serializer_warning length", serializer_warning.data)
+    except Exception as e:
+        transaction.set_rollback(True)
+        print("ERROR :", e)
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    #     # ! test validation on Backend level
-
-    #     field_arr = []
-    #     for iter in range(len(e_code)):
-    #         for j in serializer_warning.data:
-    #             # print("out : ", e_code[iter], j["error_code"])
-    #             if e_code[iter] == j["error_code"]:
-    #                 field_arr.append(
-    #                     (j["error_msg"]).replace("%1", e_field[iter].replace("_", " "))
-    #                 )
-    #                 # print("true")
-    #                 # print("j:", j["error_msg"])
-    #             else:
-    #                 print("false")
-    #                 print("i:", e_code[iter])
-
-    #     # print("field_arr", field_arr)
-
-    #     data = []
-    #     for i in range(len(e_code)):
-    #         # print(f"Error code for field '{field}': {error_code}")
-    #         data.append({e_field[i]: [field_arr[i]]})
-    #     # print("data", data)
-
-    #     for i in range(len(non_e_field)):
-    #         data.append({non_e_field[i]: ''})
-    #     # print("data", data)
-
-    #     def order_data(data):
-    #         # Define the desired field order
-    #         field_order = {
-    #             'compliance_code': 0,
-    #             'compliance_value': 1,
-    #             'is_active': 2,
-    #         }
-
-    #         # Sort the data based on the field order
-    #         sorted_data = sorted(data, key=lambda item: field_order.get(list(item.keys())[0], float('inf')))
-
-    #         return sorted_data
-    
-    #     # Order the data
-    #     ordered_data = order_data(data)
-
-    #     # Print the ordered data
-    #     print("ordered_data",ordered_data)
-    #     return Response(ordered_data, status=status.HTTP_404_NOT_FOUND)    
     
 # UPDATE
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def upd_compliance_codes(request, id):
+    # data_dict = request.data[0]
+    print("request data :",request.data)
     item = compliance_codes.objects.get(id=id)
 
     serializer = compliance_codes_serializer(instance=item, data=request.data)
     
+    all_serializer_fields = list(serializer.fields.keys())
+    
+    print("serializer fields",all_serializer_fields)
+
+    # Fields to exclude
+    fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date']
+
+    # Remove the excluded fields from the list of field names
+    required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
+
+    print("required_serializer_fields",required_serializer_fields)
+
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+    else:
+        error_data = serializer.errors
+        print("error_data", error_data)
+        e_code = []
+        e_msg = []
+        e_field = []
+        # Iterate over each field's errors
+        for field, error_list in error_data.items():
+            for error_data in error_list:
+                # Access the error code
+                error_code = error_data.code
+                e_code.append(error_code)
+                e_msg.append(error_data)
+                e_field.append(field)
 
-    # all_serializer_fields = list(serializer.fields.keys())
+        # print("e_code", e_code, "length", len(e_code))
+        # print("e_msg", e_msg, "length", len(e_msg))
+        # print("e_field", e_field, "length", len(e_field))
+
+        # Remove the excluded fields from the list of field names
+        non_e_field = [for_field for for_field in required_serializer_fields if for_field not in e_field]
+
+        # print("non_e_field",non_e_field)
+
+        data_warning = warnings.objects.filter(
+            error_code__in=e_code, error_from="Server"
+        )
+        serializer_warning = warnings_serializer(data_warning, many=True)
+        # print("serializer_warning length", serializer_warning.data)
+
+        # ! test validation on Backend level
+
+        field_arr = []
+        for iter in range(len(e_code)):
+            for j in serializer_warning.data:
+                # print("out : ", e_code[iter], j["error_code"])
+                if e_code[iter] == j["error_code"]:
+                    field_arr.append(
+                        (j["error_msg"]).replace("%1", e_field[iter].replace("_", " "))
+                    )
+                    # print("true")
+                    # print("j:", j["error_msg"])
+                else:
+                    print("false")
+                    print("i:", e_code[iter])
+
+        # print("field_arr", field_arr)
+
+        data = []
+        for i in range(len(e_code)):
+            # print(f"Error code for field '{field}': {error_code}")
+            data.append({e_field[i]: [field_arr[i]]})
+        # print("data", data)
+
+        for i in range(len(non_e_field)):
+            data.append({non_e_field[i]: ''})
+        # print("data", data)
+
+        def order_data(data):
+            # Define the desired field order
+            field_order = {
+                # 'compliance_type': 0,
+                'compliance_code': 0,
+                'compliance_value': 1,
+            }
+
+            # Sort the data based on the field order
+            sorted_data = sorted(data, key=lambda item: field_order.get(list(item.keys())[0], float('inf')))
+
+            return sorted_data
     
-    # print("serializer fields",all_serializer_fields)
+        # Order the data
+        ordered_data = order_data(data)
 
-    # # Fields to exclude
-    # fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date']
+        # Print the ordered data
+        print("ordered_data",ordered_data)
 
-    # # Remove the excluded fields from the list of field names
-    # required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
+        return Response(ordered_data, status=status.HTTP_404_NOT_FOUND)
 
-    # print("required_serializer_fields",required_serializer_fields)
 
-    # if serializer.is_valid():
-    #     serializer.save()
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
-    # else:
-    #     error_data = serializer.errors
-    #     print("error_data", error_data)
-    #     e_code = []
-    #     e_msg = []
-    #     e_field = []
-    #     # Iterate over each field's errors
-    #     for field, error_list in error_data.items():
-    #         for error_data in error_list:
-    #             # Access the error code
-    #             error_code = error_data.code
-    #             e_code.append(error_code)
-    #             e_msg.append(error_data)
-    #             e_field.append(field)
-
-    #     # print("e_code", e_code, "length", len(e_code))
-    #     # print("e_msg", e_msg, "length", len(e_msg))
-    #     # print("e_field", e_field, "length", len(e_field))
-
-    #     # Remove the excluded fields from the list of field names
-    #     non_e_field = [for_field for for_field in required_serializer_fields if for_field not in e_field]
-
-    #     # print("non_e_field",non_e_field)
-
-    #     data_warning = warnings.objects.filter(
-    #         error_code__in=e_code, error_from="Server"
-    #     )
-    #     serializer_warning = warnings_serializer(data_warning, many=True)
-    #     # print("serializer_warning length", serializer_warning.data)
-
-    #     # ! test validation on Backend level
-
-    #     field_arr = []
-    #     for iter in range(len(e_code)):
-    #         for j in serializer_warning.data:
-    #             # print("out : ", e_code[iter], j["error_code"])
-    #             if e_code[iter] == j["error_code"]:
-    #                 field_arr.append(
-    #                     (j["error_msg"]).replace("%1", e_field[iter].replace("_", " "))
-    #                 )
-    #                 # print("true")
-    #                 # print("j:", j["error_msg"])
-    #             else:
-    #                 print("false")
-    #                 print("i:", e_code[iter])
-
-    #     # print("field_arr", field_arr)
-
-    #     data = []
-    #     for i in range(len(e_code)):
-    #         # print(f"Error code for field '{field}': {error_code}")
-    #         data.append({e_field[i]: [field_arr[i]]})
-    #     # print("data", data)
-
-    #     for i in range(len(non_e_field)):
-    #         data.append({non_e_field[i]: ''})
-    #     # print("data", data)
-
-    #     def order_data(data):
-    #         # Define the desired field order
-    #         field_order = {
-    #             'compliance_code': 0,
-    #             'compliance_value': 1,
-    #             'is_active': 2,
-    #         }
-
-    #         # Sort the data based on the field order
-    #         sorted_data = sorted(data, key=lambda item: field_order.get(list(item.keys())[0], float('inf')))
-
-    #         return sorted_data
-    
-    #     # Order the data
-    #     ordered_data = order_data(data)
-
-    #     # Print the ordered data
-    #     # print("ordered_data",ordered_data)
-
-    #     return Response(ordered_data, status=status.HTTP_404_NOT_FOUND)
 
 # DELETE
 @api_view(["PUT"])
@@ -3518,3 +3525,132 @@ def get_compliance_summary(request, id=0):
         return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 		
 		
+# Compilance Intitive
+
+# Get
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_sc_initiative(request, id, compid):
+    initiate = initiative.objects.filter(counterparty_id=id, compliance_id=compid, delete_flag= False).values("id","counterparty_id","action_item","target_date","ownership","target_date","status","comments")
+    return Response(initiate)
+
+# @api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+# def get_sc_initiative_details(request):
+#     view = initiative.objects.all().values()
+#     Counter_Data = (
+#         counterparty_details.objects
+#         .select_related('plant')  # Fetch related plant details
+#         .values('id', 'party_name', 'subject', 'plant', plant_name=F('plant__name'))
+#     )
+
+#     Plant_Data = plant_details.objects.all().values('id', 'name')
+#     Compilance_Data = compliance_details.objects.all().values('id','compliance_name')
+#     for Data in view:
+#         Data['target_date'] = Data['target_date'].strftime("%Y-%m-%d")
+#         if Data['status'] == 'in_progress':
+#             Data['status'] = 'In Progress'
+#         elif Data['status'] == 'not_started':
+#             Data['status'] = 'Not Started'
+#         elif Data['status'] == 'complete':
+#             Data['status'] = 'Completed'
+#         if len(Counter_Data.filter(id=Data['counterparty_id_id'])) == 1:
+#             Data['Plant_name'] = Counter_Data.get(id=Data['counterparty_id_id'])['plant_name']
+#             Data['Counter_party'] = Counter_Data.get(id=Data['counterparty_id_id'])['party_name']  
+#             Data['Subject'] = Counter_Data.get(id=Data['counterparty_id_id'])['subject']
+
+#             Data['Counter_Data'] = Counter_Data
+#             Data['Compilance_Data'] = Compilance_Data
+#             Data['Plant_Data'] = Plant_Data
+#     return Response(view)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_sc_initiative_details(request):
+    # Get all initiative data
+    view = initiative.objects.all().values()
+    
+    # Fetch related counterparty data with correct names and related fields
+    counterparty_data = {
+        item['id']: item
+        for item in counterparty_details.objects.select_related('plant').values(
+            'id', 'party_name', 'subject', 'plant', plant_name=F('plant__name')
+        )
+    }
+
+    # Fetch plant and compliance details once
+    plant_data = list(plant_details.objects.all().values('id', 'name').distinct())
+    compliance_data = list(compliance_details.objects.all().values('id', 'compliance_name'))
+
+    # Process each initiative entry
+    for data in view:
+        # Format the target date
+        data['target_date'] = data['target_date'].strftime("%Y-%m-%d")
+        
+        # Update the status to a more readable format
+        status_mapping = {
+            'in_progress': 'In Progress',
+            'not_started': 'Not Started',
+            'complete': 'Completed'
+        }
+        data['status'] = status_mapping.get(data['status'], data['status'])
+
+        # Add counterparty details if available
+        counterparty = counterparty_data.get(data['counterparty_id_id'])
+        if counterparty:
+
+            # Try to retrieve the counterparty name from the counterparty_profile model
+            try:
+                party_name_obj = counterparty_profile.objects.get(id=counterparty['party_name'])
+                data['Counter_party'] = party_name_obj.name  # Counterparty name
+            except counterparty_profile.DoesNotExist:
+                data['Counter_party'] = None  # Handle missing counterparty_profile
+
+            # Try to retrieve the Compilance name from the compliance_details model
+            try:
+                Compliance_name_obj = compliance_details.objects.get(id=data['counterparty_id_id'])
+                data['Compilance'] = Compliance_name_obj.compliance_name  # Counterparty name
+            except compliance_details.DoesNotExist:
+                data['Compilance'] = None  # Handle missing compliance_details
+            
+            data['Plant_name'] = counterparty['plant_name']
+            data['Plant_id'] = counterparty['plant']
+            data['Party_id'] = counterparty['party_name']
+            data['Subject'] = counterparty['subject']
+
+        # Add common data
+        data['Counter_Data'] = list(counterparty_profile.objects.all().values('id', 'name').distinct())
+        data['Compliance_Data'] = compliance_data
+        data['Plant_Data'] = plant_data
+
+    return Response(view)
+
+# Add
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def ins_sc_initiative(request):
+    listData = request.data
+    for i in range(len(listData)):
+        if 'id' in listData[i]:
+            item = initiative.objects.get(id=listData[i]['id'])
+            serializer = initiative_serializer(instance=item, data=listData[i])
+        else:
+            data = {
+                "counterparty_id": listData[i]["counterparty_id"],
+                "compliance_id": listData[i]["Compliance_id"],
+                "action_item": listData[i]["action_item"],
+                "target_date": listData[i]["target_date"],
+                "ownership": listData[i]["ownership"],
+                "status": listData[i]["status"],
+                "comments": listData[i]["comments"] if 'comments' in listData[i] else '' ,
+                "created_by": listData[i]["created_by"],
+                "last_updated_by": listData[i]["last_updated_by"],
+            }
+            serializer = initiative_serializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
