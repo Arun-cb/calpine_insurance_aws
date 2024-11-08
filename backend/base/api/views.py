@@ -138,8 +138,6 @@ def save_users(request):
 
 @api_view(["POST"])
 def ms_save_users(request):
-    print("Request Data :",request.data)
-
     username = request.data.get("username")
     email = request.data.get("email")
     password = request.data.get("password")
@@ -213,7 +211,6 @@ def get_user_groups(request, id=0):
         superadmin = True
         # request.data.get('is_superuser') 
         if id == 0:
-            print("if Pass")
             group_user_dict = {
                 group.id: group.user_set.values_list(
                     "id", "username", "email", "is_active", "is_staff", flat=False
@@ -221,7 +218,6 @@ def get_user_groups(request, id=0):
                 for group in Group.objects.all()
             }
         else:
-            print("else Pass")
             group_user_dict = {
                 group.id: User.objects.filter(id=id).values_list(
                     "id", "username", "email", "is_active", "is_staff", flat=False
@@ -230,7 +226,6 @@ def get_user_groups(request, id=0):
                 )
                 for group in Group.objects.all()
             }
-        print("group_user_dict :",group_user_dict)
         act_json = []
         for i in group_user_dict:
             temp = ConvertQuerysetToJson(Group.objects.filter(id=i))
@@ -247,7 +242,6 @@ def get_user_groups(request, id=0):
                 act_json.append(temp_json)
     except Exception as e:
         return Response(e,status=status.HTTP_400_BAD_REQUEST)
-    print("act_json :",act_json)
 
     return Response(act_json)
 
@@ -1860,7 +1854,6 @@ def ins_config_codes(request):
     # Remove the excluded fields from the list of field names
     required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
 
-    # print("required_serializer_fields",required_serializer_fields)
 
     if serializer.is_valid():
         serializer.save()
@@ -1887,7 +1880,6 @@ def ins_config_codes(request):
         # Remove the excluded fields from the list of field names
         non_e_field = [for_field for for_field in required_serializer_fields if for_field not in e_field]
 
-        # print("non_e_field",non_e_field)
 
         data_warning = warnings.objects.filter(
             error_code__in=e_code, error_from="Server"
@@ -1908,7 +1900,6 @@ def ins_config_codes(request):
                     # print("true")
                     # print("j:", j["error_msg"])
                 else:
-                    print("false")
                     print("i:", e_code[iter])
 
         # print("field_arr", field_arr)
@@ -1940,7 +1931,6 @@ def ins_config_codes(request):
         ordered_data = order_data(data)
 
         # Print the ordered data
-        print("ordered_data",ordered_data)
 
         return Response(ordered_data, status=status.HTTP_404_NOT_FOUND)
 
@@ -1950,13 +1940,10 @@ def ins_config_codes(request):
 @permission_classes([IsAuthenticated])
 def upd_config_codes(request, id):
     item = config_codes.objects.get(id=id)
-    print("data",request.data)
 
     serializer = config_codes_serializer(instance=item, data=request.data)
     
     all_serializer_fields = list(serializer.fields.keys())
-    
-    print("serializer fields",all_serializer_fields)
 
     # Fields to exclude
     fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date']
@@ -1964,14 +1951,11 @@ def upd_config_codes(request, id):
     # Remove the excluded fields from the list of field names
     required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
 
-    print("required_serializer_fields",required_serializer_fields)
-
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     else:
         error_data = serializer.errors
-        print("error_data", error_data)
         e_code = []
         e_msg = []
         e_field = []
@@ -1983,10 +1967,6 @@ def upd_config_codes(request, id):
                 e_code.append(error_code)
                 e_msg.append(error_data)
                 e_field.append(field)
-
-        # print("e_code", e_code, "length", len(e_code))
-        # print("e_msg", e_msg, "length", len(e_msg))
-        # print("e_field", e_field, "length", len(e_field))
 
         # Remove the excluded fields from the list of field names
         non_e_field = [for_field for for_field in required_serializer_fields if for_field not in e_field]
@@ -2012,7 +1992,6 @@ def upd_config_codes(request, id):
                     # print("true")
                     # print("j:", j["error_msg"])
                 else:
-                    print("false")
                     print("i:", e_code[iter])
 
         # print("field_arr", field_arr)
@@ -2185,7 +2164,6 @@ def get_range_compliance_details(request, start, end, search=False):
         serializer_csv_export = compliance_details_serializer(details_csv_export, many=True)
         
         compliance_data = serializer.data
-        print("Serializer Data :",serializer.data)
         
         if len(serializer.data) > 0:
             for data in serializer.data:
@@ -2285,7 +2263,6 @@ def ins_compliance_details(request):
 @transaction.atomic
 def ins_compliance_details_bulk(request):
     insertData = request.data
-    print("Insert data :",insertData, len(insertData))
     successful_inserts = []
     errors = []
     try:
@@ -2373,7 +2350,6 @@ def upd_compliance_details(request, id):
 
     all_serializer_fields = list(serializer.fields.keys())
     
-    print("serializer fields",all_serializer_fields)
 
     # Fields to exclude
     fields_to_exclude = ['id', 'created_by', 'last_updated_by', 'created_date']
@@ -2381,14 +2357,12 @@ def upd_compliance_details(request, id):
     # Remove the excluded fields from the list of field names
     required_serializer_fields = [field for field in all_serializer_fields if field not in fields_to_exclude]
 
-    print("required_serializer_fields",required_serializer_fields)
 
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     else:
         error_data = serializer.errors
-        print("error_data", error_data)
         e_code = []
         e_msg = []
         e_field = []
@@ -2778,7 +2752,15 @@ def get_counterparty_details(request, id=0):
                         data['party_code'] = party.name  # Extract only the 'name' field
                     else:
                         data['party_code'] = None  # or any default value
-                    detail.update(compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_group_name','compliance_name','compliance_value','compliance_criteria','effective_from','option_type','value_type')[0])
+                    compli_details = compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_group_name','compliance_name','compliance_value','compliance_criteria','effective_from','option_type','value_type')[0]
+                    if(compli_details['value_type']=='Options'):
+                        compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
+                        if compliance_code:
+                            compli_details['compliance_values'] = compliance_code.compliance_value
+                    else:
+                        compli_details['compliance_values'] = compli_details['compliance_value']
+                    detail.update(compli_details)
+                    # detail.update(compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_group_name','compliance_name','compliance_value','compliance_criteria','effective_from','option_type','value_type')[0])
     
     return Response({
         "data": serializer.data,
@@ -2832,7 +2814,6 @@ def get_range_compliance_codes(request, start, end, search=False):
         # Add compliance_header to each item in compliance_data
         for item in compliance_data:
             compliance_code = item.get("compliance_code")
-            print("compliance_code:", compliance_code)
             
             if compliance_code == "0":
                 item["compliance_header"] = "--Header--"
@@ -3087,6 +3068,15 @@ def get_compliance_dashboard(request, id=0):
     try:
         compliance = compliance_details.objects.filter(delete_flag=False)
         compliance_ser_data = compliance_details_serializer(compliance, many=True)
+        if len(compliance_ser_data.data) > 0:
+            for data in compliance_ser_data.data:
+                if(data['value_type']=='Options'):
+                    # Compliance Code to Value
+                    compliance_code = compliance_codes.objects.filter(id=int(data['compliance_value']), delete_flag=False).first()
+                    if compliance_code:
+                        data['compliance_values'] = compliance_code.compliance_value
+                else:
+                    data['compliance_values'] = data['compliance_value']
         details_length = counterparty_details.objects.filter(delete_flag=False).count()
         details = counterparty_details.objects.filter(delete_flag=False)
         details_csv_export = counterparty_details.objects.filter(delete_flag=False)
@@ -3098,6 +3088,7 @@ def get_compliance_dashboard(request, id=0):
                 data['actuals'] = actuals_serializer.data
                 if len(data['actuals']) > 0:
                     for detail in data['actuals']:
+                        print("detail", detail)
                         # Plant
                         plant = plant_details.objects.filter(id=data['plant'], delete_flag=False).first()
                         if plant:
@@ -3110,8 +3101,19 @@ def get_compliance_dashboard(request, id=0):
                             data['party_code'] = party.name  # Extract only the 'name' field
                         else:
                             data['party_code'] = None  # or any default value
-                        detail.update(compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_name','compliance_value','compliance_criteria')[0])
+                        
+                        compli_details = compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_name','compliance_value','compliance_criteria','value_type')[0]
+                        if(compli_details['value_type']=='Options'):
+                            compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
+                            if compliance_code:
+                                compli_details['compliance_values'] = compliance_code.compliance_value
+                                if detail['actuals'] != '':
+                                    detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
+                        else:
+                            compli_details['compliance_values'] = compli_details['compliance_value']
+                        detail.update(compli_details)
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
+        
         return Response(
             {
                 "data": serializer.data,
