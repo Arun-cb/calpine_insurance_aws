@@ -353,12 +353,68 @@ def ins_upt_smtp(request):
             item = smtp_configure.objects.get(id=listData[i]["id"])
             serializer = smtp_configure_serializer(instance=item, data=data)
             to = listData[i]["username"]
-            subject = "This is test one"
-            body = """
+            subject = "SMTP Configuration Updated"
+            body = f"""
             <html>
+            <head>
+            <style>
+                .email-container {{
+                    font-family: Arial, sans-serif;
+                    max-width: 600px;
+                    margin: auto;
+                    border: 1px solid #eaeaea;
+                    border-radius: 8px;
+                    padding: 20px;
+                    background-color: #f9f9f9;
+                }}
+                .header {{
+                    text-align: center;
+                    padding-bottom: 20px;
+                }}
+                .header img {{
+                    width: 80px;
+                }}
+                .content {{
+                    text-align: left;
+                    font-size: 16px;
+                    color: #333333;
+                    line-height: 1; /* Reduced line spacing */
+                }}
+                .success-icon {{
+                    display: block;
+                    margin: 20px auto;
+                    width: 50px;
+                }}
+                .note {{
+                    font-size: 14px; /* Smaller font size for the note */
+                    color: #666666;
+                    margin-top: 15px;
+                }}
+                .footer {{
+                    text-align: center;
+                    margin-top: 20px;
+                    font-size: 12px;
+                    color: #aaaaaa;
+                }}
+            </style>
+            </head>
             <body>
-            <p>Awesome, Your SMTP credential is modified successfully.</p><br><br>\
-            <i>Thanks</i>
+            <div class="email-container">
+                <div class="header">
+                    <img src="https://cdn-icons-png.flaticon.com/128/190/190411.png" alt="Success Icon" class="success-icon" />
+                    <h2>SMTP Configuration Updated Successfully</h2>
+                </div>
+                <div class="content">
+                    <p>Hello,</p>
+                    <p>Your SMTP configuration details have been successfully updated.</p>
+                    <p>Email: {listData[i]["username"][:3]}****@{listData[i]["username"].split('@')[-1]}</p>
+                    <p>You can now use the updated configuration without any issues.</p>
+                    <p class="note"><b>Note:</b> This is an automated email, please do not reply.</p>
+                </div>
+                <div class="footer">
+                    <p>© 2024 Copyright Cittabase Solutions. All rights reserved.</p>
+                </div>
+            </div>
             </body>
             </html>
             """
@@ -379,6 +435,7 @@ def ins_upt_smtp(request):
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_200_OK)
             else:
+                print("Er 1")
                 return Response(
                     "Failed to connect smtp server. Please check your details",
                     status=status.HTTP_400_BAD_REQUEST,
@@ -386,15 +443,71 @@ def ins_upt_smtp(request):
 
         else:
             to = listData[i]["username"]
-            subject = "This is test one"
-            body = """
+            subject = "SMTP Configuration Successful"
+            body = f"""
             <html>
-            <body>
-            <p>Awesome, Your SMTP credential is successfully configured.</p><br><br>\
-            <i>Thanks</i>
-            </body>
-            </html>
-            """
+                <head>
+                <style>
+                    .email-container {{
+                        font-family: Arial, sans-serif;
+                        max-width: 600px;
+                        margin: auto;
+                        border: 1px solid #eaeaea;
+                        border-radius: 8px;
+                        padding: 20px;
+                        background-color: #f9f9f9;
+                    }}
+                    .header {{
+                        text-align: center;
+                        padding-bottom: 20px;
+                    }}
+                    .header img {{
+                        width: 80px;
+                    }}
+                    .content {{
+                        text-align: left;
+                        font-size: 16px;
+                        color: #333333;
+                        line-height: 1; /* Reduced line spacing */
+                    }}
+                    .success-icon {{
+                        display: block;
+                        margin: 20px auto;
+                        width: 50px;
+                    }}
+                    .note {{
+                        font-size: 14px; /* Smaller font size for the note */
+                        color: #666666;
+                        margin-top: 15px;
+                    }}
+                    .footer {{
+                        text-align: center;
+                        margin-top: 20px;
+                        font-size: 12px;
+                        color: #aaaaaa;
+                    }}
+                </style>
+                </head>
+                <body>
+                <div class="email-container">
+                    <div class="header">
+                        <img src="https://cdn-icons-png.flaticon.com/128/190/190411.png" alt="Success Icon" class="success-icon" />
+                        <h2>SMTP Configuration Successful</h2>
+                    </div>
+                    <div class="content">
+                        <p>Hello,</p>
+                        <p>Your SMTP credentials have been successfully configured.</p>
+                        <p>Email: {listData[i]["username"][:3]}****@{listData[i]["username"].split('@')[-1]}</p>
+                        <p>You can now use this email configuration without any issues.</p>
+                        <p class="note"><b>Note:</b> This is an automated email, please do not reply.</p>
+                    </div>
+                    <div class="footer">
+                        <p>© 2024 Copyright Cittabase Solutions. All rights reserved.</p>
+                    </div>
+                </div>
+                </body>
+                </html>
+                """
             attachments = ""
 
             mail_res = smtp_mail.send_mail(
@@ -409,9 +522,15 @@ def ins_upt_smtp(request):
             )
             if mail_res == "true":
                 serializer = smtp_configure_serializer(data=data)
+                
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_200_OK)
+                else:
+                    return Response(
+                    "Serialier Error",
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             else:
                 return Response(
                     "Failed to connect smtp server. Please check your details",
@@ -443,25 +562,83 @@ def forgot_password(request):
         )
 
         subject = "Password reset"
-        body = (
-            """
+        body = f"""
             <html>
-            <body>
-            <div style="text-align:center;">
-            <p>Hi """
-            + check_email["username"].capitalize()
-            + """,</p>
-            <p>Congratulations. You have successfully reset your password.</p>
-            <p>Please use the below password to login</p><br>
-            <b style="display: inline; padding: 10px;font-size: 18px;background: cornflowerblue;">"""
-            + str(randomPassword)
-            + """</b><br><br>
-            </div>
-            <i>Thanks, <br> Cittabase</i>
-            </body>
+                <head>
+                <style>
+                    .email-container {{
+                        font-family: Arial, sans-serif;
+                        max-width: 600px;
+                        margin: auto;
+                        border: 1px solid #eaeaea;
+                        border-radius: 8px;
+                        padding: 20px;
+                        background-color: #f9f9f9;
+                    }}
+                    .header {{
+                        text-align: center;
+                        padding-bottom: 20px;
+                    }}
+                    .header img {{
+                        width: 80px;
+                    }}
+                    .content {{
+                        text-align: left;
+                        font-size: 16px;
+                        color: #333333;
+                        line-height: 1.5;
+                    }}
+                    .success-icon {{
+                        display: block;
+                        margin: 20px auto;
+                        width: 50px;
+                    }}
+                    .password-box {{
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: #ffffff;
+                        background-color: #007BFF;
+                        display: inline-block;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        text-align: center;
+                        margin: 20px 0;
+                    }}
+                    .note {{
+                        font-size: 14px;
+                        color: #666666;
+                        margin-top: 15px;
+                    }}
+                    .footer {{
+                        text-align: center;
+                        margin-top: 20px;
+                        font-size: 12px;
+                        color: #aaaaaa;
+                    }}
+                </style>
+                </head>
+                <body>
+                <div class="email-container">
+                    <div class="header">
+                        <img src="https://cdn-icons-png.flaticon.com/128/709/709699.png" alt="Password Icon" class="success-icon" />
+                        <h2>Password Reset Successful</h2>
+                    </div>
+                    <div class="content">
+                        <p>Hello <strong>{check_email["username"].capitalize()}</strong>,</p>
+                        <p>Your password has been successfully reset. Please use the password below to log in to your account:</p>
+                        <p class="password-box">{randomPassword}</p>
+                        <p>If you did not request this password reset, please contact our support team immediately.</p>
+                        <p class="note"><b>Note:</b> This is an automated email, please do not reply.</p>
+                    </div>
+                    <div class="footer">
+                        <p>© 2024 Copyright Cittabase Solutions. All rights reserved.</p>
+                    </div>
+                </div>
+                </body>
             </html>
             """
-        )
+
+
         u = User.objects.get(id=check_email["id"])
         u.set_password(randomPassword)
         u.save()

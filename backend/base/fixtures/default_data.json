@@ -73473,5 +73473,80 @@
       "delete_flag": 0,
       "is_active": true
     }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 2,
+    "fields": {
+      "config_type": "Compliance Criteria",
+      "config_code": "<",
+      "config_value": "<",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 3,
+    "fields": {
+      "config_type": "Compliance Criteria",
+      "config_code": ">",
+      "config_value": ">",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 4,
+    "fields": {
+      "config_type": "Compliance Criteria",
+      "config_code": "==",
+      "config_value": "==",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 5,
+    "fields": {
+      "config_type": "Compliance Criteria",
+      "config_code": "<=",
+      "config_value": "<=",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 6,
+    "fields": {
+      "config_type": "Compliance Criteria",
+      "config_code": ">=",
+      "config_value": ">=",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
   }
 ]

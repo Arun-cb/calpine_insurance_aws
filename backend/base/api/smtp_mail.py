@@ -57,7 +57,7 @@ def send_mail(to='', cc='', bcc= '', subject='', body='', type='', attachments=F
             except Exception as e:
                 return "false"
     else:
-        data = smtp_configure_serializer(smtp_configure.objects.filter(delete_flag='N'), many=True).data
+        data = smtp_configure_serializer(smtp_configure.objects.filter(delete_flag=False), many=True).data
         if len(data) == 1:
             sender_email = data[0]['username']
             sender_password = data[0]['password']
