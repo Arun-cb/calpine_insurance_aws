@@ -3,7 +3,14 @@
     "model": "auth.group",
     "pk": 1,
     "fields": {
-      "name": "Admin"
+      "name": "SuperAdmin"
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "SSO User"
     }
   },
   {
@@ -5316,6 +5323,21 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
+      "menu_id": 1,
+      "menu_name": "Home",
+      "parent_menu_id": 0,
+      "url": "/home",
+      "page_number": 1,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
       "menu_id": 2,
       "menu_name": "Organization",
       "parent_menu_id": 0,
@@ -5348,6 +5370,51 @@
     "fields": {
       "menu_id": 12,
       "menu_name": "Compliance",
+      "parent_menu_id": 0,
+      "url": "/",
+      "page_number": 0,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 16,
+      "menu_name": "Analytics / Reports",
+      "parent_menu_id": 0,
+      "url": "/",
+      "page_number": 0,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 1
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 20,
+      "menu_name": "Security",
+      "parent_menu_id": 0,
+      "url": "/",
+      "page_number": 0,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 23,
+      "menu_name": "Others",
       "parent_menu_id": 0,
       "url": "/",
       "page_number": 0,
@@ -5401,66 +5468,6 @@
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 16,
-      "menu_name": "Analytics / Reports",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 20,
-      "menu_name": "Security",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 23,
-      "menu_name": "Others",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 1,
-      "menu_name": "Home",
-      "parent_menu_id": 0,
-      "url": "/home",
-      "page_number": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
     }
   },
   {
@@ -5730,7 +5737,7 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
+      "delete_flag": 1
     }
   },
   {
@@ -6218,6 +6225,618 @@
     "fields": {
       "menu_id_id": 25,
       "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 26,
+    "fields": {
+      "menu_id_id": 26,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 27,
+    "fields": {
+      "menu_id_id": 27,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 28,
+    "fields": {
+      "menu_id_id": 28,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 29,
+    "fields": {
+      "menu_id_id": 29,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 30,
+    "fields": {
+      "menu_id_id": 30,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 31,
+    "fields": {
+      "menu_id_id": 31,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 32,
+    "fields": {
+      "menu_id_id": 32,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 33,
+    "fields": {
+      "menu_id_id": 33,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 34,
+    "fields": {
+      "menu_id_id": 34,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 35,
+    "fields": {
+      "menu_id_id": 35,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 36,
+    "fields": {
+      "menu_id_id": 1,
+      "group_id_id": 2,
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 37,
+    "fields": {
+      "menu_id_id": 2,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 38,
+    "fields": {
+      "menu_id_id": 3,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 39,
+    "fields": {
+      "menu_id_id": 4,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "N",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 40,
+    "fields": {
+      "menu_id_id": 6,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 41,
+    "fields": {
+      "menu_id_id": 7,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 42,
+    "fields": {
+      "menu_id_id": 11,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 43,
+    "fields": {
+      "menu_id_id": 12,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 44,
+    "fields": {
+      "menu_id_id": 20,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 45,
+    "fields": {
+      "menu_id_id": 21,
+      "group_id_id": 2,
+      "add": "N",
+      "edit": "N",
+      "view": "Y",
+      "delete": "N",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 46,
+    "fields": {
+      "menu_id_id": 22,
+      "group_id_id": 2,
+      "add": "N",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "N",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 47,
+    "fields": {
+      "menu_id_id": 23,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 48,
+    "fields": {
+      "menu_id_id": 24,
+      "group_id_id": 2,
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 49,
+    "fields": {
+      "menu_id_id": 25,
+      "group_id_id": 2,
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 50,
+    "fields": {
+      "menu_id_id": 26,
+      "group_id_id": 2,
+      "add": "N",
+      "edit": "N",
+      "view": "Y",
+      "delete": "N",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 51,
+    "fields": {
+      "menu_id_id": 27,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 52,
+    "fields": {
+      "menu_id_id": 28,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 53,
+    "fields": {
+      "menu_id_id": 29,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 54,
+    "fields": {
+      "menu_id_id": 30,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 55,
+    "fields": {
+      "menu_id_id": 31,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 56,
+    "fields": {
+      "menu_id_id": 32,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 57,
+    "fields": {
+      "menu_id_id": 33,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 58,
+    "fields": {
+      "menu_id_id": 34,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 59,
+    "fields": {
+      "menu_id_id": 35,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 60,
+    "fields": {
+      "menu_id_id": 36,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 61,
+    "fields": {
+      "menu_id_id": 37,
+      "group_id_id": 2,
       "add": "Y",
       "edit": "Y",
       "view": "Y",
@@ -7324,10 +7943,6 @@
     "fields": {
       "user_id": 1,
       "profile_pic": null,
-      "username": " ",
-      "first_name": "",
-      "last_name": "",
-      "email": " ",
       "temporary_address": "",
       "permanent_address": "",
       "contact": "",

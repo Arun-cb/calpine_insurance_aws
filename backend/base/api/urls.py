@@ -207,7 +207,9 @@ urlpatterns = [
     path("get_state",views.get_state),
     # get auth user details
     path("get_user_details", views.get_user_details),
+    path("get_user_details_with_profile", views.get_user_details_with_profile),
     path("get_Prticular_user_details/<int:id>/", views.get_Prticular_user_details),
+    path("get_logged_in_user/<int:id>/", views.get_logged_in_user),
     # Compliance details URLS
     path("ins_compliance_details", views.ins_compliance_details),
     path("ins_compliance_details_bulk", views.ins_compliance_details_bulk),
@@ -220,7 +222,8 @@ urlpatterns = [
     path("upd_counterparty_compliance_actuals/<int:id>/", views.upd_counterparty_compliance_actuals),
     
     path("get_range_counterparty_details/<int:start>/<int:end>/", views.get_range_counterparty_details),
-    path("get_range_counterparty_details/<int:start>/<int:end>/<str:search>/", views.get_range_counterparty_details),
+    # path("get_range_counterparty_details/<int:start>/<int:end>/<str:search>/", views.get_range_counterparty_details),
+    path("get_range_counterparty_details/<int:start>/<int:end>/<int:region>/", views.get_range_counterparty_details),
     path("del_counterparty_details/<int:id>/", views.del_counterparty_details),
     # Compliance Actuals URLS
     path("get_range_compliance_actuals/<int:start>/<int:end>/", views.get_range_compliance_actuals),
@@ -242,6 +245,7 @@ urlpatterns = [
     path("upd_compliance_codes/<int:id>/", views.upd_compliance_codes),
     path("del_compliance_codes/<int:id>/", views.del_compliance_codes),
     path("get_compliance_dashboard", views.get_compliance_dashboard),
+    path("get_compliance_dashboard/<int:region>/", views.get_compliance_dashboard),
     path("get_compliance_summary", views.get_compliance_summary),
     # path("get_default_json_structure", views.get_default_json_structure),
     path("getempregdetails", views.getEmpRegDetails),
@@ -276,4 +280,6 @@ urlpatterns = [
     path("get_sc_initiative/<int:id>/<int:compid>/", views.get_sc_initiative),
     path("ins_sc_initiative", views.ins_sc_initiative),
     path("get_sc_initiative_details", views.get_sc_initiative_details),
+    path("sso_create_and_initialize_user", views.sso_create_and_initialize_user),    
+    path("get_user_activity", views.get_user_activity),
 ]

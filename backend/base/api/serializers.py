@@ -127,8 +127,7 @@ class sso_configure_serializer(serializers.ModelSerializer):
 class user_profile_serializer(serializers.ModelSerializer):
     class Meta:
         model = user_profile
-        fields = ('id', 'user_id', 'profile_pic', 'username',
-                  'first_name', 'last_name', 'email', 'temporary_address', 'permanent_address', 'contact', 'user_group', 'user_status', 'created_by', 'last_updated_by')
+        fields = ('id', 'user_id', 'profile_pic', 'temporary_address', 'permanent_address', 'contact', 'user_group', 'user_status', 'created_by', 'last_updated_by')
         
 # Org Definition
 class org_definition_serializer(serializers.ModelSerializer):
@@ -233,7 +232,7 @@ class counterparty_details_serializer(serializers.ModelSerializer):
     # counterparty_id = compliance_actuals_serializer(read_only=True)
     class Meta:
         model = counterparty_details
-        fields = ('id', 'level_id', 'party_name', 'start_date', 'plant', 'subject', 'expiry_date', 'year', 
+        fields = ('id', 'region_id', 'level_id', 'party_name', 'start_date', 'plant', 'subject', 'expiry_date', 'year', 
                   'reference', 'term', 'created_by', 'last_updated_by')
 
 # Settings   

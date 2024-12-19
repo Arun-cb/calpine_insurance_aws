@@ -243,7 +243,7 @@ def get_user_groups(request, id=0):
     except Exception as e:
         return Response(e,status=status.HTTP_400_BAD_REQUEST)
 
-    return Response(act_json)
+    return Response(act_json, status=status.HTTP_200_OK)
 
 # Create user groups add
 
@@ -280,6 +280,8 @@ def ms_ins_user_groups(request):
 def upd_user_groups(request):
     user_id = request.data.get("id")
     user_name = request.data.get("username")
+    first_name = request.data.get("first_name")
+    last_name = request.data.get("last_name")
     user_mail = request.data.get("email")
     group_id = request.data.get("group")
 
@@ -290,6 +292,8 @@ def upd_user_groups(request):
     user.groups.set([group])
     user.email = user_mail
     user.username = user_name
+    user.first_name = first_name
+    user.last_name = last_name
     user.is_active = 1 if request.data.get("is_active") else 0
     user.save()
 
@@ -816,7 +820,7 @@ def ins_sso(request):
     serializer = sso_configure_serializer(data=data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # SSO Get
@@ -866,11 +870,7 @@ def get_user_profile(request, id=0):
 def ins_user_profile(request):
     data = {
         "user_id": request.data.get("user_id"),
-        "username": request.data.get("username"),
         "profile_pic": request.data.get("profile_pic"),
-        "first_name": request.data.get("first_name"),
-        "last_name": request.data.get("last_name"),
-        "email": request.data.get("email"),
         "temporary_address": request.data.get("temporary_address"),
         "permanent_address": request.data.get("permanent_address"),
         "contact": request.data.get("contact"),
@@ -884,7 +884,7 @@ def ins_user_profile(request):
     serializer = user_profile_serializer(data=data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # User Profile update
@@ -892,7 +892,7 @@ def ins_user_profile(request):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def upd_user_profile(request, id):
-    item = user_profile.objects.get(id=id)
+    item = user_profile.objects.get(user_id=id)
     data = request.data
 
     userStatus = 0 if data["user_status"] == 'false' else 1
@@ -902,16 +902,8 @@ def upd_user_profile(request, id):
         if len(item.profile_pic) > 0 and item.profile_pic != data["profile_pic"]:
             os.remove(item.profile_pic.path)
 
-    if item.username != data["username"]:
-        item.username = data["username"]
     if item.profile_pic != profilePic:
         item.profile_pic = profilePic
-    if item.first_name != data["first_name"]:
-        item.first_name = data["first_name"]
-    if item.last_name != data["last_name"]:
-        item.last_name = data["last_name"]
-    if item.email != data["email"]:
-        item.email = data["email"]
     if item.temporary_address != data["temporary_address"]:
         item.temporary_address = data["temporary_address"]
     if item.permanent_address != data["permanent_address"]:
@@ -1423,6 +1415,7 @@ def ins_user_access(request):
 @permission_classes([IsAuthenticated])
 def ins_group_access(request):
     listData = request.data
+    print("REquest Data :",listData)
     if not listData:
         return Response(
             {"group_id": "This field is may not be empty"},
@@ -1435,21 +1428,23 @@ def ins_group_access(request):
             }
             group_serializer = auth_group_serializer(data=data)
             if group_serializer.is_valid():
+                print("HI")
                 group_serializer.save()
                 for x in listData:
                     if x != '0' :
                         data = {
                             "menu_id": listData[x]["menu_id"],
                             "group_id": group_serializer.data['id'],
-                            "add": listData[x]["add"] if 'add' in listData[x] else 'N',
-                            "edit": listData[x]["edit"] if 'edit' in listData[x] else 'N',
-                            "view": listData[x]["view"] if 'view' in listData[x] else 'N',
-                            "delete": listData[x]["delete"] if 'delete' in listData[x] else 'N',
+                            "add": listData[x]["add"] if 'add' in listData[x] else 'Y' if listData[x]["menu_id"]==1 or listData[x]["menu_id"]==30 else 'N',
+                            "edit": listData[x]["edit"] if 'edit' in listData[x] else 'Y' if listData[x]["menu_id"]==1 or listData[x]["menu_id"]==30 else 'N',
+                            "view": listData[x]["view"] if 'view' in listData[x] else 'Y' if listData[x]["menu_id"]==1 or listData[x]["menu_id"]==30 else 'N',
+                            "delete": listData[x]["delete"] if 'delete' in listData[x] else 'Y' if listData[x]["menu_id"]==1 or listData[x]["menu_id"]==30 else 'N',
                             "created_by": listData[x]["created_by"],
                             "last_updated_by": listData[x]["last_updated_by"],
                         }
                         serializer = group_access_definition_serializer(data=data)
                         if serializer.is_valid():
+                            print("BYE")
                             serializer.save()
                         else:
                             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -1476,16 +1471,56 @@ def ins_group_access(request):
 
 
 # View all
+# @api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+# def get_navigation_menu_details(request, id=0):
+#     if id == 0:
+#         org = navigation_menu_details.objects.filter(delete_flag=False)
+#     else:
+#         org = navigation_menu_details.objects.filter(menu_id=id)
+
+#     serializer = navigation_menu_details_serializer(org, many=True)
+#     return Response(serializer.data)
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_navigation_menu_details(request, id=0):
+    # Fetch data based on delete_flag and order by menu_id
     if id == 0:
-        org = navigation_menu_details.objects.filter(delete_flag=False)
+        org = navigation_menu_details.objects.filter(delete_flag=False).order_by('menu_id')
     else:
-        org = navigation_menu_details.objects.filter(menu_id=id)
+        org = navigation_menu_details.objects.filter(menu_id=id, delete_flag=False).order_by('menu_id')
 
-    serializer = navigation_menu_details_serializer(org, many=True)
-    return Response(serializer.data)
+    # Serialize the data
+    serialized_data = navigation_menu_details_serializer(org, many=True).data
+    
+    print("Serializer data :",serialized_data)
+
+    # Process the data to group parent -> children
+    def sort_menu_hierarchy(data):
+        result = []
+        menu_dict = {}  # Dictionary to store menus by menu_id
+
+        # Organize data into a dictionary for easy lookup
+        for menu in data:
+            menu_dict[menu["menu_id"]] = menu
+
+        # Add top-level menus (parent_menu_id == 0) and their children
+        for menu in data:
+            if menu["parent_menu_id"] == 0:  # Top-level menu
+                result.append(menu)
+                # Find children with parent_menu_id == current menu_id
+                children = [child for child in data if child["parent_menu_id"] == menu["menu_id"]]
+                result.extend(children)
+
+        return result
+
+    # Sort the menu hierarchy
+    ordered_data = sort_menu_hierarchy(serialized_data)
+    print("Ordered data :",ordered_data)
+
+    # Return the sorted and structured response
+    return Response(ordered_data)
 
 
 @api_view(["GET"])
@@ -1688,6 +1723,28 @@ def get_user_details(request):
     serializer = user_serializer(org, many=True)
     return Response(serializer.data)
 
+@api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+def get_user_details_with_profile(request):
+    # Fetch all active users
+    users = User.objects.filter(is_active="1")
+    # Serialize user data
+    users_serializer = user_serializer(users, many=True)
+    # Get all profiles
+    profiles = user_profile.objects.filter(user_id__in=[user.id for user in users])
+    # Serialize profile data
+    profile_serializer = user_profile_serializer(profiles, many=True)
+    
+    # Convert profile data into a dictionary for quick lookup
+    profile_data_dict = {profile["user_id"]: profile for profile in profile_serializer.data}
+    
+    # Merge user data with their respective profile data
+    combined_data = []
+    for user in users_serializer.data:
+        profile_data = profile_data_dict.get(user["id"], {})  # Get profile data or default to {}
+        combined_data.append({**user, **profile_data})  # Merge user and profile data
+    
+    return Response(combined_data, status=status.HTTP_200_OK)
 
 # View particular user
 @api_view(["GET"])
@@ -1702,6 +1759,28 @@ def get_Prticular_user_details(request, id=0):
         serializer = user_serializer(UserObj, many=True)
         return Response(serializer.data)
 
+# To get Details about Logged in User
+@api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+def get_logged_in_user(request, id=0):
+    if id == 0:
+        tb_sc_profile_data = user_profile.objects.filter(delete_flag="N")
+        tb_sc_auth_user_data = User.objects.filter(is_active="1")
+    else:
+        tb_sc_profile_data = user_profile.objects.filter(user_id=id)
+        tb_sc_auth_user_data = User.objects.filter(id=id)
+        
+    profile_serializer = user_profile_serializer(tb_sc_profile_data, many=True)
+    auth_user_serializer = user_serializer(tb_sc_auth_user_data, many=True)
+    
+    # Merge the first items of both serializers if data exists
+    profile_data = profile_serializer.data[0] if profile_serializer.data else {}
+    auth_user_data = auth_user_serializer.data[0] if auth_user_serializer.data else {}
+    
+    # Combine data
+    combined_data = {**profile_data, **auth_user_data}
+    
+    return Response(combined_data, status=status.HTTP_200_OK)
 
 # Join user and user_access_definition table view
 @api_view(["GET"])
@@ -2638,14 +2717,15 @@ def del_compliance_details(request, id):
 # Get Range CounterParty Details
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
-def get_range_counterparty_details(request, start, end, search=False):
+def get_range_counterparty_details(request, start, end, region=0):
+    print("region",region)
     try:
-        if not search:
-            details_length = counterparty_details.objects.filter(delete_flag=False).count()
-            details = counterparty_details.objects.filter(delete_flag=False)[start:end]
-        else:
-            details_length = counterparty_details.objects.filter(delete_flag=False).count()
-            details = counterparty_details.objects.filter(Q(party_name__icontains = search) | Q(plant__icontains = search) | Q(subject__icontains = search) | Q(reference__icontains = search) | Q(term__icontains = search), delete_flag=False)[start:end]
+        # if not search:
+        details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
+        details = counterparty_details.objects.filter(region_id=region, delete_flag=False)[start:end]
+        # else:
+        #     details_length = counterparty_details.objects.filter(delete_flag=False).count()
+        #     details = counterparty_details.objects.filter(Q(party_name__icontains = search) | Q(plant__icontains = search) | Q(subject__icontains = search) | Q(reference__icontains = search) | Q(term__icontains = search), delete_flag=False)[start:end]
         serializer = counterparty_details_serializer(details, many=True)
         if len(serializer.data) > 0:
             for data in serializer.data:
@@ -2688,7 +2768,7 @@ def get_range_counterparty_details(request, start, end, search=False):
                                 compliance_data['compliance_values'] = compliance_data['compliance_value']
                             detail.update(compliance_data)
                             
-        details_csv_export = counterparty_details.objects.filter(delete_flag=False)           
+        details_csv_export = counterparty_details.objects.filter(region_id=region, delete_flag=False)           
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
         if len(serializer_csv_export.data) > 0:
             for data in serializer_csv_export.data:
@@ -2719,6 +2799,7 @@ def get_range_counterparty_details(request, start, end, search=False):
 @permission_classes([IsAuthenticated])
 def ins_counterparty_compliance_actuals(request):
     counterparty_data = {
+        "region_id": request.data.get("region_id"),
         "level_id": request.data.get("level_id"),
         "party_name": request.data.get("party_name"),
         "start_date": request.data.get("start_date"),
@@ -3240,8 +3321,8 @@ def del_compliance_codes(request, id):
     
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
-def get_compliance_dashboard(request, id=0):
+# @permission_classes([IsAuthenticated])
+def get_compliance_dashboard(request,id=0, region=0):
     try:
         compliance = compliance_details.objects.filter(delete_flag=False)
         compliance_ser_data = compliance_details_serializer(compliance, many=True)
@@ -3254,10 +3335,17 @@ def get_compliance_dashboard(request, id=0):
                         data['compliance_values'] = compliance_code.compliance_value
                 else:
                     data['compliance_values'] = data['compliance_value']
-        details_length = counterparty_details.objects.filter(delete_flag=False).count()
-        details = counterparty_details.objects.filter(delete_flag=False)
-        details_csv_export = counterparty_details.objects.filter(delete_flag=False)
+        if region == 0:
+            details_length = counterparty_details.objects.filter(delete_flag=False).count()
+            details = counterparty_details.objects.filter(delete_flag=False)
+            details_csv_export = counterparty_details.objects.filter(delete_flag=False)
+        else:
+            details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
+            details = counterparty_details.objects.filter(region_id=region,delete_flag=False)
+            details_csv_export = counterparty_details.objects.filter(region_id=region,delete_flag=False)
+        
         serializer = counterparty_details_serializer(details, many=True)
+        serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
         if len(serializer.data) > 0:
             for data in serializer.data:
                 actuals = compliance_actuals.objects.filter(counterparty_id=data['id'], delete_flag=False)
@@ -3265,7 +3353,6 @@ def get_compliance_dashboard(request, id=0):
                 data['actuals'] = actuals_serializer.data
                 if len(data['actuals']) > 0:
                     for detail in data['actuals']:
-                        print("detail", detail)
                         # Plant
                         plant = plant_details.objects.filter(id=data['plant'], delete_flag=False).first()
                         if plant:
@@ -3289,7 +3376,6 @@ def get_compliance_dashboard(request, id=0):
                         else:
                             compli_details['compliance_values'] = compli_details['compliance_value']
                         detail.update(compli_details)
-        serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
         
         return Response(
             {
@@ -3832,4 +3918,88 @@ def ins_sc_initiative(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# ? SSO New User Creation API
+@api_view(["POST"])
+def sso_create_and_initialize_user(request):
+    try:
+        # Step 1: Extract data from the request
+        username = request.data.get("username")
+        email = request.data.get("email")
+        password = request.data.get("password", "defaultpassword")
+        group_id = request.data.get("group_id")
+        profile_data = {
+            "profile_pic": request.data.get("profile_pic"),
+            "temporary_address": request.data.get("temporary_address", ""),
+            "permanent_address": request.data.get("permanent_address", ""),
+            "contact": request.data.get("contact", ""),
+            "user_group": request.data.get("user_group"),
+            "user_status": request.data.get("user_status", True),
+            "created_by": request.data.get("created_by"),
+            "last_updated_by": request.data.get("last_updated_by"),
+        }
+
+        # Step 2: Check if the user already exists
+        if User.objects.filter(username=username).exists():
+            print("User already exist")
+            return Response({"message": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Step 3: Create the user
+        user = User.objects.create_user(username=username, email=email, password=password)
+
+        # Step 4: Add the user to the specified group
+        if group_id:
+            group = Group.objects.get(id=group_id)
+            user.groups.add(group)
+
+        # Step 5: Insert user profile details
+        profile_data["user_id"] = user.id
+        serializer = user_profile_serializer(data=profile_data)
+        if serializer.is_valid():
+            serializer.save()
+        else:
+            print("Error :",serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"message": "User created and initialized successfully"}, status=status.HTTP_200_OK)
+
+    except Group.DoesNotExist:
+        print("Group Does'nt exist")
+        return Response({"error": "Group does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
+# Get active user's sessions in session table
+@api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+def get_user_activity(request, id=0):
+    session_data = session.objects.filter().values("id","uid","logintime","lasttime","expired","status")
+    set_temp = []
+    for s_data in session_data:
+        if len(set_temp) == 0:
+            s_data['inactive_session'] = len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 0, session_data)))
+            s_data['active_session'] =len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 1, session_data)))
+            if(len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 1, session_data))) != 0):
+                s_data['status'] = 'Active'
+                s_data['lasttime'] = ''
+            else:
+                s_data['status'] = 'Inactive'
+                s_data['lasttime'] = list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 0, session_data))[len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 0, session_data)))-1]['lasttime']
+            s_data.update(User.objects.filter(id=s_data['uid'], is_active=True).values("username", "first_name", "last_name","email")[0])
+            set_temp.append(s_data)
+        else:
+            print(list(filter(lambda x: x['uid'] != s_data['uid'], set_temp)))
+            if len(list(filter(lambda x: x['uid'] != s_data['uid'], set_temp))):
+                # print("-----entre-----", s_data)
+                # s_data['inactive_session'] = len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 0, session_data)))
+                # s_data['active_session'] =len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 1, session_data)))
+                # if(len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 1, session_data))) != 0):
+                #     s_data['status'] = 'Active'
+                #     s_data['lasttime'] = ''
+                # else:
+                #     s_data['lasttime'] = str(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 0, session_data))[len(list(filter(lambda x: x['uid'] == s_data['uid'] and x['status'] == 0, session_data)))-1]['lasttime'])
+                #     s_data['status'] = 'Inactive'
+                # s_data.update(User.objects.filter(id=s_data['uid'], is_active=True).values("username", "first_name", "last_name","email")[0])
+                set_temp.append(s_data)
+    
+    return Response(set_temp)
