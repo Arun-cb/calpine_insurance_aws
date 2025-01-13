@@ -282,4 +282,7 @@ urlpatterns = [
     path("get_sc_initiative_details", views.get_sc_initiative_details),
     path("sso_create_and_initialize_user", views.sso_create_and_initialize_user),    
     path("get_user_activity", views.get_user_activity),
+    
+    path("get_kpi_dashboard_view/<int:id>/", views.get_kpi_dashboard_view),
+    
 ]

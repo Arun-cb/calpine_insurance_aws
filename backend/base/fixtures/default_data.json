@@ -6412,10 +6412,10 @@
     "fields": {
       "menu_id_id": 1,
       "group_id_id": 2,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -7766,6 +7766,454 @@
       "label": "End Limit",
       "help_context": "Indicators End limit of the respective KPI.",
       "context_order": 27,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 67,
+    "fields": {
+      "page_no_id": 29,
+      "label": "Compliance Type",
+      "help_context": "It's am option based need to define a header first and assign options based on them.",
+      "context_order": 1,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 68,
+    "fields": {
+      "page_no_id": 29,
+      "label": "Compliance Value",
+      "help_context": "It's compliance value.",
+      "context_order": 2,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 69,
+    "fields": {
+      "page_no_id": 29,
+      "label": "Is Active",
+      "help_context": "It's a toggle to define whether the compliance is active or not.",
+      "context_order": 3,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 70,
+    "fields": {
+      "page_no_id": 31,
+      "label": "Header",
+      "help_context": "Header context.",
+      "context_order": 1,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 71,
+    "fields": {
+      "page_no_id": 31,
+      "label": "Components",
+      "help_context": "Components context.",
+      "context_order": 2,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 72,
+    "fields": {
+      "page_no_id": 31,
+      "label": "Compliance Criteria",
+      "help_context": "CC context.",
+      "context_order": 3,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 73,
+    "fields": {
+      "page_no_id": 31,
+      "label": "Value Type",
+      "help_context": "Value Type context.",
+      "context_order": 4,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 74,
+    "fields": {
+      "page_no_id": 31,
+      "label": "Option Type",
+      "help_context": "Option Type context.",
+      "context_order": 5,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 75,
+    "fields": {
+      "page_no_id": 31,
+      "label": "Compliance Value",
+      "help_context": "Compliance Value context.",
+      "context_order": 6,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 76,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Plant",
+      "help_context": "A plant is a physical location where operational or manufacturing processes take place within an organization.",
+      "context_order": 1,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk":77,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Year",
+      "help_context": "A year is a unit of time used to measure periods and track events within a calendar cycle",
+      "context_order": 2,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 78,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Counterparty Name",
+      "help_context": "The counterparty name is the name of the other party involved in a transaction or agreement.",
+      "context_order": 3,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 79,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Reference Section",
+      "help_context": " The reference section is a part of a document that lists sources or additional information used to support the content.",
+      "context_order": 4,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 80,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Start Date",
+      "help_context": " The start date is the date on which an event, project, or period begins.",
+      "context_order": 5,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 81,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Expiry Date",
+      "help_context": "The expiry date is the date on which a product, agreement, or validity period ends.",
+      "context_order": 6,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 82,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Term",
+      "help_context": "The term refers to the duration or period of time specified in a contract or agreement.",
+      "context_order": 7,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 83,
+    "fields": {
+      "page_no_id": 28,
+      "label": "Subject",
+      "help_context": " The subject refers to the main topic or focus of a discussion, document, or correspondence.",
+      "context_order": 8,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 84,
+    "fields": {
+      "page_no_id": 11,
+      "label": "Is Active",
+      "help_context": "It's a toggle to define whether the config is active or not.",
+      "context_order": 4,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 85,
+    "fields": {
+      "page_no_id": 22,
+      "label": "User Name",
+      "help_context": "username content here.",
+      "context_order": 1,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 86,
+    "fields": {
+      "page_no_id": 22,
+      "label": "First Name",
+      "help_context": "first name content here.",
+      "context_order": 2,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 87,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Last Name",
+      "help_context": "last name content here.",
+      "context_order": 3,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 88,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Email",
+      "help_context": "email content here.",
+      "context_order": 4,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 89,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Temporary Address",
+      "help_context": "temporary address content here.",
+      "context_order": 5,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 90,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Permanent Address",
+      "help_context": "permanent address content here.",
+      "context_order": 6,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 91,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Contact",
+      "help_context": "contact content here.",
+      "context_order": 7,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 92,
+    "fields": {
+      "page_no_id": 22,
+      "label": "User Group",
+      "help_context": "user group content here.",
+      "context_order": 8,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 93,
+    "fields": {
+      "page_no_id": 22,
+      "label": "User Status",
+      "help_context": "user status content here.",
+      "context_order": 9,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 94,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Current User",
+      "help_context": "Current User content here.",
+      "context_order": 10,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 95,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Password",
+      "help_context": "Password content here.",
+      "context_order": 11,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 96,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Confirm Password",
+      "help_context": "Confirm Password content here.",
+      "context_order": 12,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 97,
+    "fields": {
+      "page_no_id": 22,
+      "label": "Email",
+      "help_context": "email content here.",
+      "context_order": 13,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 98,
+    "fields": {
+      "page_no_id": 22,
+      "label": "User Group",
+      "help_context": "user group content here.",
+      "context_order": 14,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -73963,118 +74411,6 @@
     }
   },
   {
-    "model": "base.helper",
-    "pk": 1,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Plant",
-      "help_context": "A plant is a physical location where operational or manufacturing processes take place within an organization.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 2,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Year",
-      "help_context": "A year is a unit of time used to measure periods and track events within a calendar cycle",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 3,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Counterparty Name",
-      "help_context": "The counterparty name is the name of the other party involved in a transaction or agreement.",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 4,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Reference Section",
-      "help_context": " The reference section is a part of a document that lists sources or additional information used to support the content.",
-      "context_order": 4,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 5,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Start Date",
-      "help_context": " The start date is the date on which an event, project, or period begins.",
-      "context_order": 5,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 6,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Expiry Date",
-      "help_context": "The expiry date is the date on which a product, agreement, or validity period ends.",
-      "context_order": 6,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 7,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Term",
-      "help_context": "The term refers to the duration or period of time specified in a contract or agreement.",
-      "context_order": 7,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 8,
-    "fields": {
-      "page_no_id": 28,
-      "label": "Subject",
-      "help_context": " The subject refers to the main topic or focus of a discussion, document, or correspondence.",
-      "context_order": 8,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
     "model": "base.config_codes",
     "pk": 1,
     "fields": {
@@ -74156,6 +74492,66 @@
       "config_type": "Compliance Criteria",
       "config_code": ">=",
       "config_value": ">=",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 7,
+    "fields": {
+      "config_type": "Region",
+      "config_code": "us-east",
+      "config_value": "us-east",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 8,
+    "fields": {
+      "config_type": "Region",
+      "config_code": "us-west",
+      "config_value": "us-west",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 9,
+    "fields": {
+      "config_type": "Region",
+      "config_code": "us-north",
+      "config_value": "us-north",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 10,
+    "fields": {
+      "config_type": "Region",
+      "config_code": "us-south",
+      "config_value": "us-south",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,

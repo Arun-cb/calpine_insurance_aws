@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+# from base.api import access_sharepoint
 
 
 class BaseConfig(AppConfig):

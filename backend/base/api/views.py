@@ -1161,7 +1161,7 @@ def ins_org_functional_level(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Update
@@ -1174,7 +1174,7 @@ def upd_org_functional_level(request, id):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+    return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 
 # Delete
@@ -4003,3 +4003,34 @@ def get_user_activity(request, id=0):
                 set_temp.append(s_data)
     
     return Response(set_temp)
+
+def GetIndicatorArray(id):
+    indicate = org_definition_stop_light_indicators.objects.filter(delete_flag=0).values("id","stop_light_indicator_from","stop_light_indicator_to","stop_light_indicator")
+    return list(indicate)
+
+def GetIndicator(id=0, score=0):
+    color_value = 'none'
+    
+    indicate = org_definition_stop_light_indicators.objects.filter(delete_flag=0).values("id","stop_light_indicator_from","stop_light_indicator_to","stop_light_indicator")
+    
+    for d_indicate in indicate:
+        if score == 0 and (d_indicate['stop_light_indicator_from'] == 0 or d_indicate['stop_light_indicator_from'] == 1):
+            color_value = d_indicate['stop_light_indicator']
+        elif d_indicate['stop_light_indicator_from'] <= score and d_indicate['stop_light_indicator_to'] >= score:
+            color_value = d_indicate['stop_light_indicator']
+        elif score > 100:
+            color_value = d_indicate['stop_light_indicator']
+    return color_value
+
+            
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_kpi_dashboard_view(request, id=0):
+    org_data = []
+    org_dict ={ 'score': 100,
+                'indicator': GetIndicator(0, 100),
+                'indicator_colors': GetIndicatorArray(0)
+    }
+    
+    org_data.append(org_dict)
+    return Response(org_data,status=status.HTTP_200_OK)
