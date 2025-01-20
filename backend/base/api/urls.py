@@ -223,7 +223,7 @@ urlpatterns = [
     
     path("get_range_counterparty_details/<int:start>/<int:end>/", views.get_range_counterparty_details),
     # path("get_range_counterparty_details/<int:start>/<int:end>/<str:search>/", views.get_range_counterparty_details),
-    path("get_range_counterparty_details/<int:start>/<int:end>/<int:region>/", views.get_range_counterparty_details),
+    path("get_range_counterparty_details/<int:start>/<int:end>/<str:region>/", views.get_range_counterparty_details),
     path("del_counterparty_details/<int:id>/", views.del_counterparty_details),
     # Compliance Actuals URLS
     path("get_range_compliance_actuals/<int:start>/<int:end>/", views.get_range_compliance_actuals),
@@ -245,7 +245,7 @@ urlpatterns = [
     path("upd_compliance_codes/<int:id>/", views.upd_compliance_codes),
     path("del_compliance_codes/<int:id>/", views.del_compliance_codes),
     path("get_compliance_dashboard", views.get_compliance_dashboard),
-    path("get_compliance_dashboard/<int:region>/", views.get_compliance_dashboard),
+    path("get_compliance_dashboard/<str:region>/", views.get_compliance_dashboard),
     path("get_compliance_summary", views.get_compliance_summary),
     # path("get_default_json_structure", views.get_default_json_structure),
     path("getempregdetails", views.getEmpRegDetails),

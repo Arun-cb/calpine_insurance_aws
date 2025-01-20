@@ -875,6 +875,7 @@ def ins_user_profile(request):
         "permanent_address": request.data.get("permanent_address"),
         "contact": request.data.get("contact"),
         "user_group": request.data.get("user_group"),
+        "user_region": request.data.get("user_region"),
         "user_status": request.data.get("user_status"),
         "created_by": request.data.get("created_by"),
         "last_updated_by": request.data.get("last_updated_by"),
@@ -2717,15 +2718,15 @@ def del_compliance_details(request, id):
 # Get Range CounterParty Details
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
-def get_range_counterparty_details(request, start, end, region=0):
+def get_range_counterparty_details(request, start, end, region):
     print("region",region)
     try:
-        # if not search:
+        # if region !='all region':
         details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
         details = counterparty_details.objects.filter(region_id=region, delete_flag=False)[start:end]
         # else:
         #     details_length = counterparty_details.objects.filter(delete_flag=False).count()
-        #     details = counterparty_details.objects.filter(Q(party_name__icontains = search) | Q(plant__icontains = search) | Q(subject__icontains = search) | Q(reference__icontains = search) | Q(term__icontains = search), delete_flag=False)[start:end]
+        #     details = counterparty_details.objects.filter(delete_flag=False)[start:end]
         serializer = counterparty_details_serializer(details, many=True)
         if len(serializer.data) > 0:
             for data in serializer.data:
@@ -3322,7 +3323,7 @@ def del_compliance_codes(request, id):
 
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
-def get_compliance_dashboard(request,id=0, region=0):
+def get_compliance_dashboard(request, region):
     try:
         compliance = compliance_details.objects.filter(delete_flag=False)
         compliance_ser_data = compliance_details_serializer(compliance, many=True)
@@ -3335,14 +3336,14 @@ def get_compliance_dashboard(request,id=0, region=0):
                         data['compliance_values'] = compliance_code.compliance_value
                 else:
                     data['compliance_values'] = data['compliance_value']
-        if region == 0:
-            details_length = counterparty_details.objects.filter(delete_flag=False).count()
-            details = counterparty_details.objects.filter(delete_flag=False)
-            details_csv_export = counterparty_details.objects.filter(delete_flag=False)
-        else:
-            details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
-            details = counterparty_details.objects.filter(region_id=region,delete_flag=False)
-            details_csv_export = counterparty_details.objects.filter(region_id=region,delete_flag=False)
+        # if region == 'all region':
+        #     details_length = counterparty_details.objects.filter(delete_flag=False).count()
+        #     details = counterparty_details.objects.filter(delete_flag=False)
+        #     details_csv_export = counterparty_details.objects.filter(delete_flag=False)
+        # else:
+        details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
+        details = counterparty_details.objects.filter(region_id=region,delete_flag=False)
+        details_csv_export = counterparty_details.objects.filter(region_id=region,delete_flag=False)
         
         serializer = counterparty_details_serializer(details, many=True)
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)

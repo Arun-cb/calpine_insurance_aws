@@ -7820,7 +7820,7 @@
     "fields": {
       "page_no_id": 31,
       "label": "Header",
-      "help_context": "Header context.",
+      "help_context": "The 'Header' labels the compliance category, grouping related rules. Select the appropriate header for the relevant compliance.",
       "context_order": 1,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -7834,7 +7834,7 @@
     "fields": {
       "page_no_id": 31,
       "label": "Components",
-      "help_context": "Components context.",
+      "help_context": "'Components' refer to the individual elements or sections of the compliance rule.",
       "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -7848,7 +7848,7 @@
     "fields": {
       "page_no_id": 31,
       "label": "Compliance Criteria",
-      "help_context": "CC context.",
+      "help_context": "'Compliance Criteria' defines the conditions that must be met for compliance.",
       "context_order": 3,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -7862,7 +7862,7 @@
     "fields": {
       "page_no_id": 31,
       "label": "Value Type",
-      "help_context": "Value Type context.",
+      "help_context": "'Value Type' specifies the format or type of data required.",
       "context_order": 4,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -7876,7 +7876,7 @@
     "fields": {
       "page_no_id": 31,
       "label": "Option Type",
-      "help_context": "Option Type context.",
+      "help_context": "'Option Type' defines the available choices or settings for a given field.",
       "context_order": 5,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -7890,7 +7890,7 @@
     "fields": {
       "page_no_id": 31,
       "label": "Compliance Value",
-      "help_context": "Compliance Value context.",
+      "help_context": "'Compliance Value' represents the specific value that satisfies the compliance criteria.",
       "context_order": 6,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8030,7 +8030,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "User Name",
-      "help_context": "username content here.",
+      "help_context": "'User Name' is the identifier used to log in or access the system.",
       "context_order": 1,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8044,7 +8044,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "First Name",
-      "help_context": "first name content here.",
+      "help_context": "'First Name' is the user's given name.",
       "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8058,7 +8058,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Last Name",
-      "help_context": "last name content here.",
+      "help_context": "'Last Name' is the user's family or surname.",
       "context_order": 3,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8072,7 +8072,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Email",
-      "help_context": "email content here.",
+      "help_context": "'Email' is the user's official contact address for communication.",
       "context_order": 4,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8086,7 +8086,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Temporary Address",
-      "help_context": "temporary address content here.",
+      "help_context": "'Temporary Address' refers to a short-term or provisional location where the user resides.",
       "context_order": 5,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8100,7 +8100,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Permanent Address",
-      "help_context": "permanent address content here.",
+      "help_context": "'Permanent Address' refers to the user's long-term or fixed residence.",
       "context_order": 6,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8114,7 +8114,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Contact",
-      "help_context": "contact content here.",
+      "help_context": "'Contact' refers to the user's phone number or other communication details.",
       "context_order": 7,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8128,7 +8128,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "User Group",
-      "help_context": "user group content here.",
+      "help_context": "'User Group' categorizes users based on roles or access levels within the system.",
       "context_order": 8,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8142,7 +8142,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "User Status",
-      "help_context": "user status content here.",
+      "help_context": "'User Status' indicates the current state of the user's account (e.g., active, inactive).",
       "context_order": 9,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8156,7 +8156,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Current User",
-      "help_context": "Current User content here.",
+      "help_context": "'Current User' refers to the individual currently logged into the system.",
       "context_order": 10,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8170,7 +8170,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Password",
-      "help_context": "Password content here.",
+      "help_context": "'Password' is the secure key used to authenticate and access the account.",
       "context_order": 11,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8184,7 +8184,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Confirm Password",
-      "help_context": "Confirm Password content here.",
+      "help_context": "'Confirm Password' ensures the accuracy of the entered password for account security.",
       "context_order": 12,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8198,7 +8198,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "Email",
-      "help_context": "email content here.",
+      "help_context": "'Email' is the user's contact address for notifications and communication.",
       "context_order": 13,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -8212,7 +8212,7 @@
     "fields": {
       "page_no_id": 22,
       "label": "User Group",
-      "help_context": "user group content here.",
+      "help_context": "'User Group' categorizes users based on roles or access levels within the system.",
       "context_order": 14,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",

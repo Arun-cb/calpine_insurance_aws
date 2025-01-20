@@ -104,6 +104,7 @@ class user_profile(models.Model):
     permanent_address = models.CharField(max_length=100, null=True, blank=True)
     contact = models.CharField(max_length=10,null=True, blank=True)
     user_group = models.CharField(max_length=100, null=False, blank=False)
+    user_region = models.CharField(max_length=100, null=False, blank=False, default='all region')
     user_status = models.BooleanField(default=False)
     created_by = models.IntegerField(null=False, blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -472,7 +473,7 @@ def validate_year(value):
 class counterparty_details(models.Model):
     # level_id = models.ForeignKey(
     #     org_functional_hierarchy, null=False, blank=False, db_column='level_id', on_delete=models.CASCADE)
-    region_id = models.IntegerField(null=False, blank=False)
+    region_id = models.CharField(max_length=100, null=False, blank=False)
     level_id = models.CharField(max_length=50, null=True, blank=True)
     # Set ForeignKey to counterparty_profile using the name field
     party_name = models.ForeignKey(

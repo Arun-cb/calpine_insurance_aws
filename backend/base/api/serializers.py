@@ -127,7 +127,7 @@ class sso_configure_serializer(serializers.ModelSerializer):
 class user_profile_serializer(serializers.ModelSerializer):
     class Meta:
         model = user_profile
-        fields = ('id', 'user_id', 'profile_pic', 'temporary_address', 'permanent_address', 'contact', 'user_group', 'user_status', 'created_by', 'last_updated_by')
+        fields = ('id', 'user_id', 'profile_pic', 'temporary_address', 'permanent_address', 'contact', 'user_group', 'user_region', 'user_status', 'created_by', 'last_updated_by')
         
 # Org Definition
 class org_definition_serializer(serializers.ModelSerializer):
