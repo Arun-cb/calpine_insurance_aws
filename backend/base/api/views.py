@@ -919,6 +919,8 @@ def upd_user_profile(request, id):
         item.created_by = data["created_by"]
     if item.last_updated_by != data["last_updated_by"]:
         item.last_updated_by = data["last_updated_by"]
+    if item.user_region != data["user_region"]:
+        item.user_region = data["user_region"]
 
     item.save()
     serializer = user_profile_serializer(item)
@@ -3797,7 +3799,7 @@ def get_compliance_summary(request, id=0):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_sc_initiative(request, id, compid):
-    initiate = initiative.objects.filter(counterparty_id=id, compliance_id=compid, delete_flag= False).values("id","counterparty_id","action_item","target_date","ownership","target_date","status","comments")
+    initiate = initiative.objects.filter(counterparty_id=id, compliance_id=compid, delete_flag= False).values("id","counterparty_id","compliance_id","action_item","target_date","ownership","target_date","status","comments","created_by","last_updated_by")
     return Response(initiate)
 
 # @api_view(["GET"])
@@ -3904,7 +3906,7 @@ def ins_sc_initiative(request):
         else:
             data = {
                 "counterparty_id": listData[i]["counterparty_id"],
-                "compliance_id": listData[i]["Compliance_id"],
+                "compliance_id": listData[i]["compliance_id"],
                 "action_item": listData[i]["action_item"],
                 "target_date": listData[i]["target_date"],
                 "ownership": listData[i]["ownership"],
