@@ -142,35 +142,35 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'mssql', 
-#         'NAME': 'calpine_insurance',
-#         'HOST': 'CB-CH-L-0042\SQLSERVEROWN', 
-#         'PORT': '', 
-#         'USER': 'sa',
-#         'PASSWORD': 'Product@work',
-#         'OPTIONS': {
-#             'driver': 'ODBC Driver 17 for SQL Server',
-#         },
-#     }
-# }
-
-
-# AWS sql server
 DATABASES = {
     'default': {
         'ENGINE': 'mssql', 
-        'NAME': 'calpine_insurance',
-        'HOST': 'aws-sql-server-free.cvme2gga2udg.us-west-1.rds.amazonaws.com', 
-        'PORT': '1433', 
-        'USER': 'admin',
-        'PASSWORD': 'ProductadminSQL',
+        'NAME': 'calpine_insurance_new',
+        'HOST': 'CB-CH-L-0042\SQLSERVEROWN', 
+        'PORT': '', 
+        'USER': 'sa',
+        'PASSWORD': 'Product@work',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }
+
+
+# AWS sql server
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mssql', 
+#         'NAME': 'calpine_insurance',
+#         'HOST': 'aws-sql-server-free.cvme2gga2udg.us-west-1.rds.amazonaws.com', 
+#         'PORT': '1433', 
+#         'USER': 'admin',
+#         'PASSWORD': 'ProductadminSQL',
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 17 for SQL Server',
+#         },
+#     }
+# }
 
 # 'OPTIONS': {
 #             'driver': 'ODBC Driver 18 for SQL Server',
@@ -223,14 +223,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.100.111:3000",
     "http://localhost:3000",
-    "http://52.8.215.100",
-    "http://52.8.215.100:3000",
+    # "http://52.8.215.100",
+    # "http://52.8.215.100:3000",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# CLIENT_MEDIA_PATH = '../frontend/public/Assets/master'
-# MEDIA_ROOT = os.path.join(BASE_DIR, CLIENT_MEDIA_PATH)
+CLIENT_MEDIA_PATH = '../frontend/public/Assets/master'
+MEDIA_ROOT = os.path.join(BASE_DIR, CLIENT_MEDIA_PATH)
 
 # MEDIA_URL = ''
 
