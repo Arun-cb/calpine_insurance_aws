@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-33k=%l=*_*4&^x5ym7$)kp@p60^8y%8&-o05vsn+w5zj!0-#$a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*'] # Default Value []
 
@@ -142,35 +143,40 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql', 
-        'NAME': 'calpine_insurance_new',
-        'HOST': 'CB-CH-L-0042\SQLSERVEROWN', 
-        'PORT': '', 
-        'USER': 'sa',
-        'PASSWORD': 'Product@work',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    }
-}
-
-
-# AWS sql server
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'mssql', 
 #         'NAME': 'calpine_insurance',
-#         'HOST': 'aws-sql-server-free.cvme2gga2udg.us-west-1.rds.amazonaws.com', 
-#         'PORT': '1433', 
-#         'USER': 'admin',
-#         'PASSWORD': 'ProductadminSQL',
+#         'HOST': 'CB-CH-L-0042\SQLSERVEROWN', 
+#         'PORT': '', 
+#         'USER': 'sa',
+#         'PASSWORD': 'Product@work',
 #         'OPTIONS': {
 #             'driver': 'ODBC Driver 17 for SQL Server',
 #         },
 #     }
 # }
+
+
+# AWS sql server
+DATABASES = {
+    'default': {
+        'ENGINE': 'mssql', 
+        'NAME': 'trakskore',
+        'HOST': 'PZSWCORPSPDB01', 
+        'PORT': '', 
+        # 'USER': 'sa_ar35096',
+        # 'PASSWORD': 'bZ@1<(3Sz7Hm',
+        'OPTIONS' : { 
+            'driver': 'ODBC Driver 17 for SQL Server', 
+            # 'Extra_Params':'Trusted_Connection=True'
+        },
+        # 'OPTIONS': {
+        #     'driver': 'ODBC Driver 18 for SQL Server',
+        #     'TrustServerCertificate': 'yes',
+        # },
+    }
+}
 
 # 'OPTIONS': {
 #             'driver': 'ODBC Driver 18 for SQL Server',
@@ -223,14 +229,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.100.111:3000",
     "http://localhost:3000",
-    # "http://52.8.215.100",
-    # "http://52.8.215.100:3000",
+    "http://10.221.108.153:3000",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CLIENT_MEDIA_PATH = '../frontend/public/Assets/master'
-MEDIA_ROOT = os.path.join(BASE_DIR, CLIENT_MEDIA_PATH)
+# CLIENT_MEDIA_PATH = '../frontend/public/Assets/master'
+# MEDIA_ROOT = os.path.join(BASE_DIR, CLIENT_MEDIA_PATH)
 
 # MEDIA_URL = ''
 
