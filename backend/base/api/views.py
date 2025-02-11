@@ -3324,7 +3324,7 @@ def del_compliance_codes(request, id):
     
 
 @api_view(["GET"])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_compliance_dashboard(request, region):
     try:
         compliance = compliance_details.objects.filter(delete_flag=False)
@@ -3338,14 +3338,14 @@ def get_compliance_dashboard(request, region):
                         data['compliance_values'] = compliance_code.compliance_value
                 else:
                     data['compliance_values'] = data['compliance_value']
-        # if region == 'all region':
-        #     details_length = counterparty_details.objects.filter(delete_flag=False).count()
-        #     details = counterparty_details.objects.filter(delete_flag=False)
-        #     details_csv_export = counterparty_details.objects.filter(delete_flag=False)
-        # else:
-        details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
-        details = counterparty_details.objects.filter(region_id=region,delete_flag=False)
-        details_csv_export = counterparty_details.objects.filter(region_id=region,delete_flag=False)
+        if region == 'all':
+            details_length = counterparty_details.objects.filter(delete_flag=False).count()
+            details = counterparty_details.objects.filter(delete_flag=False)
+            details_csv_export = counterparty_details.objects.filter(delete_flag=False)
+        else:
+            details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
+            details = counterparty_details.objects.filter(region_id=region,delete_flag=False)
+            details_csv_export = counterparty_details.objects.filter(region_id=region,delete_flag=False)
         
         serializer = counterparty_details_serializer(details, many=True)
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
