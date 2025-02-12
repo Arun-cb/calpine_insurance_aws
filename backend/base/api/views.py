@@ -4037,3 +4037,90 @@ def get_kpi_dashboard_view(request, id=0):
     
     org_data.append(org_dict)
     return Response(org_data,status=status.HTTP_200_OK)
+
+# ***Compliance Indicators***
+
+# View all
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_compliance_indicators(request, id=0):
+    if id == 0:
+        comp = compliance_indicators.objects.filter(delete_flag=False)
+    else:
+        comp = compliance_indicators.objects.filter(id=id)
+
+    serializer = compliance_indicators_serializer(comp, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# Add
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def ins_compliance_indicators(request):
+    list_data = request.data
+    
+    for i in range(len(list_data)):
+        data = {
+            "compliance_indicator_from": list_data[i]["compliance_indicator_from"],
+            "compliance_indicator_to": list_data[i]["compliance_indicator_to"],
+            "compliance_indicator": list_data[i]["compliance_indicator"],
+            # "def_id": list_data[i]["def_id"],
+            "created_by": list_data[i]["created_by"],
+            "last_updated_by": list_data[i]["last_updated_by"],
+        }
+        serializer = compliance_indicators_serializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# Update
+
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def upd_compliance_indicators(request, id):
+    list_data = request.data
+    
+    for i in range(len(list_data)):
+        data = {
+            "id": list_data[i]["id"],
+            "compliance_indicator_from": list_data[i]["compliance_indicator_from"],
+            "compliance_indicator_to": list_data[i]["compliance_indicator_to"],
+            "compliance_indicator": list_data[i]["compliance_indicator"],
+            # "def_id": list_data[i]["def_id"],
+            "created_by": list_data[i]["created_by"],
+            "last_updated_by": list_data[i]["last_updated_by"],
+        }
+        
+        compliance_indictor_update = compliance_indicators.objects.filter(
+            id=list_data[i]["id"]
+        ).update(
+            compliance_indicator_from=list_data[i]["compliance_indicator_from"],
+            compliance_indicator_to=list_data[i]["compliance_indicator_to"],
+            compliance_indicator=list_data[i]["compliance_indicator"],
+            # def_id=list_data[i]["def_id"],
+            created_by=list_data[i]["created_by"],
+            last_updated_by=list_data[i]["last_updated_by"],
+        )
+
+    return Response(compliance_indictor_update, status=status.HTTP_200_OK)
+
+
+# Delete
+
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def del_compliance_indicators(request, id):
+    compliance_indicator_delete = compliance_indicators.objects.filter(
+        delete_flag=False
+    ).update(delete_flag=True)
+    return Response(compliance_indicator_delete, status=status.HTTP_200_OK)

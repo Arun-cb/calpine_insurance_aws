@@ -323,4 +323,10 @@ class initiative_serializer(serializers.ModelSerializer):
     class Meta:
         model = initiative
         fields= '__all__'
-   
+
+# Compliance Indicators
+class compliance_indicators_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = compliance_indicators
+        fields = ('id', 'compliance_indicator_from', 'compliance_indicator_to',
+                  'compliance_indicator', 'created_by', 'last_updated_by', 'delete_flag')

@@ -285,4 +285,10 @@ urlpatterns = [
     
     path("get_kpi_dashboard_view/<int:id>/", views.get_kpi_dashboard_view),
     
+    # Compliance Indicators URLS
+    path("get_compliance_indicators",views.get_compliance_indicators),
+    path("ins_compliance_indicators",views.ins_compliance_indicators),
+    path("upd_compliance_indicators/<int:id>/",views.upd_compliance_indicators),
+    path("del_compliance_indicators/<int:id>/",views.del_compliance_indicators),
+    
 ]

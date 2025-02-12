@@ -104,7 +104,7 @@ class user_profile(models.Model):
     permanent_address = models.CharField(max_length=100, null=True, blank=True)
     contact = models.CharField(max_length=10,null=True, blank=True)
     user_group = models.CharField(max_length=100, null=False, blank=False)
-    user_region = models.CharField(max_length=100, null=False, blank=False, default='all region')
+    user_region = models.CharField(max_length=100, null=False, blank=False, default='all')
     user_status = models.BooleanField(default=False)
     created_by = models.IntegerField(null=False, blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -556,3 +556,23 @@ class initiative(models.Model):
 
     class Meta:
         db_table = "tb_sc_initiative"
+        
+# Compliance Indicators
+
+class compliance_indicators(models.Model):
+    compliance_indicator_from = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)], null=False, blank=False)
+    compliance_indicator_to = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)], null=False, blank=False)
+    compliance_indicator = models.CharField(
+        max_length=50, null=False, blank=False)
+    # def_id = models.ForeignKey(
+    #     org_definition, null=False, blank=False, on_delete=models.CASCADE, db_column='def_id')
+    created_by = models.IntegerField(null=False, blank=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_updated_by = models.IntegerField(null=False, blank=False)
+    last_updated_date = models.DateTimeField(auto_now=True)
+    delete_flag = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "tb_sc_compliance_indicators"
