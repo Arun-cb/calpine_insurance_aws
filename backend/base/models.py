@@ -294,9 +294,9 @@ class chart_attributes_options(models.Model):
 class compliance_details(models.Model):
     id = models.AutoField(primary_key=True)
     compliance_group_name = models.CharField(max_length=50, null=False, blank=False)
-    compliance_name = models.CharField(max_length=255, null=False, blank=False)
+    compliance_name = models.TextField(null=False, blank=False) # No need for max_length
     compliance_criteria = models.CharField(max_length=50, null=False, blank=False)
-    compliance_value = models.CharField(max_length=255, null=False, blank=False)
+    compliance_value = models.TextField(null=False, blank=False) # No need for max_length
     value_type = models.CharField(max_length=255, null=False, blank=False, default='nill')
     option_type = models.CharField(max_length=255, null=True, blank=True, default='nill')
     effective_from = models.DateTimeField(auto_now=True)
