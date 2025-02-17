@@ -329,6 +329,19 @@ class config_codes(models.Model):
             #     fields=['config_type', 'config_code'], name='unique_config_type_config_code')
         ]
         db_table = "tb_sc_config_codes"
+        
+def upload_path(instance, filename):
+    obj = settings.objects.all().last()
+    ext = filename.split('.')
+    if obj == None:
+        file_name = "settings_logo_%s.%s" % (1, ext[1])
+    elif instance.id == None:
+        file_name = "settings_logo_%s.%s" % (obj.id+1, ext[1])
+    else:
+        file_name = "settings_logo_%s_upd.%s" % (instance.id, ext[1])
+    # print(file_name)
+    return file_name
+    # '/'.join([file_name])
                
 # Settings
 class settings(models.Model):
@@ -344,6 +357,8 @@ class settings(models.Model):
     last_updated_by = models.IntegerField(null=False, blank=False)
     last_updated_date = models.DateTimeField(auto_now=True)
     delete_flag = models.BooleanField(default=False)
+    logo = models.ImageField(null=True, blank=True, upload_to=upload_path)
+    
 
     class Meta:
         db_table = "tb_sc_settings"
@@ -484,14 +499,14 @@ class counterparty_details(models.Model):
     plant = models.ForeignKey(
         plant_details, null=False, blank=False, db_column='plant', 
         on_delete=models.CASCADE)  # Linking name field
-    subject = models.CharField(max_length=50, null=False, blank=False)
+    subject = models.CharField(max_length=500, null=False, blank=False)
     expiry_date = models.DateTimeField()
     year = models.PositiveIntegerField(
         validators=[validate_year],
         help_text="Enter a valid year between 1900 and current year."
     )
-    reference = models.CharField(max_length=50, null=False, blank=False)
-    term = models.CharField(max_length=10, null=False, blank=False)
+    reference = models.CharField(max_length=500, null=False, blank=False)
+    term = models.CharField(max_length=500, null=False, blank=False)
     created_by = models.IntegerField(null=False, blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated_by = models.IntegerField(null=False, blank=False)

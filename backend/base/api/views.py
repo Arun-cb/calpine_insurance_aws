@@ -22,6 +22,7 @@ from django.db import transaction
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models import F
+import json
 
 
 @api_view(["GET"])
@@ -1497,7 +1498,7 @@ def get_navigation_menu_details(request, id=0):
     # Serialize the data
     serialized_data = navigation_menu_details_serializer(org, many=True).data
     
-    print("Serializer data :",serialized_data)
+    # print("Serializer data :",serialized_data)
 
     # Process the data to group parent -> children
     def sort_menu_hierarchy(data):
@@ -1520,7 +1521,7 @@ def get_navigation_menu_details(request, id=0):
 
     # Sort the menu hierarchy
     ordered_data = sort_menu_hierarchy(serialized_data)
-    print("Ordered data :",ordered_data)
+    # print("Ordered data :",ordered_data)
 
     # Return the sorted and structured response
     return Response(ordered_data)
@@ -2315,40 +2316,121 @@ def get_settings(request, id=0):
 
 
 # Put and insert
+# @api_view(["PUT"])
+# @permission_classes([IsAuthenticated])
+# def upd_settings(request, id):
+#     listData = request.data
+#     print("lisdtData :",listData)
+#     if not listData:
+#         return Response(
+#             {"user_id": "This field is may not be empty"},
+#             status=status.HTTP_400_BAD_REQUEST,
+#         )
+#     else:
+#         all_item = settings.objects.all()
+#         for x in listData:
+#             if 'value' in listData[x] and listData[x]["value"] != '':
+#                 data = {
+#                     "variable_name": listData[x]["variable_name"],
+#                     "value": listData[x]["value"],
+#                     "types": listData[x]["types"] if "types" in listData[x] else '',
+#                     "hours": int(listData[x]["hours"]) if "hours" in listData[x] else '12',
+#                     "seconds": int(listData[x]["seconds"]) if "seconds" in listData[x] else '00',
+#                     "ampm": listData[x]["ampm"] if "ampm" in listData[x] else 'am',
+#                     "user_id": id,
+#                     "created_by": listData[x]["created_by"],
+#                     "last_updated_by": listData[x]["last_updated_by"],
+#                 }
+#                 selected_item = all_item.filter(
+#                     variable_name=listData[x]["variable_name"], user_id=id
+#                 ).first()
+#                 if not selected_item:
+#                     serializer = settings_serializer(data=data)
+#                     if serializer.is_valid():
+#                         serializer.save()
+#                     else:
+#                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#                 else:
+#                     serializer = settings_serializer(instance=selected_item, data=data)
+#                     if serializer.is_valid():
+#                         serializer.save()
+#                     else:
+#                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#         updater.jobs_scheduler(id=id)
+#         return Response("Success", status=status.HTTP_200_OK)
+
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def upd_settings(request, id):
-    listData = request.data
+    listData = request.data.get("inputs")
     if not listData:
         return Response(
             {"user_id": "This field is may not be empty"},
             status=status.HTTP_400_BAD_REQUEST,
         )
     else:
+        org_settings_view = settings.objects.filter(variable_name="Logo").first()
+    
+        if(org_settings_view):
+            if len(org_settings_view.logo) > 0 and org_settings_view.logo != request.data.get("value"):
+                os.remove(org_settings_view.logo.path)
+                
+            if org_settings_view.logo != request.data.get("value"):
+                org_settings_view.logo = request.data.get("value")
+            if org_settings_view.created_by != request.data.get("created_by"):
+                org_settings_view.created_by = request.data.get("created_by")
+            if org_settings_view.last_updated_by != request.data.get("last_updated_by"):
+                org_settings_view.last_updated_by = request.data.get("last_updated_by")
+                
+            org_settings_view.save()
+            
+        else:
+            data = {
+                "variable_name": request.data.get("variable_name"),
+                "value": "logo path",
+                "user_id": request.data.get("user_id"),
+                "created_by": request.data.get("created_by"),
+                "last_updated_by": request.data.get("last_updated_by"),
+                "logo": request.data.get("value"),        
+            }
+            
+            serializer = settings_serializer(data=data)
+            if serializer.is_valid():
+                logo_instance = serializer.save()
+            else:
+                print("Error's :",serializer.errors)
+
+        if isinstance(listData, str):  # If it's a string, parse it
+            try:
+                listData = json.loads(listData)
+            except json.JSONDecodeError:
+                print("error RES")
+                return Response({"error": "Invalid JSON format"}, status=status.HTTP_400_BAD_REQUEST)
+
         all_item = settings.objects.all()
-        for x in listData:
-            if 'value' in listData[x] and listData[x]["value"] != '':
+        for key, value in listData.items():
+            if isinstance(value, dict) and 'value' in value and value["value"] != '':
                 data = {
-                    "variable_name": listData[x]["variable_name"],
-                    "value": listData[x]["value"],
-                    "types": listData[x]["types"] if "types" in listData[x] else '',
-                    "hours": int(listData[x]["hours"]) if "hours" in listData[x] else '12',
-                    "seconds": int(listData[x]["seconds"]) if "seconds" in listData[x] else '00',
-                    "ampm": listData[x]["ampm"] if "ampm" in listData[x] else 'am',
+                    "variable_name": value["variable_name"],
+                    "value": value["value"],
+                    "types": value.get("types", ''),
+                    "hours": int(value["hours"]) if "hours" in value and value["hours"] is not None else 12,
+                    "seconds": int(value["seconds"]) if "seconds" in value and value["seconds"] is not None else 0,
+                    "ampm": value.get("ampm", 'am'),
                     "user_id": id,
-                    "created_by": listData[x]["created_by"],
-                    "last_updated_by": listData[x]["last_updated_by"],
+                    "created_by": value["created_by"],
+                    "last_updated_by": value["last_updated_by"],
                 }
-                selected_item = all_item.filter(
-                    variable_name=listData[x]["variable_name"], user_id=id
-                ).first()
+                
+                selected_item = all_item.filter(variable_name=value["variable_name"], user_id=id).first()
+                
                 if not selected_item:
                     serializer = settings_serializer(data=data)
                     if serializer.is_valid():
                         serializer.save()
                     else:
                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
                 else:
                     serializer = settings_serializer(instance=selected_item, data=data)
                     if serializer.is_valid():
@@ -2357,6 +2439,7 @@ def upd_settings(request, id):
                         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         updater.jobs_scheduler(id=id)
         return Response("Success", status=status.HTTP_200_OK)
+
     
 # Global Validation Error Message api's
 
@@ -2723,12 +2806,12 @@ def del_compliance_details(request, id):
 def get_range_counterparty_details(request, start, end, region):
     print("region",region)
     try:
-        # if region !='all region':
-        details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
-        details = counterparty_details.objects.filter(region_id=region, delete_flag=False)[start:end]
-        # else:
-        #     details_length = counterparty_details.objects.filter(delete_flag=False).count()
-        #     details = counterparty_details.objects.filter(delete_flag=False)[start:end]
+        if region !='all':
+            details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
+            details = counterparty_details.objects.filter(region_id=region, delete_flag=False)[start:end]
+        else:
+            details_length = counterparty_details.objects.filter(delete_flag=False).count()
+            details = counterparty_details.objects.filter(delete_flag=False)[start:end]
         serializer = counterparty_details_serializer(details, many=True)
         if len(serializer.data) > 0:
             for data in serializer.data:
