@@ -188,6 +188,7 @@ urlpatterns = [
     # Config Codes URLS
     path("ins_config_codes", views.ins_config_codes),
     path("get_config_codes", views.get_config_codes),
+    path("get_config_details/<str:search>/", views.get_config_details),
     path("get_range_config_codes/<int:start>/<int:end>/", views.get_range_config_codes),
     path("get_range_config_codes/<int:start>/<int:end>/<str:search>/", views.get_range_config_codes),
     path("upd_config_codes/<int:id>/", views.upd_config_codes),
@@ -208,6 +209,8 @@ urlpatterns = [
     # get auth user details
     path("get_user_details", views.get_user_details),
     path("get_user_details_with_profile", views.get_user_details_with_profile),
+    path("get_range_user_details_with_profile/<int:start>/<int:end>/", views.get_range_user_details_with_profile),
+    path("get_range_user_details_with_profile/<int:start>/<int:end>/<str:search>/", views.get_range_user_details_with_profile),
     path("get_Prticular_user_details/<int:id>/", views.get_Prticular_user_details),
     path("get_logged_in_user/<int:id>/", views.get_logged_in_user),
     # Compliance details URLS
@@ -290,5 +293,9 @@ urlpatterns = [
     path("ins_compliance_indicators",views.ins_compliance_indicators),
     path("upd_compliance_indicators/<int:id>/",views.upd_compliance_indicators),
     path("del_compliance_indicators/<int:id>/",views.del_compliance_indicators),
+    
+    # Compliance Summary API
+    path("get_compliance_summary",views.get_compliance_summary),
+    path("get_compliance_summary/<str:region>/",views.get_compliance_summary),
     
 ]

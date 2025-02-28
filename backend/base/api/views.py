@@ -898,7 +898,11 @@ def upd_user_profile(request, id):
     data = request.data
 
     userStatus = 0 if data["user_status"] == 'false' else 1
-    profilePic = "" if data["profile_pic"] == 'false' else data["profile_pic"]
+
+    if "profile_pic" in data and data["profile_pic"] != 'false':
+        profilePic = data["profile_pic"]
+    else:
+        profilePic = ""
 
     if item.profile_pic:
         if len(item.profile_pic) > 0 and item.profile_pic != data["profile_pic"]:
@@ -934,6 +938,7 @@ def upd_user_profile(request, id):
 def del_user_profile(request, id):
     Userdata = user_profile.objects.get(id=id)
     data = request.data
+    print(f"==>> data: {data}")
     if Userdata.delete_flag != data["delete_flag"]:
         Userdata.delete_flag = data["delete_flag"]
     if Userdata.last_updated_by != data["last_updated_by"]:
@@ -1728,7 +1733,7 @@ def get_user_details(request):
     return Response(serializer.data)
 
 @api_view(["GET"])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_user_details_with_profile(request):
     # Fetch all active users
     users = User.objects.filter(is_active="1")
@@ -1746,7 +1751,9 @@ def get_user_details_with_profile(request):
     combined_data = []
     for user in users_serializer.data:
         profile_data = profile_data_dict.get(user["id"], {})  # Get profile data or default to {}
-        combined_data.append({**user, **profile_data})  # Merge user and profile data
+
+        if (profile_data["delete_flag"] == False):
+            combined_data.append({**user, **profile_data})  # Merge user and profile data
     
     return Response(combined_data, status=status.HTTP_200_OK)
 
@@ -1763,6 +1770,55 @@ def get_Prticular_user_details(request, id=0):
         serializer = user_serializer(UserObj, many=True)
         return Response(serializer.data)
 
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_range_user_details_with_profile(request, start, end, search=False):
+    try:
+        # Fetch users based on search
+        query = User.objects.filter(is_active="1")
+        if search:
+            query = query.filter(
+                Q(username__icontains=search) 
+            )
+
+        # Get user profiles
+        profiles = user_profile.objects.filter(user_id__in=[qry.id for qry in query])
+        profile_serializer = user_profile_serializer(profiles, many=True)
+
+        # Convert profile data into a dictionary for quick lookup
+        profile_data_dict = {profile["user_id"]: profile for profile in profile_serializer.data}
+
+        # Serialize user data
+        users_serializer = user_serializer(query, many=True)
+
+        # Merge user data with their respective profile data
+        combined_data = []
+        for user in users_serializer.data:
+            profile_data = profile_data_dict.get(user["id"], {})
+
+            if not profile_data.get("delete_flag", True):
+                combined_data.append({**user, **profile_data})
+
+        # Count total records
+        users_length = len(combined_data)
+
+        # Slice data for pagination
+        dummyData = combined_data[start:end]
+        
+        return Response(
+            {
+                "data": dummyData,
+                "data_length": users_length,
+            }, status=status.HTTP_200_OK
+        )
+
+    except Exception as e:
+        print("ERROR:", e)
+        return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+    
+    
 # To get Details about Logged in User
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
@@ -2087,6 +2143,17 @@ def get_config_codes(request, id=0):
         config = config_codes.objects.filter(delete_flag=False)
     else:
         config = config_codes.objects.filter(id=id)
+    serializer = config_codes_serializer(config, many=True)
+    return Response(serializer.data)
+
+# Get regions from config table
+@api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+def get_config_details(request, search=''):
+    if search !='':
+        config = config_codes.objects.filter(config_type = search, delete_flag=False, is_active=True)
+    else:
+        config = config_codes.objects.filter(delete_flag=False)
     serializer = config_codes_serializer(config, many=True)
     return Response(serializer.data)
 
@@ -2807,8 +2874,8 @@ def get_range_counterparty_details(request, start, end, region):
     print("region",region)
     try:
         if region !='all':
-            details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
-            details = counterparty_details.objects.filter(region_id=region, delete_flag=False)[start:end]
+            details_length = counterparty_details.objects.filter(delete_flag=False, plant__region=region).count() #region_id=region,
+            details = counterparty_details.objects.filter(delete_flag=False, plant__region=region)[start:end] # region_id=region, 
         else:
             details_length = counterparty_details.objects.filter(delete_flag=False).count()
             details = counterparty_details.objects.filter(delete_flag=False)[start:end]
@@ -2854,7 +2921,7 @@ def get_range_counterparty_details(request, start, end, region):
                                 compliance_data['compliance_values'] = compliance_data['compliance_value']
                             detail.update(compliance_data)
                             
-        details_csv_export = counterparty_details.objects.filter(region_id=region, delete_flag=False)           
+        details_csv_export = counterparty_details.objects.filter(plant__region=region, delete_flag=False)           
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
         if len(serializer_csv_export.data) > 0:
             for data in serializer_csv_export.data:
@@ -2885,7 +2952,7 @@ def get_range_counterparty_details(request, start, end, region):
 @permission_classes([IsAuthenticated])
 def ins_counterparty_compliance_actuals(request):
     counterparty_data = {
-        "region_id": request.data.get("region_id"),
+        "region_id": request.data.get("region_id") if request.data.get("region_id") else 'Null',
         "level_id": request.data.get("level_id"),
         "party_name": request.data.get("party_name"),
         "start_date": request.data.get("start_date"),
@@ -3426,9 +3493,9 @@ def get_compliance_dashboard(request, region):
             details = counterparty_details.objects.filter(delete_flag=False)
             details_csv_export = counterparty_details.objects.filter(delete_flag=False)
         else:
-            details_length = counterparty_details.objects.filter(region_id=region, delete_flag=False).count()
-            details = counterparty_details.objects.filter(region_id=region,delete_flag=False)
-            details_csv_export = counterparty_details.objects.filter(region_id=region,delete_flag=False)
+            details_length = counterparty_details.objects.filter(delete_flag=False, plant__region=region).count()
+            details = counterparty_details.objects.filter(delete_flag=False, plant__region=region)
+            details_csv_export = counterparty_details.objects.filter(delete_flag=False, plant__region=region)
         
         serializer = counterparty_details_serializer(details, many=True)
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
@@ -3457,8 +3524,8 @@ def get_compliance_dashboard(request, region):
                             compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
                             if compliance_code:
                                 compli_details['compliance_values'] = compliance_code.compliance_value
-                                if detail['actuals'] != '':
-                                    detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
+                                # if detail['actuals'] != '':
+                                #     detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
                         else:
                             compli_details['compliance_values'] = compli_details['compliance_value']
                         detail.update(compli_details)
@@ -3476,6 +3543,92 @@ def get_compliance_dashboard(request, region):
         # Catch other general exceptions
         return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
+
+@api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+def get_compliance_summary(request, region='all'):
+    try:
+        compliance = compliance_details.objects.filter(delete_flag=False)
+        compliance_ser_data = compliance_details_serializer(compliance, many=True)
+        if len(compliance_ser_data.data) > 0:
+            for data in compliance_ser_data.data:
+                if(data['value_type']=='Options'):
+                    # Compliance Code to Value
+                    compliance_code = compliance_codes.objects.filter(id=int(data['compliance_value']), delete_flag=False).first()
+                    if compliance_code:
+                        data['compliance_values'] = compliance_code.compliance_value
+                else:
+                    data['compliance_values'] = data['compliance_value']
+        if region == 'all':
+            details = plant_details.objects.filter(delete_flag=False)
+            # details_length = counterparty_details.objects.filter(delete_flag=False).count()
+            # details_csv_export = counterparty_details.objects.filter(delete_flag=False)
+        else:
+            details = plant_details.objects.filter(delete_flag=False, region=region)
+            # details_length = counterparty_details.objects.filter(delete_flag=False, plant__region=region).count()
+            # details_csv_export = counterparty_details.objects.filter(delete_flag=False, plant__region=region)
+        
+        serializer = plant_details_serializer(details, many=True)
+        # serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
+        if len(serializer.data) > 0:
+            for data in serializer.data:
+                counterparty_data = counterparty_details.objects.filter(plant=data['id'], delete_flag=False)
+                counterparty_data_serializer = counterparty_details_serializer(counterparty_data, many=True)
+                data['counterparty_data'] = counterparty_data_serializer.data
+                if len(counterparty_data_serializer.data) > 0:
+                    for cp_data in counterparty_data_serializer.data:
+                        cp_data['plant_code'] = data['name']
+                        party = counterparty_profile.objects.filter(id=cp_data['party_name'], delete_flag=False).first()
+                        if party:
+                            cp_data['party_code'] = party.name  # Extract only the 'name' field
+                        else:
+                            cp_data['party_code'] = None  # or any default value
+                            
+                        actuals = compliance_actuals.objects.filter(counterparty_id=cp_data['id'], delete_flag=False)
+                        actuals_serializer = compliance_actuals_serializer(actuals, many=True)
+                        cp_data['actuals'] = actuals_serializer.data
+                        if len(cp_data['actuals']) > 0:
+                            for detail in cp_data['actuals']:
+                                detail['plant_code'] = data['name']
+                                # # Plant
+                                # plant = plant_details.objects.filter(id=data['plant'], delete_flag=False).first()
+                                # if plant:
+                                #     data['plant_code'] = plant.name  # Extract only the 'name' field
+                                # else:
+                                #     data['plant_code'] = None  # or any default value
+                                # # CounterParty
+                                party = counterparty_profile.objects.filter(id=cp_data['party_name'], delete_flag=False).first()
+                                if party:
+                                    detail['party_code'] = party.name  # Extract only the 'name' field
+                                else:
+                                    detail['party_code'] = None  # or any default value
+                                
+                                compli_details = compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_name','compliance_value','compliance_criteria','value_type')[0]
+                                
+                                if(compli_details['value_type']=='Options'):
+                                    compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
+                                    if compliance_code:
+                                        compli_details['compliance_values'] = compliance_code.compliance_value
+                                        # if detail['actuals'] != '':
+                                        #     detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
+                                else:
+                                    compli_details['compliance_values'] = compli_details['compliance_value']
+                                detail.update(compli_details)
+        
+        return Response(
+            {
+                "data": serializer.data,
+                # "compliance_details": compliance_ser_data.data,
+                # "csv_data": serializer_csv_export.data,
+            },status=status.HTTP_200_OK
+        )
+    except ValueError as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        # Catch other general exceptions
+        return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
 # Get employee registration details
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
@@ -3587,7 +3740,7 @@ def ins_upd_plant_details(request):
             data = {
                 'name' : masterdata[i]['name'],
                 'code' : masterdata[i]['code'],
-                'location' : masterdata[i]['location'],
+                'region' : masterdata[i]['region'],
                 'created_by' : masterdata[i]['created_by'],
                 'last_updated_by' : masterdata[i]['last_updated_by'],
             }
@@ -3603,7 +3756,7 @@ def ins_upd_plant_details(request):
             data = {
                 'name' : masterdata[i]['name'],
                 'code' : masterdata[i]['code'],
-                'location' : masterdata[i]['location'],
+                'region' : masterdata[i]['region'],
                 'created_by' : masterdata[i]['created_by'],
                 'last_updated_by' : masterdata[i]['last_updated_by'],
             }
@@ -3636,7 +3789,7 @@ def get_range_plant_details(request, start, end, search=False):
             details = plant_details.objects.filter(delete_flag=False)[start:end]
         else:
             details_length = plant_details.objects.filter(delete_flag=False).count()
-            details = plant_details.objects.filter(Q(name__icontains = search) | Q(code__icontains = search) | Q(location__icontains = search), delete_flag=False)[start:end]
+            details = plant_details.objects.filter(Q(name__icontains = search) | Q(code__icontains = search) | Q(region__icontains = search), delete_flag=False)[start:end]
         details_csv_export = plant_details.objects.filter(delete_flag=False)
         serializer = plant_details_serializer(details, many=True)
         serializer_csv_export = plant_details_serializer(details_csv_export, many=True)
@@ -3830,50 +3983,50 @@ def get_file_names(request, id):
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
-def get_compliance_summary(request, id=0):
-    try:
-        compliance = compliance_details.objects.filter(delete_flag=False)
-        compliance_ser_data = compliance_details_serializer(compliance, many=True)
-        details_length = counterparty_details.objects.filter(delete_flag=False).count()
-        details = counterparty_details.objects.filter(delete_flag=False)
-        details_csv_export = counterparty_details.objects.filter(delete_flag=False)
-        serializer = counterparty_details_serializer(details, many=True)
-        actuals_data = []
-        if len(serializer.data) > 0:
-            for data in serializer.data:
-                actuals = compliance_actuals.objects.filter(counterparty_id=data['id'], delete_flag=False)
-                actuals_serializer = compliance_actuals_serializer(actuals, many=True)
-                actual = {}
-                if len(actuals_serializer.data) > 0:
-                    for detail in actuals_serializer.data:
-                        # Plant
-                        plant = plant_details.objects.filter(id=data['plant'], delete_flag=False).first()
-                        if plant:
-                            detail['plant_code'] = plant.name  # Extract only the 'name' field
-                        else:
-                            detail['plant_code'] = None  # or any default value
-                        # CounterParty
-                        party = counterparty_profile.objects.filter(id=data['party_name'], delete_flag=False).first()
-                        if party:
-                            detail['party_code'] = party.name  # Extract only the 'name' field
-                        else:
-                            detail['party_code'] = None  # or any default value
-                        detail.update(compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_name','compliance_value','compliance_criteria')[0])
-                        actuals_data.append(detail)
-        serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
-        return Response(
-            {
-                "data": serializer.data,
-                "actuals_data": actuals_data,
-            },status=status.HTTP_200_OK
-        )
-    except ValueError as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    except Exception as e:
-        # Catch other general exceptions
-        return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# @api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+# def get_compliance_summary(request, id=0):
+#     try:
+#         compliance = compliance_details.objects.filter(delete_flag=False)
+#         compliance_ser_data = compliance_details_serializer(compliance, many=True)
+#         details_length = counterparty_details.objects.filter(delete_flag=False).count()
+#         details = counterparty_details.objects.filter(delete_flag=False)
+#         details_csv_export = counterparty_details.objects.filter(delete_flag=False)
+#         serializer = counterparty_details_serializer(details, many=True)
+#         actuals_data = []
+#         if len(serializer.data) > 0:
+#             for data in serializer.data:
+#                 actuals = compliance_actuals.objects.filter(counterparty_id=data['id'], delete_flag=False)
+#                 actuals_serializer = compliance_actuals_serializer(actuals, many=True)
+#                 actual = {}
+#                 if len(actuals_serializer.data) > 0:
+#                     for detail in actuals_serializer.data:
+#                         # Plant
+#                         plant = plant_details.objects.filter(id=data['plant'], delete_flag=False).first()
+#                         if plant:
+#                             detail['plant_code'] = plant.name  # Extract only the 'name' field
+#                         else:
+#                             detail['plant_code'] = None  # or any default value
+#                         # CounterParty
+#                         party = counterparty_profile.objects.filter(id=data['party_name'], delete_flag=False).first()
+#                         if party:
+#                             detail['party_code'] = party.name  # Extract only the 'name' field
+#                         else:
+#                             detail['party_code'] = None  # or any default value
+#                         detail.update(compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_name','compliance_value','compliance_criteria')[0])
+#                         actuals_data.append(detail)
+#         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
+#         return Response(
+#             {
+#                 "data": serializer.data,
+#                 "actuals_data": actuals_data,
+#             },status=status.HTTP_200_OK
+#         )
+#     except ValueError as e:
+#         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+#     except Exception as e:
+#         # Catch other general exceptions
+#         return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 		
 		
 # Compilance Intitive

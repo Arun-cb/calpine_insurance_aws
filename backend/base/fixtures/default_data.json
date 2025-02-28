@@ -5846,6 +5846,21 @@
     }
   },
   {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 22,
+      "menu_name": "User List",
+      "parent_menu_id": 20,
+      "url": "user_list",
+      "page_number": 18,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
     "model": "base.group_access_definition",
     "pk": 1,
     "fields": {
@@ -7914,7 +7929,7 @@
   },
   {
     "model": "base.helper",
-    "pk":77,
+    "pk": 77,
     "fields": {
       "page_no_id": 28,
       "label": "Year",
@@ -74563,6 +74578,21 @@
   {
     "model": "base.config_codes",
     "pk": 11,
+    "fields": {
+      "config_type": "Region",
+      "config_code": "all",
+      "config_value": "all",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0,
+      "is_active": true
+    }
+  },
+  {
+    "model": "base.config_codes",
+    "pk": 12,
     "fields": {
       "config_type": "Compliance Criteria",
       "config_code": "!=",

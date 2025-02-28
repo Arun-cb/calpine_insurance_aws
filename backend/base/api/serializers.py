@@ -127,7 +127,7 @@ class sso_configure_serializer(serializers.ModelSerializer):
 class user_profile_serializer(serializers.ModelSerializer):
     class Meta:
         model = user_profile
-        fields = ('id', 'user_id', 'profile_pic', 'temporary_address', 'permanent_address', 'contact', 'user_group', 'user_region', 'user_status', 'created_by', 'last_updated_by')
+        fields = ('id', 'user_id', 'profile_pic', 'temporary_address', 'permanent_address', 'contact', 'user_group', 'user_region', 'user_status', 'created_by', 'last_updated_by', 'delete_flag')
         
 # Org Definition
 class org_definition_serializer(serializers.ModelSerializer):
@@ -330,3 +330,17 @@ class compliance_indicators_serializer(serializers.ModelSerializer):
         model = compliance_indicators
         fields = ('id', 'compliance_indicator_from', 'compliance_indicator_to',
                   'compliance_indicator', 'created_by', 'last_updated_by', 'delete_flag')
+
+# Block Details
+class block_details_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = block_details
+        fields = '__all__'
+        
+
+class counterparty_actuals_serializer(serializers.ModelSerializer):
+    counterparty_id = compliance_actuals_serializer(read_only=True)
+    class Meta:
+        model = counterparty_details
+        fields = ('id', 'region_id', 'level_id', 'party_name', 'start_date', 'plant', 'subject', 'expiry_date', 'year', 
+                  'reference', 'term', 'created_by', 'last_updated_by','counterparty_id')

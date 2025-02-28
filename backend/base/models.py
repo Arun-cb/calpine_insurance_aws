@@ -467,7 +467,7 @@ class counterparty_profile(models.Model):
 class plant_details(models.Model):
     name = models.CharField(max_length=300, null=False, blank=False, unique=True)
     code = models.CharField(max_length=300, null=False, blank=False)
-    location = models.CharField(max_length=300, null=True, blank=True)
+    region = models.CharField(max_length=300, null=True, blank=True)
     created_by = models.IntegerField(null=False, blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated_by = models.IntegerField(null=False, blank=False)
@@ -488,7 +488,7 @@ def validate_year(value):
 class counterparty_details(models.Model):
     # level_id = models.ForeignKey(
     #     org_functional_hierarchy, null=False, blank=False, db_column='level_id', on_delete=models.CASCADE)
-    region_id = models.CharField(max_length=100, null=False, blank=False)
+    region_id = models.CharField(max_length=100, null=False, blank=False, default='none')
     level_id = models.CharField(max_length=50, null=True, blank=True)
     # Set ForeignKey to counterparty_profile using the name field
     party_name = models.ForeignKey(
@@ -591,3 +591,16 @@ class compliance_indicators(models.Model):
 
     class Meta:
         db_table = "tb_sc_compliance_indicators"
+        
+class block_details(models.Model):
+    name = models.CharField(max_length=300, null=False, blank=False, unique=True)
+    code = models.CharField(max_length=300, null=False, blank=False)
+    active = models.BooleanField(default=False)
+    created_by = models.IntegerField(null=False, blank=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_updated_by = models.IntegerField(null=False, blank=False)
+    last_updated_date = models.DateTimeField(auto_now=True)
+    delete_flag = models.BooleanField(default=False)
+    
+    class Meta:
+        db_table = "tb_sc_block_details"
