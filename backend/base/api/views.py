@@ -3524,8 +3524,8 @@ def get_compliance_dashboard(request, region):
                             compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
                             if compliance_code:
                                 compli_details['compliance_values'] = compliance_code.compliance_value
-                                # if detail['actuals'] != '':
-                                #     detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
+                                if detail['actuals'] != '':
+                                    detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
                         else:
                             compli_details['compliance_values'] = compli_details['compliance_value']
                         detail.update(compli_details)
@@ -3609,8 +3609,8 @@ def get_compliance_summary(request, region='all'):
                                     compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
                                     if compliance_code:
                                         compli_details['compliance_values'] = compliance_code.compliance_value
-                                        # if detail['actuals'] != '':
-                                        #     detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
+                                        if detail['actuals'] != '':
+                                            detail['actuals'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
                                 else:
                                     compli_details['compliance_values'] = compli_details['compliance_value']
                                 detail.update(compli_details)
