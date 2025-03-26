@@ -321,6 +321,7 @@ class config_codes(models.Model):
     last_updated_date = models.DateTimeField(auto_now=True)
     delete_flag = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    is_admindata = models.BooleanField(default=False)
     # CharField(max_length=10, null=False, blank=False)
 
     class Meta:

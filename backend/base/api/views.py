@@ -2117,12 +2117,12 @@ def get_chart_attributes_options(request, id=0):
 def get_range_config_codes(request, start, end, search=False):
     try:
         if not search:
-            config_len = config_codes.objects.filter(delete_flag=False).count()
-            config = config_codes.objects.filter(~Q(config_type = "Measure"), delete_flag=False)[start:end]
+            config_len = config_codes.objects.filter(delete_flag=False, is_admindata=False).count()
+            config = config_codes.objects.filter(~Q(config_type = "Measure"), delete_flag=False, is_admindata=False)[start:end]
         else:
             config_len = config_codes.objects.filter(Q(config_type__icontains = search) | Q(config_code__icontains = search) | Q(config_value__icontains = search), delete_flag=False).count()
             config = config_codes.objects.filter(Q(config_type__icontains = search) | Q(config_code__icontains = search) | Q(config_value__icontains = search), delete_flag=False)[start:end]
-        config_csv_export = config_codes.objects.filter(delete_flag=False)
+        config_csv_export = config_codes.objects.filter(delete_flag=False, is_admindata=False)
         serializer = config_codes_serializer(config, many=True)
         serializer_csv_export = config_codes_serializer(config_csv_export, many=True)
         return Response(
@@ -2138,22 +2138,23 @@ def get_range_config_codes(request, start, end, search=False):
 # Get By ID
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def get_config_codes(request, id=0):
-    if id == 0:
+def get_config_codes(request, value=''):
+    if value == '':
         config = config_codes.objects.filter(delete_flag=False)
     else:
-        config = config_codes.objects.filter(id=id)
+        config = config_codes.objects.filter(config_type=value, delete_flag=False)
     serializer = config_codes_serializer(config, many=True)
     return Response(serializer.data)
+
 
 # Get regions from config table
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
 def get_config_details(request, search=''):
     if search !='':
-        config = config_codes.objects.filter(config_type = search, delete_flag=False, is_active=True)
+        config = config_codes.objects.filter(config_type = search, delete_flag=False, is_active=True, is_admindata=False)
     else:
-        config = config_codes.objects.filter(delete_flag=False)
+        config = config_codes.objects.filter(delete_flag=False, is_admindata=False)
     serializer = config_codes_serializer(config, many=True)
     return Response(serializer.data)
 
@@ -2266,7 +2267,7 @@ def ins_config_codes(request):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def upd_config_codes(request, id):
-    item = config_codes.objects.get(id=id)
+    item = config_codes.objects.get(id=id, is_admindata=False)
 
     serializer = config_codes_serializer(instance=item, data=request.data)
     
@@ -2358,7 +2359,7 @@ def upd_config_codes(request, id):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def del_config_codes(request, id):
-    item = config_codes.objects.get(id=id)
+    item = config_codes.objects.get(id=id, is_admindata=False)
     data = request.data
 
     if item.delete_flag != data["delete_flag"]:
@@ -2921,6 +2922,12 @@ def get_range_counterparty_details(request, start, end, region):
                                 compliance_data['compliance_values'] = compliance_data['compliance_value']
                             detail.update(compliance_data)
                             
+                            if(compliance_data['compliance_criteria']):
+                                config_code_details = config_codes.objects.filter(config_type = 'Compliance Criteria', config_value = compliance_data['compliance_criteria'], delete_flag=False).values('config_code')[0]
+                                compliance_data['criteria_name'] = config_code_details['config_code']
+                            detail.update(compliance_data)
+                            
+                            
         details_csv_export = counterparty_details.objects.filter(plant__region=region, delete_flag=False)           
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
         if len(serializer_csv_export.data) > 0:
@@ -3164,6 +3171,11 @@ def get_counterparty_details(request, id=0):
                     else:
                         data['party_code'] = None  # or any default value
                     compli_details = compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_group_name','compliance_name','compliance_value','compliance_criteria','effective_from','option_type','value_type')[0]
+                    
+                    if(compli_details['compliance_criteria']):
+                        config_code_details = config_codes.objects.filter(config_type = 'Compliance Criteria', config_value = compli_details['compliance_criteria'], delete_flag=False).values('config_code')[0] 
+                        compli_details['criteria_name'] = config_code_details['config_code']
+                                    
                     if(compli_details['value_type']=='Options'):
                         compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
                         if compliance_code:
@@ -3545,7 +3557,7 @@ def get_compliance_dashboard(request, region):
         
 
 @api_view(["GET"])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_compliance_summary(request, region='all'):
     try:
         compliance = compliance_details.objects.filter(delete_flag=False)
@@ -3604,6 +3616,9 @@ def get_compliance_summary(request, region='all'):
                                     detail['party_code'] = None  # or any default value
                                 
                                 compli_details = compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_name','compliance_value','compliance_criteria','value_type')[0]
+                                if(compli_details['compliance_criteria']):
+                                    config_code_details = config_codes.objects.filter(config_type = 'Compliance Criteria', config_value = compli_details['compliance_criteria'], delete_flag=False).values('config_code')[0] 
+                                    compli_details['criteria_name'] = config_code_details['config_code']
                                 
                                 if(compli_details['value_type']=='Options'):
                                     compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()

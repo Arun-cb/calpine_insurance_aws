@@ -188,6 +188,7 @@ urlpatterns = [
     # Config Codes URLS
     path("ins_config_codes", views.ins_config_codes),
     path("get_config_codes", views.get_config_codes),
+    path("get_config_codes/<str:value>/", views.get_config_codes),
     path("get_config_details/<str:search>/", views.get_config_details),
     path("get_range_config_codes/<int:start>/<int:end>/", views.get_range_config_codes),
     path("get_range_config_codes/<int:start>/<int:end>/<str:search>/", views.get_range_config_codes),

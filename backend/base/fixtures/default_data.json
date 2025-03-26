@@ -5347,14 +5347,14 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
+      "delete_flag": 1
     }
   },
   {
     "model": "base.navigation_menu_details",
     "fields": {
       "menu_id": 7,
-      "menu_name": "General Config",
+      "menu_name": "Compliance Configurations",
       "parent_menu_id": 0,
       "url": "/",
       "page_number": 0,
@@ -5422,7 +5422,7 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
+      "delete_flag": 1
     }
   },
   {
@@ -5482,7 +5482,7 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
+      "delete_flag": 1
     }
   },
   {
@@ -5497,7 +5497,7 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
+      "delete_flag": 1
     }
   },
   {
@@ -5527,7 +5527,7 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
+      "delete_flag": 1
     }
   },
   {
@@ -5662,15 +5662,15 @@
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
+      "delete_flag": 1
     }
   },
   {
     "model": "base.navigation_menu_details",
     "fields": {
       "menu_id": 25,
-      "menu_name": "Configuration",
-      "parent_menu_id": 23,
+      "menu_name": "System Configuration",
+      "parent_menu_id": 0,
       "url": "configuration",
       "page_number": 17,
       "created_by": 1,
@@ -5849,9 +5849,9 @@
     "model": "base.navigation_menu_details",
     "fields": {
       "menu_id": 22,
-      "menu_name": "User List",
+      "menu_name": "User Management",
       "parent_menu_id": 20,
-      "url": "user_list",
+      "url": "User_management",
       "page_number": 18,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -5883,10 +5883,10 @@
     "fields": {
       "menu_id_id": 2,
       "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5900,10 +5900,10 @@
     "fields": {
       "menu_id_id": 3,
       "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5917,10 +5917,10 @@
     "fields": {
       "menu_id_id": 4,
       "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6444,10 +6444,10 @@
     "fields": {
       "menu_id_id": 2,
       "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6461,10 +6461,10 @@
     "fields": {
       "menu_id_id": 3,
       "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
+      "add": "N",
+      "edit": "N",
+      "view": "N",
+      "delete": "N",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6478,9 +6478,9 @@
     "fields": {
       "menu_id_id": 4,
       "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
+      "add": "N",
+      "edit": "N",
+      "view": "N",
       "delete": "N",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -74430,14 +74430,15 @@
     "pk": 1,
     "fields": {
       "config_type": "Application Title",
-      "config_code": "Insurance Compliance Tracker",
-      "config_value": "Insurance Compliance Tracker",
+      "config_code": "Synaura",
+      "config_value": "Synaura",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
-      "is_active": true
+      "is_active": true,
+      "is_admindata":true
     }
   },
   {
@@ -74445,14 +74446,15 @@
     "pk": 2,
     "fields": {
       "config_type": "Compliance Criteria",
-      "config_code": "Less Than",
+      "config_code": "Should be Lesser than the Bench Mark Value",
       "config_value": "<",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
-      "is_active": true
+      "is_active": true,
+      "is_admindata":true
     }
   },
   {
@@ -74460,14 +74462,15 @@
     "pk": 3,
     "fields": {
       "config_type": "Compliance Criteria",
-      "config_code": "Greater Than",
+      "config_code": "Should be Greater than the Bench Mark Value",
       "config_value": ">",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
-      "is_active": true
+      "is_active": true,
+      "is_admindata":true
     }
   },
   {
@@ -74475,14 +74478,15 @@
     "pk": 4,
     "fields": {
       "config_type": "Compliance Criteria",
-      "config_code": "Equal To",
+      "config_code": "Should Match with the Bench Mark Value or Criteria",
       "config_value": "==",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
-      "is_active": true
+      "is_active": true,
+      "is_admindata":true
     }
   },
   {
@@ -74490,14 +74494,15 @@
     "pk": 5,
     "fields": {
       "config_type": "Compliance Criteria",
-      "config_code": "Less Than or Equal To",
+      "config_code": "Should be an Equal or Lesser value than the Bench Mark Value",
       "config_value": "<=",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
-      "is_active": true
+      "is_active": true,
+      "is_admindata":true
     }
   },
   {
@@ -74505,14 +74510,15 @@
     "pk": 6,
     "fields": {
       "config_type": "Compliance Criteria",
-      "config_code": "Greater Than or Equal To",
+      "config_code": "Should be an Equal or Greater value than the Bench Mark Value",
       "config_value": ">=",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
-      "is_active": true
+      "is_active": true,
+      "is_admindata":true
     }
   },
   {
@@ -74595,14 +74601,15 @@
     "pk": 12,
     "fields": {
       "config_type": "Compliance Criteria",
-      "config_code": "Not Equal To",
+      "config_code": "Should not Match with Bench Mark Value or Criteria",
       "config_value": "!=",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
-      "is_active": true
+      "is_active": true,
+      "is_admindata":true
     }
   }
 ]

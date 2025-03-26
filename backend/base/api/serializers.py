@@ -204,7 +204,7 @@ class config_codes_serializer(serializers.ModelSerializer):
     class Meta:
         model = config_codes
         fields = ('id', 'config_type', 'config_code', 'config_value',
-                  'created_by', 'last_updated_by', 'is_active')
+                  'created_by', 'last_updated_by', 'is_active', 'is_admindata')
         validators = [
             UniqueTogetherValidator(
                 queryset=config_codes.objects.all(),
