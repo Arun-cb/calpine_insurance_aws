@@ -5339,22 +5339,7 @@
     "model": "base.navigation_menu_details",
     "fields": {
       "menu_id": 2,
-      "menu_name": "Organization",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 7,
-      "menu_name": "Compliance Configurations",
+      "menu_name": "Compliance Configuration",
       "parent_menu_id": 0,
       "url": "/",
       "page_number": 0,
@@ -5368,11 +5353,11 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 12,
-      "menu_name": "Compliance",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
+      "menu_id": 3,
+      "menu_name": "Config Codes",
+      "parent_menu_id": 2,
+      "url": "config_codes",
+      "page_number": 9,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5383,26 +5368,11 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 16,
-      "menu_name": "Analytics / Reports",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 20,
-      "menu_name": "Security",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
+      "menu_id": 4,
+      "menu_name": "Compliance Type",
+      "parent_menu_id": 2,
+      "url": "compliance_codes",
+      "page_number": 23,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5413,22 +5383,22 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 23,
-      "menu_name": "Others",
-      "parent_menu_id": 0,
-      "url": "/",
-      "page_number": 0,
+      "menu_id": 5,
+      "menu_name": "Compliance Rules",
+      "parent_menu_id": 2,
+      "url": "compliance_details",
+      "page_number": 25,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
       "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
+      "delete_flag": 0
     }
   },
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 36,
+      "menu_id": 6,
       "menu_name": "Profile",
       "parent_menu_id": 0,
       "url": "/",
@@ -5443,7 +5413,82 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 37,
+      "menu_id": 7,
+      "menu_name": "Counterparty",
+      "parent_menu_id": 6,
+      "url": "profile/counterparty",
+      "page_number": 27,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 8,
+      "menu_name": "Plant",
+      "parent_menu_id": 6,
+      "url": "profile/plant",
+      "page_number": 19,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 9,
+      "menu_name": "Compliance",
+      "parent_menu_id": 0,
+      "url": "/",
+      "page_number": 0,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 10,
+      "menu_name": "Counterparty Details",
+      "parent_menu_id": 9,
+      "url": "counterparty_details",
+      "page_number": 22,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 11,
+      "menu_name": "Compliance Dashboard",
+      "parent_menu_id": 9,
+      "url": "report/compliance_dashboard",
+      "page_number": 24,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 12,
       "menu_name": "Summary",
       "parent_menu_id": 0,
       "url": "/",
@@ -5458,264 +5503,9 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 14,
-      "menu_name": "Publish Scorecard",
-      "parent_menu_id": -1,
-      "url": "/",
-      "page_number": 0,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 3,
-      "menu_name": "Definition",
-      "parent_menu_id": 2,
-      "url": "organization_definition",
-      "page_number": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 4,
-      "menu_name": "Functional Level",
-      "parent_menu_id": 2,
-      "url": "organization_functional_level",
-      "page_number": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 5,
-      "menu_name": "Settings",
-      "parent_menu_id": 2,
-      "url": "organization_settings",
-      "page_number": 4,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 6,
-      "menu_name": "Functional Hierarchy",
-      "parent_menu_id": 2,
-      "url": "org_functional_hierarchy",
-      "page_number": 5,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 8,
-      "menu_name": "Currencies",
-      "parent_menu_id": 7,
-      "url": "currencies",
-      "page_number": 6,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 9,
-      "menu_name": "Perspectives",
-      "parent_menu_id": 7,
-      "url": "perspectives",
-      "page_number": 7,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 10,
-      "menu_name": "Unit of Measures",
-      "parent_menu_id": 7,
-      "url": "uom_report",
-      "page_number": 8,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 11,
-      "menu_name": "Config Codes",
-      "parent_menu_id": 7,
-      "url": "config_codes",
-      "page_number": 9,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
       "menu_id": 13,
-      "menu_name": "Scorecard Details",
-      "parent_menu_id": 12,
-      "url": "kpi_actuals_new",
-      "page_number": 10,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 15,
-      "menu_name": "KPI Actuals",
-      "parent_menu_id": 12,
-      "url": "kpi_actuals",
-      "page_number": 11,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 21,
-      "menu_name": "Menu Permissions",
-      "parent_menu_id": 20,
-      "url": "group_access_form",
-      "page_number": 12,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 17,
-      "menu_name": "YTD Summary Report",
-      "parent_menu_id": 16,
-      "url": "ytd_summary_report",
-      "page_number": 13,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 24,
-      "menu_name": "Customize Chart Settings",
-      "parent_menu_id": 23,
-      "url": "customize_chart_settings",
-      "page_number": 14,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 25,
-      "menu_name": "System Configuration",
-      "parent_menu_id": 0,
-      "url": "configuration",
-      "page_number": 17,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 22,
-      "menu_name": "User Profile",
-      "parent_menu_id": 20,
-      "url": "user_profile",
-      "page_number": 18,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 34,
-      "menu_name": "Plant",
-      "parent_menu_id": 36,
-      "url": "profile/plant",
-      "page_number": 19,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 26,
       "menu_name": "Initiative Report",
-      "parent_menu_id": 37,
+      "parent_menu_id": 12,
       "url": "report/initiative_report",
       "page_number": 20,
       "created_by": 1,
@@ -5728,84 +5518,9 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 27,
-      "menu_name": "Compliance actuals",
-      "parent_menu_id": 12,
-      "url": "compliance_actuals",
-      "page_number": 21,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 1
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 28,
-      "menu_name": "Counterparty Details",
-      "parent_menu_id": 12,
-      "url": "counterparty_details",
-      "page_number": 22,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 29,
-      "menu_name": "Compliance Type",
-      "parent_menu_id": 7,
-      "url": "compliance_codes",
-      "page_number": 23,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 30,
-      "menu_name": "Compliance Dashboard",
-      "parent_menu_id": 12,
-      "url": "report/compliance_dashboard",
-      "page_number": 24,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 31,
-      "menu_name": "Compliance Rules",
-      "parent_menu_id": 7,
-      "url": "compliance_details",
-      "page_number": 25,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 32,
+      "menu_id": 14,
       "menu_name": "Compliance Summary",
-      "parent_menu_id": 37,
+      "parent_menu_id": 12,
       "url": "report/compliance_summary",
       "page_number": 26,
       "created_by": 1,
@@ -5818,24 +5533,9 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 33,
-      "menu_name": "Counterparty",
-      "parent_menu_id": 36,
-      "url": "profile/counterparty",
-      "page_number": 27,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.navigation_menu_details",
-    "fields": {
-      "menu_id": 35,
+      "menu_id": 15,
       "menu_name": "Expiry Summary",
-      "parent_menu_id": 37,
+      "parent_menu_id": 12,
       "url": "report/expiry_dashboard",
       "page_number": 28,
       "created_by": 1,
@@ -5848,11 +5548,56 @@
   {
     "model": "base.navigation_menu_details",
     "fields": {
-      "menu_id": 22,
+      "menu_id": 16,
+      "menu_name": "Security",
+      "parent_menu_id": 0,
+      "url": "/",
+      "page_number": 0,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 17,
+      "menu_name": "Menu Permissions",
+      "parent_menu_id": 16,
+      "url": "group_access_form",
+      "page_number": 12,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 18,
       "menu_name": "User Management",
-      "parent_menu_id": 20,
+      "parent_menu_id": 16,
       "url": "User_management",
       "page_number": 18,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 19,
+      "menu_name": "System Configuration",
+      "parent_menu_id": 0,
+      "url": "configuration",
+      "page_number": 17,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5883,10 +5628,10 @@
     "fields": {
       "menu_id_id": 2,
       "group_id_id": 1,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5900,10 +5645,10 @@
     "fields": {
       "menu_id_id": 3,
       "group_id_id": 1,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5917,10 +5662,10 @@
     "fields": {
       "menu_id_id": 4,
       "group_id_id": 1,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -5971,7 +5716,7 @@
       "add": "Y",
       "edit": "Y",
       "view": "Y",
-      "delete": "N",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6151,279 +5896,41 @@
   },
   {
     "model": "base.group_access_definition",
+    "pk": 18,
+    "fields": {
+      "menu_id_id": 18,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 19,
+    "fields": {
+      "menu_id_id": 19,
+      "group_id_id": 1,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
     "pk": 20,
-    "fields": {
-      "menu_id_id": 20,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 21,
-    "fields": {
-      "menu_id_id": 21,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 22,
-    "fields": {
-      "menu_id_id": 22,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 23,
-    "fields": {
-      "menu_id_id": 23,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 24,
-    "fields": {
-      "menu_id_id": 24,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 25,
-    "fields": {
-      "menu_id_id": 25,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 26,
-    "fields": {
-      "menu_id_id": 26,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 27,
-    "fields": {
-      "menu_id_id": 27,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 28,
-    "fields": {
-      "menu_id_id": 28,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 29,
-    "fields": {
-      "menu_id_id": 29,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 30,
-    "fields": {
-      "menu_id_id": 30,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 31,
-    "fields": {
-      "menu_id_id": 31,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 32,
-    "fields": {
-      "menu_id_id": 32,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 33,
-    "fields": {
-      "menu_id_id": 33,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 34,
-    "fields": {
-      "menu_id_id": 34,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 35,
-    "fields": {
-      "menu_id_id": 35,
-      "group_id_id": 1,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 36,
     "fields": {
       "menu_id_id": 1,
       "group_id_id": 2,
@@ -6440,14 +5947,14 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 37,
+    "pk": 21,
     "fields": {
       "menu_id_id": 2,
       "group_id_id": 2,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6457,14 +5964,14 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 38,
+    "pk": 22,
     "fields": {
       "menu_id_id": 3,
       "group_id_id": 2,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6474,14 +5981,14 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 39,
+    "pk": 23,
     "fields": {
       "menu_id_id": 4,
       "group_id_id": 2,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6491,7 +5998,24 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 40,
+    "pk": 24,
+    "fields": {
+      "menu_id_id": 5,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 25,
     "fields": {
       "menu_id_id": 6,
       "group_id_id": 2,
@@ -6508,7 +6032,7 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 41,
+    "pk": 26,
     "fields": {
       "menu_id_id": 7,
       "group_id_id": 2,
@@ -6525,7 +6049,58 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 42,
+    "pk": 27,
+    "fields": {
+      "menu_id_id": 8,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 28,
+    "fields": {
+      "menu_id_id": 9,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 29,
+    "fields": {
+      "menu_id_id": 10,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 30,
     "fields": {
       "menu_id_id": 11,
       "group_id_id": 2,
@@ -6542,7 +6117,7 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 43,
+    "pk": 31,
     "fields": {
       "menu_id_id": 12,
       "group_id_id": 2,
@@ -6559,9 +6134,9 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 44,
+    "pk": 32,
     "fields": {
-      "menu_id_id": 20,
+      "menu_id_id": 13,
       "group_id_id": 2,
       "add": "Y",
       "edit": "Y",
@@ -6576,43 +6151,9 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 45,
+    "pk": 33,
     "fields": {
-      "menu_id_id": 21,
-      "group_id_id": 2,
-      "add": "N",
-      "edit": "N",
-      "view": "Y",
-      "delete": "N",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 46,
-    "fields": {
-      "menu_id_id": 22,
-      "group_id_id": 2,
-      "add": "N",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "N",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 47,
-    "fields": {
-      "menu_id_id": 23,
+      "menu_id_id": 14,
       "group_id_id": 2,
       "add": "Y",
       "edit": "Y",
@@ -6627,9 +6168,77 @@
   },
   {
     "model": "base.group_access_definition",
-    "pk": 48,
+    "pk": 34,
     "fields": {
-      "menu_id_id": 24,
+      "menu_id_id": 15,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 35,
+    "fields": {
+      "menu_id_id": 16,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 36,
+    "fields": {
+      "menu_id_id": 17,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 37,
+    "fields": {
+      "menu_id_id": 18,
+      "group_id_id": 2,
+      "add": "Y",
+      "edit": "Y",
+      "view": "Y",
+      "delete": "Y",
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 0
+    }
+  },
+  {
+    "model": "base.group_access_definition",
+    "pk": 38,
+    "fields": {
+      "menu_id_id": 19,
       "group_id_id": 2,
       "add": "N",
       "edit": "N",
@@ -6641,235 +6250,13 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0
     }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 49,
-    "fields": {
-      "menu_id_id": 25,
-      "group_id_id": 2,
-      "add": "N",
-      "edit": "N",
-      "view": "N",
-      "delete": "N",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 50,
-    "fields": {
-      "menu_id_id": 26,
-      "group_id_id": 2,
-      "add": "N",
-      "edit": "N",
-      "view": "Y",
-      "delete": "N",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 51,
-    "fields": {
-      "menu_id_id": 27,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 52,
-    "fields": {
-      "menu_id_id": 28,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 53,
-    "fields": {
-      "menu_id_id": 29,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 54,
-    "fields": {
-      "menu_id_id": 30,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 55,
-    "fields": {
-      "menu_id_id": 31,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 56,
-    "fields": {
-      "menu_id_id": 32,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 57,
-    "fields": {
-      "menu_id_id": 33,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 58,
-    "fields": {
-      "menu_id_id": 34,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 59,
-    "fields": {
-      "menu_id_id": 35,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 60,
-    "fields": {
-      "menu_id_id": 36,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
-    "model": "base.group_access_definition",
-    "pk": 61,
-    "fields": {
-      "menu_id_id": 37,
-      "group_id_id": 2,
-      "add": "Y",
-      "edit": "Y",
-      "view": "Y",
-      "delete": "Y",
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790",
-      "delete_flag": 0
-    }
-  },
-  {
+  },{
     "model": "base.helper",
     "pk": 1,
     "fields": {
       "page_no_id": 3,
-      "label": "Organization Name",
-      "help_context": "An organization name is a non-personal name that refers to a structured body of one or more persons that exists to perform some common function.",
+      "label": "Config Type",
+      "help_context": "Enter a relevant Config type.",
       "context_order": 1,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -6882,8 +6269,8 @@
     "pk": 2,
     "fields": {
       "page_no_id": 3,
-      "label": "Address 1",
-      "help_context": "Address Line 1 is generally for the civic number and street name (street address).",
+      "label": "Config Code",
+      "help_context": "Config code for its respective config type.",
       "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -6896,8 +6283,8 @@
     "pk": 3,
     "fields": {
       "page_no_id": 3,
-      "label": "Address 2",
-      "help_context": "Address Line 2 is for the apartment, suite, unit number, or other address designation that is not part of the physical address.",
+      "label": "Config Value",
+      "help_context": "Enter a appropriate Config value.",
       "context_order": 3,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -6905,14 +6292,15 @@
       "last_updated_date": "2023-01-09T11:00:57.616790"
     }
   },
+  
   {
     "model": "base.helper",
     "pk": 4,
     "fields": {
-      "page_no_id": 3,
-      "label": "City",
-      "help_context": " Address Line 3 is typically for the city.",
-      "context_order": 4,
+      "page_no_id": 19,
+      "label": " Indicators",
+      "help_context": "Measuring KPI performance. One of the most useful indicators of organizational effectiveness is how well an organization meets its goals.",
+      "context_order": 1,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6923,10 +6311,10 @@
     "model": "base.helper",
     "pk": 5,
     "fields": {
-      "page_no_id": 3,
-      "label": "Country",
-      "help_context": " Address Line 4 is typically for the country.",
-      "context_order": 5,
+      "page_no_id": 19,
+      "label": "Start Limit",
+      "help_context": "Indicators start limit of the respective KPI.",
+      "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6937,10 +6325,10 @@
     "model": "base.helper",
     "pk": 6,
     "fields": {
-      "page_no_id": 3,
-      "label": "Organization Levels",
-      "help_context": "An organizational levelis a layer in a hierarchical order that is representative of the structure of your firm.",
-      "context_order": 6,
+      "page_no_id": 19,
+      "label": "End Limit",
+      "help_context": "Indicators End limit of the respective KPI.",
+      "context_order": 3,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6951,10 +6339,10 @@
     "model": "base.helper",
     "pk": 7,
     "fields": {
-      "page_no_id": 3,
-      "label": "Organization Indicators",
-      "help_context": "Measuring organizational performance. One of the most useful indicators of organizational effectiveness is how well an organization meets its goals.",
-      "context_order": 7,
+      "page_no_id": 4,
+      "label": "Compliance Type",
+      "help_context": "Select the appropriate compliance type from the available options or create a new one.",
+      "context_order": 1,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6965,10 +6353,10 @@
     "model": "base.helper",
     "pk": 8,
     "fields": {
-      "page_no_id": 3,
-      "label": "Start Limit",
-      "help_context": "Indicators start limit of the respective organization.",
-      "context_order": 8,
+      "page_no_id": 4,
+      "label": "Compliance Value",
+      "help_context": "It's compliance value.",
+      "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6979,10 +6367,10 @@
     "model": "base.helper",
     "pk": 9,
     "fields": {
-      "page_no_id": 3,
-      "label": "End Limit",
-      "help_context": "Indicators End limit of the respective organization.",
-      "context_order": 9,
+      "page_no_id": 4,
+      "label": "Is Active",
+      "help_context": "It's a toggle to define whether the compliance is active or not.",
+      "context_order": 3,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,
@@ -6993,9 +6381,9 @@
     "model": "base.helper",
     "pk": 10,
     "fields": {
-      "page_no_id": 4,
-      "label": "Hierarchy Level",
-      "help_context": "The levels of hierarchy refer to the number of layers within an organisation. Traditional organisations were tall with many layers of hierarchy and were often authoritarian in nature.",
+      "page_no_id": 5,
+      "label": "Header",
+      "help_context": "The 'Header' labels the compliance category, grouping related rules. Select the appropriate header for the relevant compliance.",
       "context_order": 1,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -7007,9 +6395,9 @@
     "model": "base.helper",
     "pk": 11,
     "fields": {
-      "page_no_id": 4,
-      "label": "Hierarchy Name",
-      "help_context": "A hierarchical name reflects a user's or server's place in the hierarchy and controls whether users and servers in different organizations and organizational units can communicate with each another.",
+      "page_no_id": 5,
+      "label": "Components",
+      "help_context": "'Components' refer to the individual elements or sections of the compliance rule.",
       "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -7022,846 +6410,6 @@
     "pk": 12,
     "fields": {
       "page_no_id": 5,
-      "label": "Fiscal Year Start",
-      "help_context": "A Fiscal Year (FY), also known as a budget year, is a period of time used by the government and businesses for accounting purposes to formulate annual financial statements and reports. A fiscal year consists of 12 months or 52 weeks and might not end on December 31.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 13,
-    "fields": {
-      "page_no_id": 5,
-      "label": "Week Start",
-      "help_context": "The first day of the week. Choose which day to start the week.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 14,
-    "fields": {
-      "page_no_id": 5,
-      "label": "Logo",
-      "help_context": "A Printed symbol or design that a company or an organization uses as its special sign.",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 15,
-    "fields": {
-      "page_no_id": 5,
-      "label": "Reporting Currency",
-      "help_context": "Reporting currency is the currency in which an entity's financial statements or other financial documents are reported. Choosing one currency for reporting makes it easier to understand the financial documents across the board.",
-      "context_order": 4,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 16,
-    "fields": {
-      "page_no_id": 5,
-      "label": "Number Format-Decimals",
-      "help_context": "DecimalFormat is a concrete subclass of NumberFormat that formats decimal numbers. Enter your designated DecimalFormat.",
-      "context_order": 5,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 17,
-    "fields": {
-      "page_no_id": 5,
-      "label": "Number Format-Comma Seperator",
-      "help_context": "NumberFormat-Comma Seperator that segrate decimal numbers with commas as seperators. Choose yes to avail this Format-Seperator.",
-      "context_order": 6,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 18,
-    "fields": {
-      "page_no_id": 6,
-      "label": "Functionl Level Code",
-      "help_context": "A functional level code is a structure that groups and defines from parent Â to its hierarchical sub-child until it runs to its very leaf.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 19,
-    "fields": {
-      "page_no_id": 6,
-      "label": "Parent Level ID",
-      "help_context": "The Parent Level Id specifies the identifier of each unique parent item in an hierarchical structure.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 20,
-    "fields": {
-      "page_no_id": 8,
-      "label": "Currency Code",
-      "help_context": "A three-character (letter) symbol of a currency according to the international ISO standard. As a rule, the first two letters denote the name of the country, and the third letter, the name of the currency thereof.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 21,
-    "fields": {
-      "page_no_id": 8,
-      "label": "Currency Name",
-      "help_context": "Currency name refers to the Name of the currency with its respective Currency code.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 22,
-    "fields": {
-      "page_no_id": 8,
-      "label": "Sign",
-      "help_context": "A currency sign or symbol is essentially a representation of the currency in its graphical form. These small symbols are there to avoid hassle and to identify the currency from a glance.",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 23,
-    "fields": {
-      "page_no_id": 9,
-      "label": "Perspective Code",
-      "help_context": "This perspective code refers to uniqe identification of an inividual perspective.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 24,
-    "fields": {
-      "page_no_id": 9,
-      "label": "Perspective",
-      "help_context": "This perspective refers to internal business processes. Metrics based on this perspective allow the managers to know how well their business is running, and whether its products and services conform to customer requirements.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 25,
-    "fields": {
-      "page_no_id": 9,
-      "label": "Description",
-      "help_context": "Description refers to a descriptive definition of its respective perspectives.",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 26,
-    "fields": {
-      "page_no_id": 10,
-      "label": "UOM Code",
-      "help_context": "UOM code Identifies the unique UOM values.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 27,
-    "fields": {
-      "page_no_id": 10,
-      "label": "Description",
-      "help_context": "Description refers to a descriptive definition of its respective UOM.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 28,
-    "fields": {
-      "page_no_id": 11,
-      "label": "Config Type",
-      "help_context": "Enter a relevant Config type.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 29,
-    "fields": {
-      "page_no_id": 11,
-      "label": "Config Code",
-      "help_context": "Config code for its respective config type.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 30,
-    "fields": {
-      "page_no_id": 11,
-      "label": "Config Value",
-      "help_context": "Enter a appropriate Config value.",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 31,
-    "fields": {
-      "page_no_id": 21,
-      "label": "Chart Type",
-      "help_context": "\"A chart is a graphical representation for data visualization, in which \"\"the data is represented by symbols. Please Select from about options.\"",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 32,
-    "fields": {
-      "page_no_id": 21,
-      "label": "Search Attributes",
-      "help_context": "It is an input field through which Attributes of a particular chart can be filtered.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 33,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Functional Hierarchy Level",
-      "help_context": "The levels of hierarchy refer to the number of layers within an organisation. Traditional organisations were tall with many layers of hierarchy and were often authoritarian in nature.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 34,
-    "fields": {
-      "page_no_id": 16,
-      "label": "Perspective /Business Goal/ KPI",
-      "help_context": "\r\nThe basic structure of a KPI scorecard includes four perspectives: financial, customer, internal process, and learning & growth. Each perspective is represented by a set of measurable goals or objectives. /\r\n\r\nKPI goals are long-term performance measurements used by businesses to ensure a final objective is achieved. /\r\n\r\nKey performance indicators (KPIs) refer to a set of quantifiable measurements used to gauge a company's overall long-term performance.\r\n",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 35,
-    "fields": {
-      "page_no_id": 16,
-      "label": "Weight",
-      "help_context": "Overall Perspective weight should be equal to 100 under specific Scorecard. / Overall Objective weight should be equal to 100 under the specific Perspective. / Overall KPI weight should be equal to 100 under the specific Objective.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 36,
-    "fields": {
-      "page_no_id": 16,
-      "label": "Score",
-      "help_context": "The score is calculated using the Actual Value of the current KPI, as indicated in the specified equations. ",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 37,
-    "fields": {
-      "page_no_id": 16,
-      "label": "Action Item",
-      "help_context": "We initiate an Action Item when we require to overcome the score.",
-      "context_order": 4,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 38,
-    "fields": {
-      "page_no_id": 16,
-      "label": "Target",
-      "help_context": "We can set the Target Date for the Action Item.",
-      "context_order": 5,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 39,
-    "fields": {
-      "page_no_id": 16,
-      "label": "Target",
-      "help_context": "We can set the Target Date for the Action Item.",
-      "context_order": 5,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 40,
-    "fields": {
-      "page_no_id": 16,
-      "label": "Ownership",
-      "help_context": "Mention the Ownership (Admin) of the Initiative Action Item.",
-      "context_order": 6,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 41,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Scorecard Description",
-      "help_context": "A KPI scorecard is a term used to describe a statistical record that measures progress or achievement towards a set performance indicator. ",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 42,
-    "fields": {
-      "page_no_id": 13,
-      "label": "From Date",
-      "help_context": "We can define the date ranges to use in KPI data calculations when we are creating a new scorecard using From Date.",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 43,
-    "fields": {
-      "page_no_id": 13,
-      "label": "To Date",
-      "help_context": "We can define the date ranges to use in KPI data calculations when we are editing an existing scorecard using To Date.",
-      "context_order": 4,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 44,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Perspective",
-      "help_context": "The basic structure of a KPI scorecard includes four perspectives: financial, customer, internal process, and learning & growth.",
-      "context_order": 5,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 45,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Perspective Weight",
-      "help_context": "Measuring the total performance scores of the four perspectives (BSC) by the weight of each KPI is used in each BSC perspective.",
-      "context_order": 6,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 46,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Objective Code",
-      "help_context": "Specify the Objective Code.",
-      "context_order": 7,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 47,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Objective",
-      "help_context": "A balanced scorecard is a strategic management performance metric that helps companies identify and improve their internal operations to help their external outcomes.",
-      "context_order": 8,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 48,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Objective Weight",
-      "help_context": "Measuring the total performance scores of the Objectives by the weight of each KPI is used in each BSC objective.",
-      "context_order": 9,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 49,
-    "fields": {
-      "page_no_id": 13,
-      "label": "KPI Code",
-      "help_context": "Specify the KPI Code.",
-      "context_order": 10,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 50,
-    "fields": {
-      "page_no_id": 13,
-      "label": "KPI",
-      "help_context": "Key performance indicators (KPIs) refer to a set of quantifiable measurements used to gauge a company's overall long-term performance.",
-      "context_order": 11,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 51,
-    "fields": {
-      "page_no_id": 13,
-      "label": "KPI Weight",
-      "help_context": "Measuring the total performance scores of each KPI.",
-      "context_order": 12,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 52,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Frequency",
-      "help_context": "The KPI Frequency clarifies how often you are going to pull data from your KPI Data Source and review your performance indicators. ",
-      "context_order": 13,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 53,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Period Type",
-      "help_context": "Specify the Period Type as Beginning or End.",
-      "context_order": 14,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 54,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Measure",
-      "help_context": "KPIs are normally numbers, percentages or units that can be measured to understand the progress of your business.",
-      "context_order": 15,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 55,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Baseline",
-      "help_context": "KPI baseline indicator is when we want to continue the baseline level of achievement. ",
-      "context_order": 16,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 56,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Target",
-      "help_context": "A key performance indicator (KPI) can have a target, which is the exact value that the KPI should achieve.",
-      "context_order": 17,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 57,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Minimum",
-      "help_context": "A key performance indicator (KPI) can have a minimum value.",
-      "context_order": 18,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 58,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Maximum",
-      "help_context": "A key performance indicator (KPI) can have a maximum value.",
-      "context_order": 19,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 59,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Optimization",
-      "help_context": "Specify the Optimization as minimum or maximum.",
-      "context_order": 20,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 60,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Chart Type",
-      "help_context": "Select the Chart Type for the specific KPI.",
-      "context_order": 21,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 61,
-    "fields": {
-      "page_no_id": 13,
-      "label": "YTD",
-      "help_context": "Year-to-date (YTD) refers to the period of time beginning the first day of the current calendar year or fiscal year up to the current date.",
-      "context_order": 22,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 62,
-    "fields": {
-      "page_no_id": 13,
-      "label": "KPI Owner",
-      "help_context": "KPI Owner has all the rights to enter the actual values, Edit and View.",
-      "context_order": 23,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 63,
-    "fields": {
-      "page_no_id": 13,
-      "label": "KPI User",
-      "help_context": "KPI User has only the right to view the KPI Actuals.",
-      "context_order": 24,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 64,
-    "fields": {
-      "page_no_id": 13,
-      "label": " Indicators",
-      "help_context": "Measuring KPI performance. One of the most useful indicators of organizational effectiveness is how well an organization meets its goals.",
-      "context_order": 25,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 65,
-    "fields": {
-      "page_no_id": 13,
-      "label": "Start Limit",
-      "help_context": "Indicators start limit of the respective KPI.",
-      "context_order": 26,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 66,
-    "fields": {
-      "page_no_id": 13,
-      "label": "End Limit",
-      "help_context": "Indicators End limit of the respective KPI.",
-      "context_order": 27,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 67,
-    "fields": {
-      "page_no_id": 29,
-      "label": "Compliance Type",
-      "help_context": "It's am option based need to define a header first and assign options based on them.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 68,
-    "fields": {
-      "page_no_id": 29,
-      "label": "Compliance Value",
-      "help_context": "It's compliance value.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 69,
-    "fields": {
-      "page_no_id": 29,
-      "label": "Is Active",
-      "help_context": "It's a toggle to define whether the compliance is active or not.",
-      "context_order": 3,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 70,
-    "fields": {
-      "page_no_id": 31,
-      "label": "Header",
-      "help_context": "The 'Header' labels the compliance category, grouping related rules. Select the appropriate header for the relevant compliance.",
-      "context_order": 1,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 71,
-    "fields": {
-      "page_no_id": 31,
-      "label": "Components",
-      "help_context": "'Components' refer to the individual elements or sections of the compliance rule.",
-      "context_order": 2,
-      "created_by": 1,
-      "created_date": "2023-01-09T11:00:57.616790",
-      "last_updated_by": 1,
-      "last_updated_date": "2023-01-09T11:00:57.616790"
-    }
-  },
-  {
-    "model": "base.helper",
-    "pk": 72,
-    "fields": {
-      "page_no_id": 31,
       "label": "Compliance Criteria",
       "help_context": "'Compliance Criteria' defines the conditions that must be met for compliance.",
       "context_order": 3,
@@ -7873,9 +6421,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 73,
+    "pk": 13,
     "fields": {
-      "page_no_id": 31,
+      "page_no_id": 5,
       "label": "Value Type",
       "help_context": "'Value Type' specifies the format or type of data required.",
       "context_order": 4,
@@ -7887,9 +6435,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 74,
+    "pk": 14,
     "fields": {
-      "page_no_id": 31,
+      "page_no_id": 5,
       "label": "Option Type",
       "help_context": "'Option Type' defines the available choices or settings for a given field.",
       "context_order": 5,
@@ -7901,9 +6449,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 75,
+    "pk": 15,
     "fields": {
-      "page_no_id": 31,
+      "page_no_id": 5,
       "label": "Compliance Value",
       "help_context": "'Compliance Value' represents the specific value that satisfies the compliance criteria.",
       "context_order": 6,
@@ -7915,9 +6463,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 76,
+    "pk": 16,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Plant",
       "help_context": "A plant is a physical location where operational or manufacturing processes take place within an organization.",
       "context_order": 1,
@@ -7929,9 +6477,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 77,
+    "pk": 17,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Year",
       "help_context": "A year is a unit of time used to measure periods and track events within a calendar cycle",
       "context_order": 2,
@@ -7943,9 +6491,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 78,
+    "pk": 18,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Counterparty Name",
       "help_context": "The counterparty name is the name of the other party involved in a transaction or agreement.",
       "context_order": 3,
@@ -7957,9 +6505,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 79,
+    "pk": 19,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Reference Section",
       "help_context": " The reference section is a part of a document that lists sources or additional information used to support the content.",
       "context_order": 4,
@@ -7971,9 +6519,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 80,
+    "pk": 20,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Start Date",
       "help_context": " The start date is the date on which an event, project, or period begins.",
       "context_order": 5,
@@ -7985,9 +6533,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 81,
+    "pk": 21,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Expiry Date",
       "help_context": "The expiry date is the date on which a product, agreement, or validity period ends.",
       "context_order": 6,
@@ -7999,9 +6547,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 82,
+    "pk": 22,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Term",
       "help_context": "The term refers to the duration or period of time specified in a contract or agreement.",
       "context_order": 7,
@@ -8013,9 +6561,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 83,
+    "pk": 23,
     "fields": {
-      "page_no_id": 28,
+      "page_no_id": 10,
       "label": "Subject",
       "help_context": " The subject refers to the main topic or focus of a discussion, document, or correspondence.",
       "context_order": 8,
@@ -8027,9 +6575,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 84,
+    "pk": 24,
     "fields": {
-      "page_no_id": 11,
+      "page_no_id": 3,
       "label": "Is Active",
       "help_context": "It's a toggle to define whether the config is active or not.",
       "context_order": 4,
@@ -8041,9 +6589,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 85,
+    "pk": 25,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "User Name",
       "help_context": "'User Name' is the identifier used to log in or access the system.",
       "context_order": 1,
@@ -8055,9 +6603,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 86,
+    "pk": 26,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "First Name",
       "help_context": "'First Name' is the user's given name.",
       "context_order": 2,
@@ -8069,9 +6617,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 87,
+    "pk": 27,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Last Name",
       "help_context": "'Last Name' is the user's family or surname.",
       "context_order": 3,
@@ -8083,9 +6631,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 88,
+    "pk": 28,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Email",
       "help_context": "'Email' is the user's official contact address for communication.",
       "context_order": 4,
@@ -8097,9 +6645,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 89,
+    "pk": 29,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Temporary Address",
       "help_context": "'Temporary Address' refers to a short-term or provisional location where the user resides.",
       "context_order": 5,
@@ -8111,9 +6659,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 90,
+    "pk": 30,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Permanent Address",
       "help_context": "'Permanent Address' refers to the user's long-term or fixed residence.",
       "context_order": 6,
@@ -8125,9 +6673,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 91,
+    "pk": 31,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Contact",
       "help_context": "'Contact' refers to the user's phone number or other communication details.",
       "context_order": 7,
@@ -8139,9 +6687,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 92,
+    "pk": 32,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "User Group",
       "help_context": "'User Group' categorizes users based on roles or access levels within the system.",
       "context_order": 8,
@@ -8153,9 +6701,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 93,
+    "pk": 33,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "User Status",
       "help_context": "'User Status' indicates the current state of the user's account (e.g., active, inactive).",
       "context_order": 9,
@@ -8167,9 +6715,37 @@
   },
   {
     "model": "base.helper",
-    "pk": 94,
+    "pk": 48,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
+      "label": "Region",
+      "help_context": "Select the region where the plant is located.",
+      "context_order": 10,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 49,
+    "fields": {
+      "page_no_id": 18,
+      "label": "Region",
+      "help_context": "Select the region where the plant is located.",
+      "context_order": 15,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 34,
+    "fields": {
+      "page_no_id": 18,
       "label": "Current User",
       "help_context": "'Current User' refers to the individual currently logged into the system.",
       "context_order": 10,
@@ -8181,9 +6757,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 95,
+    "pk": 35,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Password",
       "help_context": "'Password' is the secure key used to authenticate and access the account.",
       "context_order": 11,
@@ -8195,9 +6771,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 96,
+    "pk": 36,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Confirm Password",
       "help_context": "'Confirm Password' ensures the accuracy of the entered password for account security.",
       "context_order": 12,
@@ -8209,9 +6785,9 @@
   },
   {
     "model": "base.helper",
-    "pk": 97,
+    "pk": 37,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "Email",
       "help_context": "'Email' is the user's contact address for notifications and communication.",
       "context_order": 13,
@@ -8223,12 +6799,138 @@
   },
   {
     "model": "base.helper",
-    "pk": 98,
+    "pk": 38,
     "fields": {
-      "page_no_id": 22,
+      "page_no_id": 18,
       "label": "User Group",
       "help_context": "'User Group' categorizes users based on roles or access levels within the system.",
       "context_order": 14,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 39,
+    "fields": {
+      "page_no_id": 7,
+      "label": "Entity Type",
+      "help_context": "Define the type of counterparty (Corporate, Public, or Third-Party Sector).",
+      "context_order": 1,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 40,
+    "fields": {
+      "page_no_id": 7,
+      "label": "Name",
+      "help_context": "Enter the full name of the counterparty.",
+      "context_order": 2,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 41,
+    "fields": {
+      "page_no_id": 7,
+      "label": "Address",
+      "help_context": "Provide the complete address details of the counterparty.",
+      "context_order": 3,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 42,
+    "fields": {
+      "page_no_id": 7,
+      "label": "City & Postal code",
+      "help_context": "Enter the city and postal code where the counterparty is located.",
+      "context_order": 4,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 43,
+    "fields": {
+      "page_no_id": 7,
+      "label": "State",
+      "help_context": "Select the respective state of the counterparty.",
+      "context_order": 5,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 44,
+    "fields": {
+      "page_no_id": 7,
+      "label": "Country",
+      "help_context": "Choose the country where the counterparty is registered.",
+      "context_order": 6,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 45,
+    "fields": {
+      "page_no_id": 8,
+      "label": "Plant Name",
+      "help_context": "Enter the respective name of the plant.",
+      "context_order": 1,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 46,
+    "fields": {
+      "page_no_id": 8,
+      "label": "Code",
+      "help_context": "Provide a unique code for the plant.",
+      "context_order": 2,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.helper",
+    "pk": 47,
+    "fields": {
+      "page_no_id": 8,
+      "label": "Region",
+      "help_context": "Select the region where the plant is located.",
+      "context_order": 3,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
       "last_updated_by": 1,

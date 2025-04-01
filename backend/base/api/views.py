@@ -23,6 +23,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models import F
 import json
+from django.forms.models import model_to_dict
 
 
 @api_view(["GET"])
@@ -275,7 +276,6 @@ def ms_ins_user_groups(request):
     return Response("User Added successfully", status=status.HTTP_200_OK)
 
 # Create user groups Update
-
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def upd_user_groups(request):
@@ -285,7 +285,6 @@ def upd_user_groups(request):
     last_name = request.data.get("last_name")
     user_mail = request.data.get("email")
     group_id = request.data.get("group")
-
     user = User.objects.get(id=user_id)
     group = Group.objects.get(id=group_id)
     if User.objects.filter(username=user_name).exclude(id=user_id):
@@ -300,6 +299,45 @@ def upd_user_groups(request):
 
     return Response("User Updated successfully", status=status.HTTP_200_OK)
 
+
+# updatig single given column
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+@transaction.atomic
+def upd_user_column(request, id):
+    ReqData = request.data
+
+    try:
+        user = User.objects.get(id=id)  # Fetch user once
+        item = user_profile.objects.get(user_id=id)
+        item_dict = model_to_dict(item)
+
+        print(item_dict) 
+
+        for key, value in ReqData.items():
+            if key == "user_group":
+                group = Group.objects.get(id=int(value))
+                user.groups.set([group])
+                if hasattr(item, key):  
+                    setattr(item, key, value)
+                else:
+                    return Response({"error": f"Invalid field: {key}"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                if hasattr(item, key): 
+                    setattr(item, key, value)
+                else:
+                    return Response({"error": f"Invalid field: {key}"}, status=status.HTTP_400_BAD_REQUEST)
+        user.save()
+        item.save()
+
+        return Response("User updated successfully", status=status.HTTP_200_OK)
+
+    except User.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Group.DoesNotExist:
+        return Response({"error": "Group not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # Join group and group_access_definition table view
 @api_view(["GET"])

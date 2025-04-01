@@ -19,6 +19,8 @@ urlpatterns = [
         name="auth_update_profile",
     ),
     path("createuser", views.save_users),
+    path("upd_user_column/<int:id>", views.upd_user_column),
+
     
     # For SSO Users insert at auth_group
     path("createmsuser", views.ms_save_users),
