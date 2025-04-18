@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 import datetime
 
 # License Validity
-
 class user_license(models.Model):
     license_key = models.CharField(max_length=50, null=False, blank=False)
     user_id = models.IntegerField(null=True, blank=False)
@@ -19,7 +18,6 @@ class user_license(models.Model):
         db_table = "tb_sc_user_license"
         
 # SMTP Mail
-
 class smtp_configure(models.Model):
     user_id = models.IntegerField(null=False, blank=False)
     server_name = models.CharField(max_length=300, null=False, blank=False)
@@ -36,8 +34,7 @@ class smtp_configure(models.Model):
     class Meta:
         db_table = "tb_sc_smtp_configure"
         
-# Session
-        
+# Session 
 class session(models.Model):
     id = models.AutoField(primary_key=True)
     uid = models.IntegerField(null=False, blank=False)
@@ -53,7 +50,6 @@ class session(models.Model):
         db_table = "tb_sc_session"
 
 # Session Configuration
-
 class session_configuration(models.Model):
     idle_time = models.IntegerField(null=False, blank=False)
     session_time = models.IntegerField(null=False, blank=False)
@@ -67,7 +63,6 @@ class session_configuration(models.Model):
         db_table = "tb_sc_session_configuration"
 
 # SSO Config
-
 class sso_configure(models.Model):
 
     app_id = models.CharField(max_length=300, null=False, blank=False)
@@ -81,8 +76,42 @@ class sso_configure(models.Model):
     class Meta:
         db_table = "tb_sc_sso_configure"
 
-# User Profile Picture function
 
+# System Audit Table
+
+# Identity (A running #)
+# Windowname
+# TableName
+# ColumnName
+# Action (New/Modified/Deleted)
+# PreviousValue
+# CurrentValue
+# Updated User
+# Updated Time
+
+class SystemAuditLog(models.Model):  
+    windowname = models.CharField(max_length=255, null=False, blank=False)  # Always specify max_length
+    table_name = models.CharField(max_length=255, null=False, blank=False)  # Use snake_case for fields
+    record_id = models.PositiveIntegerField(null=False, blank=False)  # Add this to track which row was modified
+    # column_name = models.CharField(max_length=255, null=False, blank=False)
+    action = models.CharField(max_length=10, choices=[
+        ('CREATE', 'Create'),
+        ('UPDATE', 'Update'),
+        ('DELETE', 'Delete')
+    ], null=False, blank=False)
+    previous_value = models.JSONField(null=True, blank=True)
+    current_value = models.JSONField(null=True, blank=True)
+    last_updated_by = models.IntegerField(null=True, blank=True)
+    last_updated_date = models.DateTimeField(auto_now_add=True)  # auto_now_add for creation timestamp
+
+    class Meta:
+        db_table = "tb_sc_system_audit_log"
+        indexes = [
+            models.Index(fields=['table_name', 'record_id']),
+            models.Index(fields=['last_updated_date']),
+        ]
+
+# User Profile Picture function
 def profile_pic_upload_path(instance, filename):
     obj = user_profile.objects.all().last()
     ext = filename.split('.')
@@ -359,7 +388,6 @@ class settings(models.Model):
     last_updated_date = models.DateTimeField(auto_now=True)
     delete_flag = models.BooleanField(default=False)
     logo = models.ImageField(null=True, blank=True, upload_to=upload_path)
-    
 
     class Meta:
         db_table = "tb_sc_settings"
