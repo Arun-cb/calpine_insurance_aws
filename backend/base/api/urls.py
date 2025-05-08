@@ -226,6 +226,7 @@ urlpatterns = [
     # CounterParty Details and Compliance Actuals URLS
     path("ins_counterparty_compliance_actuals", views.ins_counterparty_compliance_actuals),
     path("upd_counterparty_compliance_actuals/<int:id>/", views.upd_counterparty_compliance_actuals),
+    path("upd_compliance_actuals", views.upd_compliance_actuals),
     
     path("get_range_counterparty_details/<int:start>/<int:end>/", views.get_range_counterparty_details),
     # path("get_range_counterparty_details/<int:start>/<int:end>/<str:search>/", views.get_range_counterparty_details),
