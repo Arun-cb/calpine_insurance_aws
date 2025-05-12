@@ -99,8 +99,8 @@ class SystemAuditLog(models.Model):
         ('UPDATE', 'Update'),
         ('DELETE', 'Delete')
     ], null=False, blank=False)
-    previous_value = models.JSONField(null=True, blank=True)
-    current_value = models.JSONField(null=True, blank=True)
+    previous_value = models.TextField(null=True, blank=True)
+    current_value = models.TextField(null=True, blank=True)
     last_updated_by = models.IntegerField(null=True, blank=True)
     last_updated_date = models.DateTimeField(auto_now_add=True)  # auto_now_add for creation timestamp
 
