@@ -2180,7 +2180,7 @@ def get_config_codes(request, value=''):
     if value == '':
         config = config_codes.objects.filter(delete_flag=False)
     else:
-        config = config_codes.objects.filter(config_type=value, delete_flag=False)
+        config = config_codes.objects.filter(config_type=value, delete_flag=False, is_active=True)
     serializer = config_codes_serializer(config, many=True)
     return Response(serializer.data)
 
@@ -2909,7 +2909,6 @@ def del_compliance_details(request, id):
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
 def get_range_counterparty_details(request, start, end, region):
-    print("region",region)
     try:
         if region !='all':
             details_length = counterparty_details.objects.filter(delete_flag=False, plant__region=region).count() #region_id=region,
@@ -3614,7 +3613,96 @@ def get_compliance_dashboard(request, region):
     except Exception as e:
         # Catch other general exceptions
         return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+def filter_counterparty(data, filter_column, condition):
+    filtered_data = []
+    for cp_data in data:
+        if cp_data[filter_column] == condition:
+            filtered_data.append(cp_data)
+    return filtered_data
+@api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+def get_compliance_summary_v2(request, region='all', year = ''):
+    try:
+        compliance = compliance_details.objects.filter(delete_flag=False)
+        compliance_ser_data = compliance_details_serializer(compliance, many=True)
+        if len(compliance_ser_data.data) > 0:
+            for data in compliance_ser_data.data:
+                if(data['value_type']=='Options'):
+                    # Compliance Code to Value
+                    compliance_code = compliance_codes.objects.filter(id=int(data['compliance_value']), delete_flag=False).first()
+                    if compliance_code:
+                        data['compliance_values'] = compliance_code.compliance_value
+                else:
+                    data['compliance_values'] = data['compliance_value']
+        if region == 'all':
+            details = plant_details.objects.filter(delete_flag=False)
+        else:
+            details = plant_details.objects.filter(delete_flag=False, region=region)
         
+        serializer = plant_details_serializer(details, many=True)
+        if len(serializer.data) > 0:
+            for data in serializer.data:
+                if year != '':
+                    counterparty_data = counterparty_details.objects.filter(plant=data['id'], year= year, delete_flag=False)
+                else:
+                    counterparty_data = counterparty_details.objects.filter(plant=data['id'], delete_flag=False)
+                counterparty_data_serializer = counterparty_details_serializer(counterparty_data, many=True)
+                data['counterparty_data'] = counterparty_data_serializer.data
+                tmp_counterparty_data = counterparty_data_serializer.data
+                grouped_counterparty = []
+                if len(counterparty_data_serializer.data) > 0:
+                    for cp_data in counterparty_data_serializer.data:
+                        cp_data['plant_code'] = data['name']
+                        party = counterparty_profile.objects.filter(id=cp_data['party_name'], delete_flag=False).first()
+                        if party:
+                            cp_data['party_code'] = party.name  # Extract only the 'name' field
+                        else:
+                            cp_data['party_code'] = None  # or any default value
+                    
+                        actuals = compliance_actuals.objects.filter(counterparty_id=cp_data['id'], delete_flag=False)
+                        actuals_serializer = compliance_actuals_serializer(actuals, many=True)
+                        cp_data['actuals'] = actuals_serializer.data
+                        if len(cp_data['actuals']) > 0:
+                            for detail in cp_data['actuals']:
+                                detail['plant_code'] = data['name']
+                                party = counterparty_profile.objects.filter(id=cp_data['party_name'], delete_flag=False).first()
+                                if party:
+                                    detail['party_code'] = party.name  # Extract only the 'name' field
+                                else:
+                                    detail['party_code'] = None  # or any default value
+                                
+                                compli_details = compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_name','compliance_value','compliance_criteria','value_type')[0]
+                                if(compli_details['compliance_criteria']):
+                                    config_code_details = config_codes.objects.filter(config_type = 'Compliance Criteria', config_value = compli_details['compliance_criteria'], delete_flag=False).values('config_code')[0] 
+                                    compli_details['criteria_name'] = config_code_details['config_code']
+                                
+                                if(compli_details['value_type']=='Options'):
+                                    compliance_code = compliance_codes.objects.filter(id=int(compli_details['compliance_value']), delete_flag=False).first()
+                                    if compliance_code:
+                                        compli_details['compliance_values'] = compliance_code.compliance_value
+                                        compli_details['option_type'] = compliance_code.compliance_code
+                                        # compli_details['option_type'] = compliance_codes.objects.filter(id=int(detail['actuals']), delete_flag=False).first().compliance_value
+                                else:
+                                    compli_details['compliance_values'] = compli_details['compliance_value']
+
+                                detail.update(compli_details)
+                    for cp_name in set(cp['party_code'] for cp in counterparty_data_serializer.data):
+                        grouped_counterparty.append({"party_name": cp_name, "counterparty": 
+                            filter_counterparty(counterparty_data_serializer.data, 'party_code', cp_name)
+                        })
+                    data['counterparty_data'] = grouped_counterparty
+        
+        return Response(
+            {
+                "data": serializer.data,
+            },status=status.HTTP_200_OK
+        )
+    except ValueError as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        # Catch other general exceptions
+        return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)        
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])

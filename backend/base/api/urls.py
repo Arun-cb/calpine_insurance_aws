@@ -301,5 +301,10 @@ urlpatterns = [
     # Compliance Summary API
     path("get_compliance_summary",views.get_compliance_summary),
     path("get_compliance_summary/<str:region>/",views.get_compliance_summary),
+        
+    # Compliance Summary API V2
+    path("get_compliance_summary_v2",views.get_compliance_summary_v2),
+    path("get_compliance_summary_v2/<str:region>/",views.get_compliance_summary_v2),
+    path("get_compliance_summary_v2/<str:region>/<int:year>/",views.get_compliance_summary_v2),
     
 ]
