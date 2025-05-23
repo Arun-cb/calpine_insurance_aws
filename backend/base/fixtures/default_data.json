@@ -7103,6 +7103,21 @@
     }
   },
   {
+    "model": "base.warnings",
+    "pk": 12,
+    "fields": {
+      "error_code": "invalid email",
+      "error_msg": "'%1' is not a valid email address.",
+      "error_category": "Error",
+      "error_from": "Client",
+      "error_no": 404,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
     "model": "base.user_profile",
     "pk": 1,
     "fields": {

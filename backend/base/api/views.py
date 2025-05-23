@@ -3622,7 +3622,7 @@ def filter_counterparty(data, filter_column, condition):
     return filtered_data
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
-def get_compliance_summary_v2(request, region='all', year = ''):
+def get_compliance_summary_v2(request, region='all', year = '',plant=''):
     try:
         compliance = compliance_details.objects.filter(delete_flag=False)
         compliance_ser_data = compliance_details_serializer(compliance, many=True)
@@ -3636,14 +3636,21 @@ def get_compliance_summary_v2(request, region='all', year = ''):
                 else:
                     data['compliance_values'] = data['compliance_value']
         if region == 'all':
-            details = plant_details.objects.filter(delete_flag=False)
+            if plant != '':
+                details = plant_details.objects.filter(id=plant,delete_flag=False)
+            else:
+                details = plant_details.objects.filter(delete_flag=False)
         else:
-            details = plant_details.objects.filter(delete_flag=False, region=region)
+            if plant != '':
+                details = plant_details.objects.filter(id=plant, delete_flag=False, region=region)
+            else:
+                details = plant_details.objects.filter(delete_flag=False, region=region)
+            
         
         serializer = plant_details_serializer(details, many=True)
         if len(serializer.data) > 0:
             for data in serializer.data:
-                if year != '':
+                if year != '' and year != 0:
                     counterparty_data = counterparty_details.objects.filter(plant=data['id'], year= year, delete_flag=False)
                 else:
                     counterparty_data = counterparty_details.objects.filter(plant=data['id'], delete_flag=False)
