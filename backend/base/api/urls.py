@@ -279,6 +279,12 @@ urlpatterns = [
         name="auth_change_password",
     ),
 
+    path(
+        "change_password_admin/<int:pk>/",
+        views.ChangePasswordForAdminView.as_view(),
+        name="auth_change_password",
+    ),
+
     path("FilePost", views.FilePost),
     path("Fileget/<int:id>/", views.Fileget),
     path("FileNameget/<int:id>/", views.get_file_names),

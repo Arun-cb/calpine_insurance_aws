@@ -3621,7 +3621,7 @@ def filter_counterparty(data, filter_column, condition):
             filtered_data.append(cp_data)
     return filtered_data
 @api_view(["GET"])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def get_compliance_summary_v2(request, region='all', year = '',plant=''):
     try:
         compliance = compliance_details.objects.filter(delete_flag=False)
@@ -3991,6 +3991,13 @@ class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
 
 
+@permission_classes([IsAuthenticated])
+class ChangePasswordForAdminView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = ChangePasswordForAdminSerializer
+
+    print("ChangePasswordForAdminView")
+        
 # @api_view(["PUT"])
 # # @permission_classes([IsAuthenticated])  
 # # @parser_classes([MultiPartParser, FormParser])  

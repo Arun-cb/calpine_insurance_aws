@@ -314,6 +314,28 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
 
         return instance
 
+class ChangePasswordForAdminSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+    confirmpassword = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ('password', 'confirmpassword')
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['confirmpassword']:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."})
+
+        return attrs
+
+    def update(self, instance, validated_data):
+
+        instance.set_password(validated_data['password'])
+        instance.save()
+
+        return instance
+
 class FileStoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileStore

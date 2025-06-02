@@ -6250,7 +6250,8 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0
     }
-  },{
+  },
+  {
     "model": "base.helper",
     "pk": 1,
     "fields": {
@@ -6292,7 +6293,6 @@
       "last_updated_date": "2023-01-09T11:00:57.616790"
     }
   },
-  
   {
     "model": "base.helper",
     "pk": 4,
@@ -7108,6 +7108,21 @@
     "fields": {
       "error_code": "invalid email",
       "error_msg": "'%1' is not a valid email address.",
+      "error_category": "Error",
+      "error_from": "Client",
+      "error_no": 404,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790"
+    }
+  },
+  {
+    "model": "base.warnings",
+    "pk": 13,
+    "fields": {
+      "error_code": "password mismatch",
+      "error_msg": "'%1' and '%2' do not match.",
       "error_category": "Error",
       "error_from": "Client",
       "error_no": 404,
@@ -73155,7 +73170,7 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
       "is_active": true,
-      "is_admindata":true
+      "is_admindata": true
     }
   },
   {
@@ -73171,7 +73186,7 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
       "is_active": true,
-      "is_admindata":true
+      "is_admindata": true
     }
   },
   {
@@ -73187,7 +73202,7 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
       "is_active": true,
-      "is_admindata":true
+      "is_admindata": true
     }
   },
   {
@@ -73203,7 +73218,7 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
       "is_active": true,
-      "is_admindata":true
+      "is_admindata": true
     }
   },
   {
@@ -73219,7 +73234,7 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
       "is_active": true,
-      "is_admindata":true
+      "is_admindata": true
     }
   },
   {
@@ -73235,7 +73250,7 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
       "is_active": true,
-      "is_admindata":true
+      "is_admindata": true
     }
   },
   {
@@ -73326,7 +73341,7 @@
       "last_updated_date": "2023-01-09T11:00:57.616790",
       "delete_flag": 0,
       "is_active": true,
-      "is_admindata":true
+      "is_admindata": true
     }
   }
 ]
