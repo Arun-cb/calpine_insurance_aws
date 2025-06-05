@@ -2992,15 +2992,18 @@ def get_range_counterparty_details(request, start, end, region):
                                 compliance_data['criteria_name'] = config_code_details['config_code']
                             detail.update(compliance_data)
                     for compute_actual in data['actuals']:
-                        if compute_actual['value_type'] == 'Number':
-                            if not evaluate_condition(compute_actual['actuals'],  compute_actual['compliance_values'], compute_actual['compliance_criteria']):
-                                failed_actuals = failed_actuals+1
-                        elif compute_actual['value_type'] == 'Options':
-                            if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
-                                failed_actuals = failed_actuals+1
+                        if compute_actual['actuals'] != '':
+                            if compute_actual['value_type'] == 'Number':
+                                if not evaluate_condition(compute_actual['actuals'],  compute_actual['compliance_values'], compute_actual['compliance_criteria']):
+                                    failed_actuals = failed_actuals+1
+                            elif compute_actual['value_type'] == 'Options':
+                                if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
+                                    failed_actuals = failed_actuals+1
+                            else:
+                                if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
+                                    failed_actuals = failed_actuals+1
                         else:
-                            if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
-                                failed_actuals = failed_actuals+1
+                            failed_actuals = failed_actuals+1
                     print(total_actuals, failed_actuals)
                     data['status'] = str(round(100 - (failed_actuals / total_actuals * 100))) + '%'       
                             
