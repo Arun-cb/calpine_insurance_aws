@@ -2905,6 +2905,33 @@ def del_compliance_details(request, id):
 
 # CounterParty Details
 
+import operator
+import math
+
+ops = {
+    '==': operator.eq,
+    '!=': operator.ne,
+    '>=': operator.ge,
+    '<=': operator.le,
+    '>': operator.gt,
+    '<': operator.lt,
+}
+
+def evaluate_condition(left_value, right_value, cond_str):
+    for op_str in sorted(ops, key=len, reverse=True):  # Match longest operator first
+        if op_str in cond_str:
+            # left, right = map(str.strip, cond_str.split(op_str))
+            return ops[op_str](int(left_value), int(right_value))
+    raise ValueError("Unsupported operator")
+
+def evaluate_string_condition(left_value, right_value, cond_str):
+    for op_str in sorted(ops, key=len, reverse=True):  # Match longest operator first
+        if op_str in cond_str:
+            # left, right = map(str.strip, cond_str.split(op_str))
+            return ops[op_str](str(left_value), str(right_value))
+    raise ValueError("Unsupported operator")
+
+
 # Get Range CounterParty Details
 @api_view(["GET"])
 # @permission_classes([IsAuthenticated])
@@ -2936,6 +2963,8 @@ def get_range_counterparty_details(request, start, end, region):
                     data['party_code'] = None  # or any default value
                     
                 if len(data['actuals']) > 0:
+                    failed_actuals = 0
+                    total_actuals = len(data['actuals'])
                     for detail in data['actuals']:
                         compliance_data = compliance_details.objects.filter(
                             id=detail['compliance_id'], delete_flag=False
@@ -2962,7 +2991,18 @@ def get_range_counterparty_details(request, start, end, region):
                                 config_code_details = config_codes.objects.filter(config_type = 'Compliance Criteria', config_value = compliance_data['compliance_criteria'], delete_flag=False).values('config_code')[0]
                                 compliance_data['criteria_name'] = config_code_details['config_code']
                             detail.update(compliance_data)
-                            
+                    for compute_actual in data['actuals']:
+                        if compute_actual['value_type'] == 'Number':
+                            if not evaluate_condition(compute_actual['actuals'],  compute_actual['compliance_values'], compute_actual['compliance_criteria']):
+                                failed_actuals = failed_actuals+1
+                        elif compute_actual['value_type'] == 'Options':
+                            if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
+                                failed_actuals = failed_actuals+1
+                        else:
+                            if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
+                                failed_actuals = failed_actuals+1
+                    print(total_actuals, failed_actuals)
+                    data['status'] = str(round(100 - (failed_actuals / total_actuals * 100))) + '%'       
                             
         details_csv_export = counterparty_details.objects.filter(plant__region=region, delete_flag=False)           
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
