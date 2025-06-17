@@ -2621,6 +2621,16 @@ def get_range_compliance_details(request, start, end, search=False):
                         data['compliance_values'] = compliance_code.compliance_value
                 else:
                     data['compliance_values'] = data['compliance_value']
+        
+        if len(serializer_csv_export.data) > 0:
+            for data in serializer_csv_export.data:
+                if(data['value_type']=='Options'):
+                    # Compliance Code to Value
+                    compliance_code = compliance_codes.objects.filter(id=int(data['compliance_value']), delete_flag=False).first()
+                    if compliance_code:
+                        data['compliance_values'] = compliance_code.compliance_value
+                else:
+                    data['compliance_values'] = data['compliance_value']
                 
         return Response(
             {
@@ -3007,13 +3017,72 @@ def get_range_counterparty_details(request, start, end, region):
                     print(total_actuals, failed_actuals)
                     data['status'] = str(round(100 - (failed_actuals / total_actuals * 100))) + '%'       
                             
-        details_csv_export = counterparty_details.objects.filter(plant__region=region, delete_flag=False)           
+        if region !='all':
+            details_csv_export = counterparty_details.objects.filter(delete_flag=False, plant__region=region) #region_id=region,
+        else:
+            details_csv_export = counterparty_details.objects.filter(delete_flag=False)           
         serializer_csv_export = counterparty_details_serializer(details_csv_export, many=True)
         if len(serializer_csv_export.data) > 0:
             for data in serializer_csv_export.data:
                 actuals = compliance_actuals.objects.filter(counterparty_id=data['id'], delete_flag=False)
                 actuals_serializer = compliance_actuals_serializer(actuals, many=True)
                 data['actuals'] = actuals_serializer.data
+                # Plant
+                plant = plant_details.objects.filter(id=data['plant'], delete_flag=False).first()
+                if plant:
+                    data['plant_code'] = plant.name  # Extract only the 'name' field
+                else:
+                    data['plant_code'] = None  # or any default value
+                # CounterParty
+                party = counterparty_profile.objects.filter(id=data['party_name'], delete_flag=False).first()
+                if party:
+                    data['party_code'] = party.name  # Extract only the 'name' field
+                else:
+                    data['party_code'] = None  # or any default value
+                if len(data['actuals']) > 0:
+                    failed_actuals = 0
+                    total_actuals = len(data['actuals'])
+                    for detail in data['actuals']:
+                        compliance_data = compliance_details.objects.filter(
+                            id=detail['compliance_id'], delete_flag=False
+                        ).values(
+                            'compliance_group_name',
+                            'compliance_name',
+                            'compliance_value',
+                            'compliance_criteria',
+                            'effective_from',
+                            'option_type',
+                            'value_type'
+                        ).first()
+                        
+                        if compliance_data:
+                            if(compliance_data['value_type']=='Options'):
+                                compliance_code = compliance_codes.objects.filter(id=int(compliance_data['compliance_value']), delete_flag=False).first()
+                                if compliance_code:
+                                        compliance_data['compliance_values'] = compliance_code.compliance_value
+                            else:
+                                compliance_data['compliance_values'] = compliance_data['compliance_value']
+                            detail.update(compliance_data)
+                            
+                            if(compliance_data['compliance_criteria']):
+                                config_code_details = config_codes.objects.filter(config_type = 'Compliance Criteria', config_value = compliance_data['compliance_criteria'], delete_flag=False).values('config_code')[0]
+                                compliance_data['criteria_name'] = config_code_details['config_code']
+                            detail.update(compliance_data)
+                    for compute_actual in data['actuals']:
+                        if compute_actual['actuals'] != '':
+                            if compute_actual['value_type'] == 'Number':
+                                if not evaluate_condition(compute_actual['actuals'],  compute_actual['compliance_values'], compute_actual['compliance_criteria']):
+                                    failed_actuals = failed_actuals+1
+                            elif compute_actual['value_type'] == 'Options':
+                                if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
+                                    failed_actuals = failed_actuals+1
+                            else:
+                                if not evaluate_string_condition(compute_actual['actuals'],compute_actual['compliance_value'],compute_actual['compliance_criteria']):
+                                    failed_actuals = failed_actuals+1
+                        else:
+                            failed_actuals = failed_actuals+1
+                    print(total_actuals, failed_actuals)
+                    data['status'] = str(round(100 - (failed_actuals / total_actuals * 100))) + '%'     
                 if len(data['actuals']) > 0:
                     for detail in data['actuals']:
                         detail.update(compliance_details.objects.filter(id = detail['compliance_id'], delete_flag=False).values('compliance_group_name','compliance_name','compliance_value','compliance_criteria','effective_from','option_type','value_type')[0])
@@ -3323,7 +3392,6 @@ def get_range_compliance_codes(request, start, end, search=False):
         else:
             compliance_len = compliance_codes.objects.filter(Q(compliance_type__icontains = search) | Q(compliance_code__icontains = search) | Q(compliance_value__icontains = search), delete_flag=False).count()
             compliance = compliance_codes.objects.filter(Q(compliance_type__icontains = search) | Q(compliance_code__icontains = search) | Q(compliance_value__icontains = search), delete_flag=False)[start:end]
-        compliance_csv_export = compliance_codes.objects.filter(delete_flag=False)
         serializer = compliance_codes_serializer(compliance, many=True)
         compliance_data = serializer.data
         
@@ -3338,6 +3406,17 @@ def get_range_compliance_codes(request, start, end, search=False):
 
         # Add compliance_header to each item in compliance_data
         for item in compliance_data:
+            compliance_code = item.get("compliance_code")
+            
+            if compliance_code == "0":
+                item["compliance_header"] = "--Header--"
+            else:
+                # Retrieve the compliance value using the compliance_code
+                head_value = compliance_codes.objects.filter(id=compliance_code, delete_flag=False).first()
+                if head_value:
+                    item["compliance_header"] = head_value.compliance_value
+                    
+        for item in csv_data:
             compliance_code = item.get("compliance_code")
             
             if compliance_code == "0":

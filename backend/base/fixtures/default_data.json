@@ -5606,6 +5606,21 @@
     }
   },
   {
+    "model": "base.navigation_menu_details",
+    "fields": {
+      "menu_id": 20,
+      "menu_name": "License Management",
+      "parent_menu_id": 0,
+      "url": "configuration",
+      "page_number": 17,
+      "created_by": 1,
+      "created_date": "2023-01-09T11:00:57.616790",
+      "last_updated_by": 1,
+      "last_updated_date": "2023-01-09T11:00:57.616790",
+      "delete_flag": 1
+    }
+  },
+  {
     "model": "base.group_access_definition",
     "pk": 1,
     "fields": {
@@ -6271,7 +6286,7 @@
     "fields": {
       "page_no_id": 3,
       "label": "Config Code",
-      "help_context": "Config code for its respective config type.",
+      "help_context": "The Config Code represents a value based on the selected type: if you select 'Region', enter the region code (e.g., IN-NORTH, US-EAST); if you select 'Header', enter a short text for the header (e.g., BR, PROP).",
       "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -6285,7 +6300,7 @@
     "fields": {
       "page_no_id": 3,
       "label": "Config Value",
-      "help_context": "Enter a appropriate Config value.",
+      "help_context": "The Config Value represents a name based on the selected type: if you select 'Region', enter the region name (e.g., ('California,New Mexico,.'); if you select 'Header', enter a name of the header.",
       "context_order": 3,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
@@ -6355,7 +6370,7 @@
     "fields": {
       "page_no_id": 4,
       "label": "Compliance Value",
-      "help_context": "It's compliance value.",
+      "help_context": "The Compliance values allow you to define all possible options. For example, if you have a Yes/No type, you should define both 'Yes' and 'No'",
       "context_order": 2,
       "created_by": 1,
       "created_date": "2023-01-09T11:00:57.616790",
